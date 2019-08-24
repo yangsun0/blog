@@ -7,17 +7,19 @@
   
   <title>How to create a blog | LcodeJ</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="TODO">
+  <meta name="description" content="I plan to have a personal blog. Here’s what I want:   My blog is a technique blog, it will contain code. The blog should display code nicely. I want source control, so I can easily know what change I">
 <meta property="og:type" content="article">
 <meta property="og:title" content="How to create a blog">
 <meta property="og:url" content="https://www.lcodej.com/blog/2019/08/20/how-to-create-blog/index.html">
 <meta property="og:site_name" content="LcodeJ">
-<meta property="og:description" content="TODO">
+<meta property="og:description" content="I plan to have a personal blog. Here’s what I want:   My blog is a technique blog, it will contain code. The blog should display code nicely. I want source control, so I can easily know what change I">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-08-24T04:16:05.102Z">
+<meta property="og:image" content="https://www.lcodej.com/blog/images/enable-githubpage-settings.png">
+<meta property="og:updated_time" content="2019-08-24T23:39:39.258Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="How to create a blog">
-<meta name="twitter:description" content="TODO">
+<meta name="twitter:description" content="I plan to have a personal blog. Here’s what I want:   My blog is a technique blog, it will contain code. The blog should display code nicely. I want source control, so I can easily know what change I">
+<meta name="twitter:image" content="https://www.lcodej.com/blog/images/enable-githubpage-settings.png">
   
     <link rel="alternate" href="/blog/atom.xml" title="LcodeJ" type="application/atom+xml">
   
@@ -86,12 +88,40 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>TODO</p>
+        <p>I plan to have a personal blog. Here’s what I want: </p>
+<ul>
+<li>My blog is a technique blog, it will contain code. The blog should display code nicely.</li>
+<li>I want source control, so I can easily know what change I made.</li>
+<li>I want to highly customize to my blog, and no ads.</li>
+<li>I want my personal domain.</li>
+<li>I want the blog to be a sub folder of my domain.</li>
+</ul>
+<p>This is my solution:<br><a href="https://en.wikipedia.org/wiki/Markdown" target="_blank" rel="noopener">Markdown</a> + <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> + <a href="https://pages.github.com/" target="_blank" rel="noopener">Github pages</a></p>
+<p>Let’s start!</p>
+<h4 id="Get-a-Github-account"><a href="#Get-a-Github-account" class="headerlink" title="Get a Github account."></a>Get a <a href="https://github.com/" target="_blank" rel="noopener">Github</a> account.</h4><h4 id="Install-git"><a href="#Install-git" class="headerlink" title="Install git"></a>Install <a href="https://git-scm.com/downloads" target="_blank" rel="noopener">git</a></h4><h4 id="Install-Nodejs"><a href="#Install-Nodejs" class="headerlink" title="Install Nodejs"></a>Install <a href="https://nodejs.org/en/download/" target="_blank" rel="noopener">Nodejs</a></h4><h4 id="Create-two-repos"><a href="#Create-two-repos" class="headerlink" title="Create two repos."></a>Create two repos.</h4><p>One for blog source code, the other for the blog website. <a href="https://help.github.com/en/articles/create-a-repo" target="_blank" rel="noopener">https://help.github.com/en/articles/create-a-repo</a></p>
+<h4 id="On-your-local-box-clone-your-repo"><a href="#On-your-local-box-clone-your-repo" class="headerlink" title="On your local box, clone your repo."></a>On your local box, clone your repo.</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/&lt;your_account&gt;/&lt;blog_source&gt;.git</span><br><span class="line">git clone https://github.com/&lt;your_account&gt;/&lt;blog_website&gt;.git</span><br></pre></td></tr></table></figure>
 
+<h4 id="Install-hexo"><a href="#Install-hexo" class="headerlink" title="Install hexo"></a>Install hexo</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-cli -g</span><br></pre></td></tr></table></figure>
+
+<h4 id="Initialize-the-blog-source-code-folder-by-hexo"><a href="#Initialize-the-blog-source-code-folder-by-hexo" class="headerlink" title="Initialize the blog source code folder by hexo."></a>Initialize the blog source code folder by hexo.</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init</span><br></pre></td></tr></table></figure>
+
+<h4 id="Run-npm-to-install-packages"><a href="#Run-npm-to-install-packages" class="headerlink" title="Run npm to install packages."></a>Run npm to install packages.</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install</span><br></pre></td></tr></table></figure>
+
+<h4 id="Create-your-first-post"><a href="#Create-your-first-post" class="headerlink" title="Create your first post."></a>Create your first post.</h4><p>The file hello-world.md will be created under _posts folder.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new post hello-world</span><br></pre></td></tr></table></figure>
+
+<h4 id="Generate-the-static-files"><a href="#Generate-the-static-files" class="headerlink" title="Generate the static files."></a>Generate the static files.</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo generate</span><br></pre></td></tr></table></figure>
+
+<h4 id="Publish-to-the-blog-website-repo"><a href="#Publish-to-the-blog-website-repo" class="headerlink" title="Publish to the blog website repo."></a>Publish to the blog website repo.</h4><p>Copy all the files under public folder to the blog web site repo and checkin.</p>
+<h4 id="Enable-Github-pages"><a href="#Enable-Github-pages" class="headerlink" title="Enable Github pages."></a>Enable Github pages.</h4><p>Click on the Settings tab and scroll down to the GitHub Pages section.</p>
+<img src="/blog/images/enable-githubpage-settings.png">
+<p>The Github pages should be ready to go.<br><a href="http://YOUR_ACCOUNT.github.io/" target="_blank" rel="noopener">http://YOUR_ACCOUNT.github.io/</a><blog_website></blog_website></p>
+<h4 id="Custom-domain"><a href="#Custom-domain" class="headerlink" title="Custom domain"></a>Custom domain</h4><p>Create a CNAME in your DNS provider, config www mapping to YOUR_ACCOUNT.github.io<br>Config the your domain in the Github pages<br>Check “Enforce HTTPS”.</p>
+<h4 id="You’re-all-done"><a href="#You’re-all-done" class="headerlink" title="You’re all done."></a>You’re all done.</h4>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://www.lcodej.com/blog/2019/08/20/how-to-create-blog/" data-id="cjzp1x2230002vwlvsxw7b3ot" class="article-share-link">Share</a>
+      <a data-url="https://www.lcodej.com/blog/2019/08/20/how-to-create-blog/" data-id="cjzq6sq380002uclvnw7pvdyq" class="article-share-link">Share</a>
       
       
     </footer>
