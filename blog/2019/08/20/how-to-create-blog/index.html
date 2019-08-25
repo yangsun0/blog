@@ -8,6 +8,7 @@
   <title>How to create a blog | LcodeJ</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="I plan to have a personal blog. Here’s what I want:   My blog is a technique blog, it will contain code. The blog should display code nicely. I want source control, so I can easily know what change I">
+<meta name="keywords" content="Github,hexo">
 <meta property="og:type" content="article">
 <meta property="og:title" content="How to create a blog">
 <meta property="og:url" content="https://www.lcodej.com/blog/2019/08/20/how-to-create-blog/index.html">
@@ -15,16 +16,14 @@
 <meta property="og:description" content="I plan to have a personal blog. Here’s what I want:   My blog is a technique blog, it will contain code. The blog should display code nicely. I want source control, so I can easily know what change I">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://www.lcodej.com/blog/images/enable-githubpage-settings.png">
-<meta property="og:updated_time" content="2019-08-24T23:39:39.258Z">
+<meta property="og:updated_time" content="2019-08-25T06:28:18.209Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="How to create a blog">
 <meta name="twitter:description" content="I plan to have a personal blog. Here’s what I want:   My blog is a technique blog, it will contain code. The blog should display code nicely. I want source control, so I can easily know what change I">
 <meta name="twitter:image" content="https://www.lcodej.com/blog/images/enable-githubpage-settings.png">
   
-    <link rel="alternate" href="/blog/atom.xml" title="LcodeJ" type="application/atom+xml">
   
-  
-    <link rel="icon" href="/favicon.png">
+    <link rel="icon" href="/blog/images/favicon.png">
   
   
     <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
@@ -52,10 +51,10 @@
         
           <a class="main-nav-link" href="/blog/archives">Archives</a>
         
+          <a class="main-nav-link" href="/blog/about">About</a>
+        
       </nav>
       <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/blog/atom.xml" title="RSS Feed"></a>
         
         <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
@@ -115,15 +114,17 @@
 <h4 id="Publish-to-the-blog-website-repo"><a href="#Publish-to-the-blog-website-repo" class="headerlink" title="Publish to the blog website repo."></a>Publish to the blog website repo.</h4><p>Copy all the files under public folder to the blog web site repo and checkin.</p>
 <h4 id="Enable-Github-pages"><a href="#Enable-Github-pages" class="headerlink" title="Enable Github pages."></a>Enable Github pages.</h4><p>Click on the Settings tab and scroll down to the GitHub Pages section.</p>
 <img src="/blog/images/enable-githubpage-settings.png">
-<p>The Github pages should be ready to go.<br><a href="http://YOUR_ACCOUNT.github.io/" target="_blank" rel="noopener">http://YOUR_ACCOUNT.github.io/</a><blog_website></blog_website></p>
+<p>The Github pages should be ready to go.<br><a href="http://YOUR_ACCOUNT.github.io/blog_website" target="_blank" rel="noopener">http://YOUR_ACCOUNT.github.io/blog_website</a></p>
 <h4 id="Custom-domain"><a href="#Custom-domain" class="headerlink" title="Custom domain"></a>Custom domain</h4><p>Create a CNAME in your DNS provider, config www mapping to YOUR_ACCOUNT.github.io<br>Config the your domain in the Github pages<br>Check “Enforce HTTPS”.</p>
 <h4 id="You’re-all-done"><a href="#You’re-all-done" class="headerlink" title="You’re all done."></a>You’re all done.</h4>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://www.lcodej.com/blog/2019/08/20/how-to-create-blog/" data-id="cjzq6sq380002uclvnw7pvdyq" class="article-share-link">Share</a>
+      <a data-url="https://www.lcodej.com/blog/2019/08/20/how-to-create-blog/" data-id="cjzqmyjmw0002oslv88svza82" class="article-share-link">Share</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Github/">Github</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/hexo/">hexo</a></li></ul>
+
     </footer>
   </div>
   
@@ -145,19 +146,24 @@
         
           <aside id="sidebar">
   
-    
+    <div class="widget-wrap">
+  <h3 class="widget-title">About</h3>
+  <div class="widget">
+    <ul>
+      <li><a href="/blog/about">About me</a></li>
+    </ul>
+  </div>
+</div>
 
   
     
 
-  
-    
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
+    <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/08/">August 2019</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Github/">Github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/hexo/">hexo</a></li></ul>
     </div>
   </div>
 
@@ -182,6 +188,16 @@
   </div>
 
   
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/08/">August 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
 </aside>
         
       </div>
@@ -200,6 +216,8 @@
     <a href="/blog/" class="mobile-nav-link">Home</a>
   
     <a href="/blog/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/blog/about" class="mobile-nav-link">About</a>
   
 </nav>
     
