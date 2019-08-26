@@ -7,22 +7,24 @@
   
   <title>How to create a blog | LcodeJ</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="I plan to have a personal blog. Here’s what I want:   My blog is a technique blog, it will contain code. The blog should display code nicely. I want source control, so I can easily know what change I">
-<meta name="keywords" content="Github,hexo">
+  <meta name="description" content="How to create a blog, using Markdown, Hexo, Githut Pages, and Custom domain.">
+<meta name="keywords" content="Hexo,Github">
 <meta property="og:type" content="article">
 <meta property="og:title" content="How to create a blog">
 <meta property="og:url" content="https://www.lcodej.com/blog/2019/08/20/how-to-create-blog/index.html">
 <meta property="og:site_name" content="LcodeJ">
-<meta property="og:description" content="I plan to have a personal blog. Here’s what I want:   My blog is a technique blog, it will contain code. The blog should display code nicely. I want source control, so I can easily know what change I">
+<meta property="og:description" content="How to create a blog, using Markdown, Hexo, Githut Pages, and Custom domain.">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://www.lcodej.com/blog/2019/08/20/how-to-create-blog/github-pages-source.png">
 <meta property="og:image" content="https://www.lcodej.com/blog/2019/08/20/how-to-create-blog/cname.png">
 <meta property="og:image" content="https://www.lcodej.com/blog/2019/08/20/how-to-create-blog/github-pages-domain.png">
-<meta property="og:updated_time" content="2019-08-26T20:30:05.277Z">
+<meta property="og:updated_time" content="2019-08-26T23:39:36.778Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="How to create a blog">
-<meta name="twitter:description" content="I plan to have a personal blog. Here’s what I want:   My blog is a technique blog, it will contain code. The blog should display code nicely. I want source control, so I can easily know what change I">
+<meta name="twitter:description" content="How to create a blog, using Markdown, Hexo, Githut Pages, and Custom domain.">
 <meta name="twitter:image" content="https://www.lcodej.com/blog/2019/08/20/how-to-create-blog/github-pages-source.png">
+  
+    <link rel="alternate" href="/blog/atom.xml" title="LcodeJ" type="application/atom+xml">
   
   
     <link rel="icon" href="/blog/images/favicon.png">
@@ -58,6 +60,8 @@
       </nav>
       <nav id="sub-nav">
         
+          <a id="nav-rss-link" class="nav-icon" href="/blog/atom.xml" title="RSS Feed"></a>
+        
         <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
@@ -85,19 +89,23 @@
     </h1>
   
 
+        
+  <div class="article-updated">
+    Last updated: <time datetime="2019-08-26T23:39:36.778Z" itemprop="dateModified">2019-08-26</time>
+  </div>
+
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>I plan to have a personal blog. Here’s what I want: </p>
+        <p>I plan to have a personal blog. Here’re what I want: </p>
 <ul>
-<li>My blog is a technique blog, it will contain code. The blog should display code nicely.</li>
+<li>The blog is a technique blog, it contains code. </li>
 <li>I want source control, so I can easily know what change I made.</li>
-<li>I want to highly customize to my blog, and no ads.</li>
+<li>I want to highly customize my blog, and no ads.</li>
 <li>I want my personal domain.</li>
-<li>I want the blog to be a sub folder of my domain.</li>
 </ul>
-<p>This is my solution:<br><a href="https://en.wikipedia.org/wiki/Markdown" target="_blank" rel="noopener">Markdown</a> + <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> + <a href="https://pages.github.com/" target="_blank" rel="noopener">Github pages</a> + <a href="https://domains.google" target="_blank" rel="noopener">Custom domain</a></p>
+<p>This is my solution:<br><a href="https://en.wikipedia.org/wiki/Markdown" target="_blank" rel="noopener">Markdown</a> + <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> + <a href="https://pages.github.com/" target="_blank" rel="noopener">Github Pages</a> + <a href="https://domains.google" target="_blank" rel="noopener">Custom domain</a></p>
 <p>Let’s start!</p>
 <h2 id="Prepare-git-repo"><a href="#Prepare-git-repo" class="headerlink" title="Prepare git repo"></a>Prepare git repo</h2><h4 id="Get-a-Github-account"><a href="#Get-a-Github-account" class="headerlink" title="Get a Github account."></a>Get a <a href="https://github.com/" target="_blank" rel="noopener">Github</a> account.</h4><h4 id="Create-two-repos"><a href="#Create-two-repos" class="headerlink" title="Create two repos"></a>Create two repos</h4><p>One is for blog source code, the other is for the blog website. <a href="https://help.github.com/en/articles/create-a-repo" target="_blank" rel="noopener">Github create a repo</a></p>
 <h4 id="On-your-local-box-clone-your-repo"><a href="#On-your-local-box-clone-your-repo" class="headerlink" title="On your local box, clone your repo."></a>On your local box, clone your repo.</h4><p>Create two folders <code>blog-src</code>, <code>blog-website</code>. And run git clone accordinly.</p>
@@ -121,6 +129,11 @@
 <p>The public folder contains the files. Now, we’re ready to publish the web site.</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public</span><br><span class="line">+-- 2019</span><br><span class="line">|   +-- 08</span><br><span class="line">|       +-- 20</span><br><span class="line">|           +-- hello-world</span><br><span class="line">|               +-- index.html</span><br><span class="line">+-- archives</span><br><span class="line">+-- css</span><br><span class="line">+-- js</span><br><span class="line">+-- index.html</span><br></pre></td></tr></table></figure>
 
+<h4 id="Run-locally"><a href="#Run-locally" class="headerlink" title="Run locally"></a>Run locally</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo server</span><br></pre></td></tr></table></figure>
+
+<p>Open browser with <code>http://localhost:4000</code>, see how the blog looks like.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">INFO  Start processing</span><br><span class="line">INFO  Hexo is running at http://localhost:4000 . Press Ctrl+C to stop.</span><br></pre></td></tr></table></figure>
+
 <h2 id="Publish-to-Github"><a href="#Publish-to-Github" class="headerlink" title="Publish to Github"></a>Publish to Github</h2><h4 id="Publish-to-the-blog-website-repo"><a href="#Publish-to-the-blog-website-repo" class="headerlink" title="Publish to the blog website repo."></a>Publish to the blog website repo.</h4><p>Copy all the files under public folder to the <code>blog-website</code> folder, then commit and push.</p>
 <h4 id="Enable-Github-Pages"><a href="#Enable-Github-Pages" class="headerlink" title="Enable Github Pages."></a>Enable Github Pages.</h4><p>Click on the Settings tab and scroll down to the GitHub Pages section.<br>Select <strong>master branch</strong> and click <strong>Save</strong>.</p>
 <img src="/blog/2019/08/20/how-to-create-blog/github-pages-source.png" title="Github pages settings">
@@ -134,10 +147,12 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://www.lcodej.com/blog/2019/08/20/how-to-create-blog/" data-id="cjzll5tjt000248j2bx27ze6c" class="article-share-link">Share</a>
+      <a data-url="https://www.lcodej.com/blog/2019/08/20/how-to-create-blog/" data-id="cjzt236iw0004z0j2v31gqlhl" class="article-share-link">Share</a>
+      
+        <a href="https://www.lcodej.com/blog/2019/08/20/how-to-create-blog/#disqus_thread" class="article-comment-link">Comments</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Github/">Github</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/hexo/">hexo</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Github/">Github</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Hexo/">Hexo</a></li></ul>
 
     </footer>
   </div>
@@ -145,11 +160,11 @@
     
 <nav id="article-nav">
   
-    <a href="/blog/2019/08/26/visual-studio-code/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/blog/2019/08/26/customize-hexo-blog/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          Visual Studio Code
+          Customize Hexo blog
         
       </div>
     </a>
@@ -165,6 +180,12 @@
   
 </article>
 
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
 </section>
         
           <aside id="sidebar">
@@ -186,7 +207,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Github/">Github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/hexo/">hexo</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Github/">Github</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Hexo/">Hexo</a><span class="tag-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -199,7 +220,7 @@
       <ul>
         
           <li>
-            <a href="/blog/2019/08/26/visual-studio-code/">Visual Studio Code</a>
+            <a href="/blog/2019/08/26/customize-hexo-blog/">Customize Hexo blog</a>
           </li>
         
           <li>
@@ -219,7 +240,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/08/">August 2019</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/08/">August 2019</a><span class="archive-list-count">3</span></li></ul>
     </div>
   </div>
 
@@ -248,6 +269,20 @@
   
 </nav>
     
+<script>
+  var disqus_shortname = 'lcodej';
+  
+  var disqus_url = 'https://www.lcodej.com/blog/2019/08/20/how-to-create-blog/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 

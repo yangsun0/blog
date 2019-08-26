@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>LcodeJ</title>
+  
+  
+  <link href="/blog/atom.xml" rel="self"/>
+  
+  <link href="https://www.lcodej.com/blog/"/>
+  <updated>2019-08-26T22:27:05.913Z</updated>
+  <id>https://www.lcodej.com/blog/</id>
+  
+  <author>
+    <name>Yang Sun</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Customize Hexo blog</title>
+    <link href="https://www.lcodej.com/blog/2019/08/26/customize-hexo-blog/"/>
+    <id>https://www.lcodej.com/blog/2019/08/26/customize-hexo-blog/</id>
+    <published>2019-08-26T20:40:46.000Z</published>
+    <updated>2019-08-26T22:27:05.913Z</updated>
+    
+    <summary type="html">
+    
+      Customize Hexo blog, including blog sub directory, banner, image asset, about, feed, comments, google analytics, etc.
+    
+    </summary>
+    
+    
+      <category term="Hexo" scheme="https://www.lcodej.com/blog/tags/Hexo/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>How to create a blog</title>
+    <link href="https://www.lcodej.com/blog/2019/08/20/how-to-create-blog/"/>
+    <id>https://www.lcodej.com/blog/2019/08/20/how-to-create-blog/</id>
+    <published>2019-08-20T22:28:39.000Z</published>
+    <updated>2019-08-26T23:39:36.778Z</updated>
+    
+    <summary type="html">
+    
+      How to create a blog, using Markdown, Hexo, Githut Pages, and Custom domain.
+    
+    </summary>
+    
+    
+      <category term="Hexo" scheme="https://www.lcodej.com/blog/tags/Hexo/"/>
+    
+      <category term="Github" scheme="https://www.lcodej.com/blog/tags/Github/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hello world!</title>
+    <link href="https://www.lcodej.com/blog/2019/08/20/hello-world/"/>
+    <id>https://www.lcodej.com/blog/2019/08/20/hello-world/</id>
+    <published>2019-08-20T22:15:23.000Z</published>
+    <updated>2019-08-26T21:45:46.593Z</updated>
+    
+    <summary type="html">
+    
+      Hello world! This is my first blog.
+    
+    </summary>
+    
+    
+  </entry>
+  
+</feed>
