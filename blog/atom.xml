@@ -6,7 +6,7 @@
   <link href="/blog/atom.xml" rel="self"/>
   
   <link href="https://www.lcodej.com/blog/"/>
-  <updated>2019-08-28T20:17:45.429Z</updated>
+  <updated>2019-08-30T20:21:45.391Z</updated>
   <id>https://www.lcodej.com/blog/</id>
   
   <author>
@@ -15,6 +15,24 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Visual Studio Code Shortcuts</title>
+    <link href="https://www.lcodej.com/blog/2019/08/30/visual-studio-code-shortcuts/"/>
+    <id>https://www.lcodej.com/blog/2019/08/30/visual-studio-code-shortcuts/</id>
+    <published>2019-08-30T20:13:58.000Z</published>
+    <updated>2019-08-30T20:21:45.391Z</updated>
+    
+    <summary type="html">
+    
+      Visual Studio Code Shortcuts
+    
+    </summary>
+    
+    
+      <category term="vscode" scheme="https://www.lcodej.com/blog/tags/vscode/"/>
+    
+  </entry>
   
   <entry>
     <title>Customize Hexo blog</title>
@@ -39,7 +57,7 @@
     <link href="https://www.lcodej.com/blog/2019/08/20/how-to-create-blog/"/>
     <id>https://www.lcodej.com/blog/2019/08/20/how-to-create-blog/</id>
     <published>2019-08-20T22:28:39.000Z</published>
-    <updated>2019-08-28T20:16:02.136Z</updated>
+    <updated>2019-08-30T20:16:02.076Z</updated>
     
     <summary type="html">
     
