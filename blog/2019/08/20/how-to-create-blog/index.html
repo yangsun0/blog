@@ -20,21 +20,21 @@ ga('send', 'pageview');
   
   <title>How to create a blog | LcodeJ</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="How to create a blog, using Markdown, Hexo, Githut Pages, and Custom domain.">
+  <meta name="description" content="How to create a blog, using Markdown, Hexo, Github Pages, and Custom domain.">
 <meta name="keywords" content="Hexo,Github">
 <meta property="og:type" content="article">
 <meta property="og:title" content="How to create a blog">
 <meta property="og:url" content="https://www.lcodej.com/blog/2019/08/20/how-to-create-blog/index.html">
 <meta property="og:site_name" content="LcodeJ">
-<meta property="og:description" content="How to create a blog, using Markdown, Hexo, Githut Pages, and Custom domain.">
+<meta property="og:description" content="How to create a blog, using Markdown, Hexo, Github Pages, and Custom domain.">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://www.lcodej.com/blog/2019/08/20/how-to-create-blog/github-pages-source.png">
 <meta property="og:image" content="https://www.lcodej.com/blog/2019/08/20/how-to-create-blog/cname.png">
 <meta property="og:image" content="https://www.lcodej.com/blog/2019/08/20/how-to-create-blog/github-pages-domain.png">
-<meta property="og:updated_time" content="2019-08-30T20:16:02.076Z">
+<meta property="og:updated_time" content="2019-09-02T21:10:25.898Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="How to create a blog">
-<meta name="twitter:description" content="How to create a blog, using Markdown, Hexo, Githut Pages, and Custom domain.">
+<meta name="twitter:description" content="How to create a blog, using Markdown, Hexo, Github Pages, and Custom domain.">
 <meta name="twitter:image" content="https://www.lcodej.com/blog/2019/08/20/how-to-create-blog/github-pages-source.png">
   
     <link rel="alternate" href="/blog/atom.xml" title="LcodeJ" type="application/atom+xml">
@@ -104,14 +104,14 @@ ga('send', 'pageview');
 
         
   <div class="article-updated">
-    Last updated: <time datetime="2019-08-30T20:16:02.076Z" itemprop="dateModified">2019-08-30</time>
+    Last updated: <time datetime="2019-09-02T21:10:25.898Z" itemprop="dateModified">2019-09-02</time>
   </div>
 
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>I plan to have my personal blog. Here’re the ideas:</p>
+        <p>I plan to have my personal blog. Here’s the ideas:</p>
 <ul>
 <li>The blog is a technique blog, it contains code.</li>
 <li>I like source control, so I can easily know what change I made.</li>
@@ -120,8 +120,8 @@ ga('send', 'pageview');
 </ul>
 <p>This is my solution:<br><a href="https://en.wikipedia.org/wiki/Markdown" target="_blank" rel="noopener">Markdown</a> + <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> + <a href="https://pages.github.com/" target="_blank" rel="noopener">Github Pages</a> + <a href="https://domains.google" target="_blank" rel="noopener">Custom domain</a></p>
 <p>Let’s start!</p>
-<h2 id="Prepare-git-repo"><a href="#Prepare-git-repo" class="headerlink" title="Prepare git repo"></a>Prepare git repo</h2><h4 id="Get-a-Github-account"><a href="#Get-a-Github-account" class="headerlink" title="Get a Github account."></a>Get a <a href="https://github.com/" target="_blank" rel="noopener">Github</a> account.</h4><h4 id="Create-two-repos"><a href="#Create-two-repos" class="headerlink" title="Create two repos"></a>Create two repos</h4><p>One is for blog source code, the other is for the blog website. <a href="https://help.github.com/en/articles/create-a-repo" target="_blank" rel="noopener">Github create a repo</a></p>
-<h4 id="On-your-local-box-clone-your-repo"><a href="#On-your-local-box-clone-your-repo" class="headerlink" title="On your local box, clone your repo."></a>On your local box, clone your repo.</h4><p>Create two folders <code>blog-src</code>, <code>blog-website</code>. And run git clone accordinly.</p>
+<h2 id="Prepare-git-repo"><a href="#Prepare-git-repo" class="headerlink" title="Prepare git repo"></a>Prepare git repo</h2><h4 id="Get-a-Github-account"><a href="#Get-a-Github-account" class="headerlink" title="Get a Github account."></a>Get a <a href="https://github.com/" target="_blank" rel="noopener">Github</a> account.</h4><h4 id="Create-two-repo"><a href="#Create-two-repo" class="headerlink" title="Create two repo"></a>Create two repo</h4><p>One is for blog source code, the other is for the blog website. <a href="https://help.github.com/en/articles/create-a-repo" target="_blank" rel="noopener">Github create a repo</a></p>
+<h4 id="On-your-local-box-clone-your-repo"><a href="#On-your-local-box-clone-your-repo" class="headerlink" title="On your local box, clone your repo."></a>On your local box, clone your repo.</h4><p>Create two folders <code>blog-src</code>, <code>blog-website</code>. And run git clone accordingly.</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/&lt;your_account&gt;/&lt;your_repo&gt;.git</span><br></pre></td></tr></table></figure>
 
 <h2 id="Create-a-local-blog-web-site"><a href="#Create-a-local-blog-web-site" class="headerlink" title="Create a local blog web site"></a>Create a local blog web site</h2><h4 id="Install-git"><a href="#Install-git" class="headerlink" title="Install git"></a>Install <a href="https://git-scm.com/downloads" target="_blank" rel="noopener">git</a></h4><h4 id="Install-Nodejs"><a href="#Install-Nodejs" class="headerlink" title="Install Nodejs"></a>Install <a href="https://nodejs.org/en/download/" target="_blank" rel="noopener">Nodejs</a></h4><h4 id="Install-Hexo"><a href="#Install-Hexo" class="headerlink" title="Install Hexo"></a>Install Hexo</h4><p><a href="https://hexo.io/docs" target="_blank" rel="noopener">Hexo docs</a></p>
@@ -161,7 +161,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://www.lcodej.com/blog/2019/08/20/how-to-create-blog/" data-id="cjzykhh1c0004w0j2vcfsek4y" class="article-share-link">Share</a>
+      <a data-url="https://www.lcodej.com/blog/2019/08/20/how-to-create-blog/" data-id="ck030u5ie00071clvtnm9sfd5" class="article-share-link">Share</a>
       
         <a href="https://www.lcodej.com/blog/2019/08/20/how-to-create-blog/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -221,7 +221,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Github/">Github</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Hexo/">Hexo</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/vscode/">vscode</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Github/">Github</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Hexo/">Hexo</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/hardware/">hardware</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/vscode/">vscode</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -232,6 +232,10 @@ ga('send', 'pageview');
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/blog/2019/09/02/hardware/">Hardware</a>
+          </li>
         
           <li>
             <a href="/blog/2019/08/30/visual-studio-code-shortcuts/">Visual Studio Code Shortcuts</a>
@@ -258,7 +262,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/08/">August 2019</a><span class="archive-list-count">4</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/09/">September 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/08/">August 2019</a><span class="archive-list-count">4</span></li></ul>
     </div>
   </div>
 
