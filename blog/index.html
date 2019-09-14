@@ -81,6 +81,115 @@ ga('send', 'pageview');
       <div class="outer">
         <section id="main">
   
+    <article id="post-azure-sql-data-warehouse-deep-dive" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2019/09/13/azure-sql-data-warehouse-deep-dive/" class="article-date">
+  <time datetime="2019-09-13T23:26:05.000Z" itemprop="datePublished">2019-09-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2019/09/13/azure-sql-data-warehouse-deep-dive/">Azure SQL Data Warehouse deep dive</a>
+    </h1>
+  
+
+        
+  <div class="article-updated">
+    Last updated: <time datetime="2019-09-14T20:30:01.984Z" itemprop="dateModified">2019-09-14</time>
+  </div>
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>My recent project uses Azure SQL Data Warehouse. The performance is good. I’m wondering how the Azure SQL Data Warehouse is designed compared to traditional SQL Server Database, and how the performance is improved? Let’s take a deep dive.</p>
+<h3 id="Azure-SQL-Data-Warehouse-Architecture"><a href="#Azure-SQL-Data-Warehouse-Architecture" class="headerlink" title="Azure SQL Data Warehouse Architecture"></a>Azure SQL Data Warehouse Architecture</h3><p>Azure SQL Data Warehouse is a distributed computing system. It isn’t a collection of computers which run SQL Server and operate partial of the data. Actually, Azure SQL Data Warehouse has a better design. BTW, it’s big data, but it’s not MapReduce.</p>
+<img src="/blog/2019/09/13/azure-sql-data-warehouse-deep-dive/azure-sql-data-warehouse-architecture.png" title="Azure SQL Data Warehouse Architecture">
+
+<p>References:</p>
+<ul>
+<li><a href="https://azure.microsoft.com/en-us/blog/adaptive-caching-powers-azure-sql-data-warehouse-performance-gains/" target="_blank" rel="noopener">Adaptive caching powers Azure SQL Data Warehouse performance gains</a></li>
+<li><a href="https://azure.microsoft.com/en-us/blog/lightning-fast-query-performance-with-azure-sql-data-warehouse/" target="_blank" rel="noopener">Lightning fast query performance with Azure SQL Data Warehouse</a></li>
+</ul>
+<h4 id="Storage-and-compute-are-decoupled"><a href="#Storage-and-compute-are-decoupled" class="headerlink" title="Storage and compute are decoupled"></a>Storage and compute are decoupled</h4><p>Storage and compute are decoupled. The compute node doesn’t manage the storage. Instead, the compute node is attached to the storage. It means we can scale up/down compute independently. There is no limitation on storage capacity. And we don’t pay for the storage. We only pay for compute. If we want to improve performance, we can allocated more compute nodes, and attach them to the storage. If we want to save money, we can reduce the compute nodes. One interesting thing is we can reduce to zero, we pay nothing, but we can’t access the data. It doesn’t mean we lost data, once we re-attach the compute nodes, we can access the data again. We call it pause/resume the data warehouse. It’s quite flexible. </p>
+<p>Reference:</p>
+<ul>
+<li><a href="https://docs.microsoft.com/en-us/azure/sql-data-warehouse/massively-parallel-processing-mpp-architecture" target="_blank" rel="noopener">Massively parallel processing (MPP) architecture</a></li>
+</ul>
+<h4 id="Distribution"><a href="#Distribution" class="headerlink" title="Distribution"></a>Distribution</h4><p>There’s a magic number: <strong>60</strong>. Azure SQL Data Warehouse always has 60 distributions. In other words, it divides the data into 60 pieces, the compute node process one or more pieces of the data. If we want to improve the performance, we pay for more compute nodes, and process data in parallel. For example, we have one compute node, the compute node need process all of the 60 distributions. If we have two compute nodes, each one process 30 distributions and they work in parallel. The performance is improved. However, it doesn’t mean adding more compute nodes always improve performance. Another important factor is how the data distributed. If distribution is unbalanced, some distribution has more, some has less, the compute time is the longest time of the compute node who process the most heavy distribution.  </p>
+<p>Azure SQL Data Warehouse has two distribution algorithms: hash and round-robin. (Note: the distribution strategy of Azure Data Warehouse is different from MapReduce.)</p>
+<ul>
+<li>Hash: using a deterministic hashing function to assign a row to 1 of the 60 distributions.</li>
+<li>Round-robin: distribute rows evenly across all distributions.</li>
+</ul>
+<p>Hash distributed table:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> [dbo].[FactOrder]</span><br><span class="line">(</span><br><span class="line">    [OrderKey]            <span class="built_in">int</span>          <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">    [ProductKey]          <span class="built_in">int</span>          <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">    [Quantity]            <span class="built_in">smallint</span>     <span class="keyword">NOT</span> <span class="literal">NULL</span></span><br><span class="line">)</span><br><span class="line"><span class="keyword">WITH</span></span><br><span class="line">(</span><br><span class="line">    CLUSTERED COLUMNSTORE <span class="keyword">INDEX</span>,</span><br><span class="line">    DISTRIBUTION = <span class="keyword">HASH</span>([ProductKey])</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>Round-robin distributed table:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> [dbo].[FactOrder]</span><br><span class="line">(</span><br><span class="line">    [OrderKey]            <span class="built_in">int</span>          <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">    [ProductKey]          <span class="built_in">int</span>          <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">    [Quantity]            <span class="built_in">smallint</span>     <span class="keyword">NOT</span> <span class="literal">NULL</span></span><br><span class="line">)</span><br><span class="line"><span class="keyword">WITH</span></span><br><span class="line">(</span><br><span class="line">    CLUSTERED COLUMNSTORE <span class="keyword">INDEX</span>,</span><br><span class="line">    DISTRIBUTION = ROUND_ROBIN</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>Round-robin is OK, if the scenario is simple. But in real world, we use Hash to optimize the distribution. And it’s the only way we can control the distribution. Choosing the correct hash column is critical for performance. Choosing hash column isn’t difficult. We can start from our business scenario. For example, which column is used to join two tables, which column is frequently used in group by clause. The optimization goal is to minimize the data movement. In the two tables joining scenario, the hash column is the joining column, the rows of the two tables share the same joining key are distributed to the same compute node. Otherwise, data movement is required.  </p>
+<img src="/blog/2019/09/13/azure-sql-data-warehouse-deep-dive/distribution.png" title="Distribution">  
+<img src="/blog/2019/09/13/azure-sql-data-warehouse-deep-dive/azure-sql-data-warehouse-scale.png" title="Azure SQL Data Warehouse Scale">  
+
+<p>The hash distribution has limitations. One limitation is the data skew problem. When data is not distribute evenly, scale up computing can’t efficiently help the performance. Another limitation is we can only have one hash column, if the business scenario requires more columns, data movement is required.</p>
+<p>Reference:</p>
+<ul>
+<li><a href="https://docs.microsoft.com/en-us/azure/sql-data-warehouse/memory-and-concurrency-limits" target="_blank" rel="noopener">Memory and concurrency limits for Azure SQL Data Warehouses</a></li>
+<li><a href="https://docs.microsoft.com/en-us/azure/sql-data-warehouse/sql-data-warehouse-tables-distribute" target="_blank" rel="noopener">Guidance for designing distributed tables in Azure SQL Data Warehouse</a></li>
+<li><a href="https://docs.microsoft.com/en-us/sql/t-sql/statements/create-table-azure-sql-data-warehouse" target="_blank" rel="noopener">CREATE TABLE (Azure SQL Data Warehouse)</a></li>
+</ul>
+<h3 id="Columnstore-Index"><a href="#Columnstore-Index" class="headerlink" title="Columnstore Index"></a>Columnstore Index</h3><p>Columnstore index is a new method to solve the problem how data is physically stored and how data is indexed.  </p>
+<p>A data table is logically organized with rows and columns. The tradition method physically stores data by row. The new method physically store data by column. Wait, the columns are determined, but rows are not. How it works? The data table is divided by columns. Columns are separately stored. A column is a sequence of values. In addition, the sequence is divided into groups, and each group is compressed. A column’s physical representation is a sequence of compressed groups. Why it’s good? It’s because the data warehouse scenario is analysis. The analysis is always column focused. For example, we want to calculate the total sales amount. The data warehouse just load the “sales amount” column from physical media, decompress the data, and calculate the sum. The process is compact, only the column we cared are loaded into memory, not the whole row. The compression is important, it saves the I/O cost (mostly, I/O is the bottleneck). The compression is also efficient, since the values in a column are belong to the same business domain, so they’re similar, and similar values have high compress rate. The group size is fixed, it’s 1,048,576 (another magic number: 2^20). The group size is carefully decided, large enough to improve compression rates, and small enough to benefit from in-memory operations. Decompress can be optimized by CPU AVX technologies, like the video encoding/decoding technologies.  </p>
+<img src="/blog/2019/09/13/azure-sql-data-warehouse-deep-dive/columnstore-index.png" title="Columnstore Index">  
+
+<p>For a comparison, let’s take a look at the tradition method. Data is stored by row physically. Index is created on column. The index is implemented by B-tree. The tree node contains the key, the index of the row, and pointers to the child tree nodes. Time complexity of searching a row is O(log(n)). For the same scenario, “calculate the total sales amount”, load the index into memory, traversal the tree, and calculate the sum of all the keys. The process isn’t as efficient as columnstore index, when the data size is large.</p>
+<img src="/blog/2019/09/13/azure-sql-data-warehouse-deep-dive/btree-index.png" title="B-Tree Index">  
+
+<p>Reference:</p>
+<ul>
+<li><a href="https://docs.microsoft.com/en-us/sql/relational-databases/indexes/columnstore-indexes-overview?view=sql-server-2017" target="_blank" rel="noopener">Columnstore indexes: Overview</a></li>
+<li><a href="https://www.geeksforgeeks.org/indexing-in-databases-set-1/" target="_blank" rel="noopener">Indexing in Databases | Set 1</a></li>
+</ul>
+<h3 id="Hardware-innovation"><a href="#Hardware-innovation" class="headerlink" title="Hardware innovation"></a>Hardware innovation</h3><h4 id="MVMe-SSD"><a href="#MVMe-SSD" class="headerlink" title="MVMe SSD"></a>MVMe SSD</h4><p>I/O bandwidth is critical. Azure SQL Data Warehouse Gen 2 takes advantage of <a href="https://amzn.to/2NN3kz0" target="_blank" rel="noopener">MVMe SSD</a>, which offer up to 2 2GB/s of local I/O bandwidth.<br>Here’s the read/write speed comparisons between HDD, SATA SSD and MVMe SSD.</p>
+<ul>
+<li>7200RPM SATA HDD read/write speed is around 100MB/s</li>
+<li>SATA SSD read/write speed is around 500MB/s</li>
+<li><a href="https://amzn.to/2NN3kz0" target="_blank" rel="noopener">MVMe SSD</a> read speed is up to 3,500MB/s</li>
+</ul>
+<h4 id="AVX"><a href="#AVX" class="headerlink" title="AVX"></a>AVX</h4><p>Azure SQL Data Warehouse operates directly over compressed data, which take the advantage of the CPU technology: AVX.<br><a href="https://en.wikipedia.org/wiki/Advanced_Vector_Extensions" target="_blank" rel="noopener">Advanced Vector Extensions (AVX)</a> uses 16 YMM registers to perform single instruction on multiple pieces of data (<a href="https://en.wikipedia.org/wiki/SIMD" target="_blank" rel="noopener">SIMD</a>). The register is increased to 256 bits from 128 bits. New instructions are added.  </p>
+<img src="/blog/2019/09/13/azure-sql-data-warehouse-deep-dive/sisd.png" title="SISD(Single Instruction Single Data)">  
+<img src="/blog/2019/09/13/azure-sql-data-warehouse-deep-dive/simd.png" title="SIMD(Single Instruction Multiple Data)">  
+<img src="/blog/2019/09/13/azure-sql-data-warehouse-deep-dive/avxplus.png" title="AVX plus operation">  
+
+<p>Reference:</p>
+<ul>
+<li><a href="https://www.codingame.com/playgrounds/283/sse-avx-vectorization/what-is-sse-and-avx" target="_blank" rel="noopener">SSE &amp; AVX Vectorization</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://www.lcodej.com/blog/2019/09/13/azure-sql-data-warehouse-deep-dive/" data-id="ck0k206mc0000jwlvjqlcl4q0" class="article-share-link">Share</a>
+      
+        <a href="https://www.lcodej.com/blog/2019/09/13/azure-sql-data-warehouse-deep-dive/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Azure/">Azure</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Data-warehouse/">Data warehouse</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-hardware" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/blog/2019/09/02/hardware/" class="article-date">
@@ -101,7 +210,7 @@ ga('send', 'pageview');
 
         
   <div class="article-updated">
-    Last updated: <time datetime="2019-09-02T23:20:58.220Z" itemprop="dateModified">2019-09-02</time>
+    Last updated: <time datetime="2019-09-10T03:16:28.349Z" itemprop="dateModified">2019-09-09</time>
   </div>
 
       </header>
@@ -114,7 +223,7 @@ ga('send', 'pageview');
 <img src="/blog/2019/09/02/hardware/cpu.jpg" title="Intel Core i7-9700K Desktop Processor 8 Cores up to 4.9 GHz Turbo">
 <h3 id="Memory"><a href="#Memory" class="headerlink" title="Memory"></a>Memory</h3><p><a href="https://amzn.to/2MQRyE6" target="_blank" rel="noopener">Corsair 32GB (2x16GB) DDR4 3200 Desktop Memory</a></p>
 <img src="/blog/2019/09/02/hardware/memory.jpeg" title="Corsair DDR4 3200 Desktop Memory">
-<h3 id="SSD-Disk"><a href="#SSD-Disk" class="headerlink" title="SSD Disk"></a>SSD Disk</h3><p><a href="https://amzn.to/2NN3kz0" target="_blank" rel="noopener">Samsung 1TB SSD NVMe Solid State Drive</a></p>
+<h3 id="SSD"><a href="#SSD" class="headerlink" title="SSD"></a>SSD</h3><p><a href="https://amzn.to/2NN3kz0" target="_blank" rel="noopener">Samsung 1TB SSD NVMe Solid State Drive</a></p>
 <img src="/blog/2019/09/02/hardware/ssd.jpeg" title="Samsung 1TB SSD NVMe Solid State Drive">
 <h3 id="Graphics-card"><a href="#Graphics-card" class="headerlink" title="Graphics card"></a>Graphics card</h3><p><a href="https://amzn.to/2zVvVdz" target="_blank" rel="noopener">MSI GeForce GTX 1650 4GB GDDR5</a></p>
 <img src="/blog/2019/09/02/hardware/graphics-card.jpg" title="MSI GeForce GTX 1650 4GB GDDR5">
@@ -226,85 +335,6 @@ ga('send', 'pageview');
 
 
   
-    <article id="post-customize-hexo-blog" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/blog/2019/08/26/customize-hexo-blog/" class="article-date">
-  <time datetime="2019-08-26T20:40:46.000Z" itemprop="datePublished">2019-08-26</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/08/26/customize-hexo-blog/">Customize Hexo blog</a>
-    </h1>
-  
-
-        
-  <div class="article-updated">
-    Last updated: <time datetime="2019-09-02T21:10:25.897Z" itemprop="dateModified">2019-09-02</time>
-  </div>
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Check out m previous post <a href="/blog/2019/08/20/how-to-create-blog/" title="How to create a blog">How to create a blog</a>) for creating a blog. In this post, I will talk about how to customize the blog.</p>
-<h3 id="General-config"><a href="#General-config" class="headerlink" title="General config"></a>General config</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">title:</span><br><span class="line">description:</span><br><span class="line">author:</span><br><span class="line">index_generator:</span><br><span class="line">  per_page: 3</span><br></pre></td></tr></table></figure>
-
-<h3 id="Blog-sub-directory"><a href="#Blog-sub-directory" class="headerlink" title="Blog sub directory"></a>Blog sub directory</h3><p>I want my blog under a sub directory, <a href="https://www.my_site.com/blog/" target="_blank" rel="noopener">https://www.my_site.com/blog/</a>.<br>In the <code>_config.yml</code>:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">url: https://www.your_site.com/blog</span><br><span class="line">root: /blog/</span><br><span class="line">public_dir: public/blog</span><br></pre></td></tr></table></figure>
-
-<p>Every time, generate the web site. copy the index.html under blog folder to the parent public folder. Folder structure:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public</span><br><span class="line">+-- blog</span><br><span class="line">|   +-- index.html</span><br><span class="line">+-- index.html</span><br></pre></td></tr></table></figure>
-
-<h3 id="Change-banner-image"><a href="#Change-banner-image" class="headerlink" title="Change banner image"></a>Change banner image</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\themes\landscape\source\css\images\banner.jpg</span><br></pre></td></tr></table></figure>
-
-<h3 id="Image-in-the-post"><a href="#Image-in-the-post" class="headerlink" title="Image in the post"></a>Image in the post</h3><p>In the <code>_config.yml</code>:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">post_asset_folder: true</span><br></pre></td></tr></table></figure>
-
-<p>Every time, run <code>hexo new post your-post</code>, it will create a folder with the same post file name. Put the image in that folder, and reference the image in your post.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% asset_img image_name.png Image_alt_text %&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="Add-About-page"><a href="#Add-About-page" class="headerlink" title="Add About page"></a>Add About page</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new page about</span><br></pre></td></tr></table></figure>
-
-<p>Modify the <code>landscape</code> theme to show the about link on the header menu.<br>In the <code>themes\landscape\_config.yml</code>:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">menu:</span><br><span class="line">  About: /about</span><br></pre></td></tr></table></figure>
-
-<h3 id="Generate-feed"><a href="#Generate-feed" class="headerlink" title="Generate feed"></a>Generate feed</h3><p>Add feed <a href="https://github.com/hexojs/hexo-generator-feed" target="_blank" rel="noopener">config</a> in <code>_config.yxml</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-generator-feed --save</span><br></pre></td></tr></table></figure>
-
-<h3 id="Generate-sitemap"><a href="#Generate-sitemap" class="headerlink" title="Generate sitemap"></a>Generate sitemap</h3><p>Add feed <a href="https://github.com/hexojs/hexo-generator-sitemap" target="_blank" rel="noopener">config</a> in <code>_config.yxml</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-generator-sitemap --save</span><br></pre></td></tr></table></figure>
-
-<h3 id="Enable-Disqus-comments"><a href="#Enable-Disqus-comments" class="headerlink" title="Enable Disqus comments"></a>Enable Disqus comments</h3><p>Create a <a href="https://disqus.com/" target="_blank" rel="noopener">Disqus</a> account.<br>In the <code>_config.yml</code>:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">disqus_shortname: &lt;your_disqus_unique_site_name&gt;</span><br></pre></td></tr></table></figure>
-
-<p>If you want to disable comment in particular page/post.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title:</span><br><span class="line">date:</span><br><span class="line">comments: false</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://www.lcodej.com/blog/2019/08/26/customize-hexo-blog/" data-id="ck07n8v5m0006zklvx80yxzsf" class="article-share-link">Share</a>
-      
-        <a href="https://www.lcodej.com/blog/2019/08/26/customize-hexo-blog/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Hexo/">Hexo</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
 
 
   <nav id="page-nav">
@@ -333,7 +363,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Github/">Github</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Hexo/">Hexo</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/hardware/">hardware</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/vscode/">vscode</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Azure/">Azure</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Data-warehouse/">Data warehouse</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Github/">Github</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Hexo/">Hexo</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/hardware/">hardware</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/vscode/">vscode</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -344,6 +374,10 @@ ga('send', 'pageview');
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/blog/2019/09/13/azure-sql-data-warehouse-deep-dive/">Azure SQL Data Warehouse deep dive</a>
+          </li>
         
           <li>
             <a href="/blog/2019/09/02/hardware/">Hardware</a>
@@ -361,10 +395,6 @@ ga('send', 'pageview');
             <a href="/blog/2019/08/20/how-to-create-blog/">How to create a blog</a>
           </li>
         
-          <li>
-            <a href="/blog/2019/08/20/hello-world/">Hello world!</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -374,7 +404,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/09/">September 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/08/">August 2019</a><span class="archive-list-count">4</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/09/">September 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/08/">August 2019</a><span class="archive-list-count">4</span></li></ul>
     </div>
   </div>
 
