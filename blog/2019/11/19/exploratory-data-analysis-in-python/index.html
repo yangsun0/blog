@@ -20,23 +20,23 @@ ga('send', 'pageview');
   
   <title>Exploratory data analysis in python | LcodeJ</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Exploratory data analysis help us understand data. Python and data science packages are very useful. This post is a summary of basic usage. Toolkit pandas numpy scipy.stats matplotlib  12345import pan">
+  <meta name="description" content="Exploratory data analysis help us understand data. Python and data science packages are very useful. This post is a summary of the basic usage. Toolkit pandas numpy scipy.stats matplotlib  12345import">
 <meta name="keywords" content="data">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Exploratory data analysis in python">
 <meta property="og:url" content="https://www.lcodej.com/blog/2019/11/19/exploratory-data-analysis-in-python/index.html">
 <meta property="og:site_name" content="LcodeJ">
-<meta property="og:description" content="Exploratory data analysis help us understand data. Python and data science packages are very useful. This post is a summary of basic usage. Toolkit pandas numpy scipy.stats matplotlib  12345import pan">
+<meta property="og:description" content="Exploratory data analysis help us understand data. Python and data science packages are very useful. This post is a summary of the basic usage. Toolkit pandas numpy scipy.stats matplotlib  12345import">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://www.lcodej.com/blog/2019/11/19/exploratory-data-analysis-in-python/boxplot.png">
 <meta property="og:image" content="https://www.lcodej.com/blog/2019/11/19/exploratory-data-analysis-in-python/boxplot_vs_pdf.png">
 <meta property="og:image" content="https://www.lcodej.com/blog/2019/11/19/exploratory-data-analysis-in-python/hist.png">
 <meta property="og:image" content="https://www.lcodej.com/blog/2019/11/19/exploratory-data-analysis-in-python/kde.png">
 <meta property="og:image" content="https://www.lcodej.com/blog/2019/11/19/exploratory-data-analysis-in-python/normal_distribution.png">
-<meta property="og:updated_time" content="2019-11-20T04:11:25.113Z">
+<meta property="og:updated_time" content="2019-11-20T04:28:34.336Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Exploratory data analysis in python">
-<meta name="twitter:description" content="Exploratory data analysis help us understand data. Python and data science packages are very useful. This post is a summary of basic usage. Toolkit pandas numpy scipy.stats matplotlib  12345import pan">
+<meta name="twitter:description" content="Exploratory data analysis help us understand data. Python and data science packages are very useful. This post is a summary of the basic usage. Toolkit pandas numpy scipy.stats matplotlib  12345import">
 <meta name="twitter:image" content="https://www.lcodej.com/blog/2019/11/19/exploratory-data-analysis-in-python/boxplot.png">
   
     <link rel="alternate" href="/blog/atom.xml" title="LcodeJ" type="application/atom+xml">
@@ -106,14 +106,14 @@ ga('send', 'pageview');
 
         
   <div class="article-updated">
-    Last updated: <time datetime="2019-11-20T04:11:25.113Z" itemprop="dateModified">2019-11-19</time>
+    Last updated: <time datetime="2019-11-20T04:28:34.336Z" itemprop="dateModified">2019-11-19</time>
   </div>
 
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><a href="https://en.wikipedia.org/wiki/Exploratory_data_analysis" target="_blank" rel="noopener">Exploratory data analysis</a> help us understand data. Python and data science packages are very useful. This post is a summary of basic usage.</p>
+        <p><a href="https://en.wikipedia.org/wiki/Exploratory_data_analysis" target="_blank" rel="noopener">Exploratory data analysis</a> help us understand data. Python and data science packages are very useful. This post is a summary of the basic usage.</p>
 <h2 id="Toolkit"><a href="#Toolkit" class="headerlink" title="Toolkit"></a>Toolkit</h2><ul>
 <li><a href="https://pandas.pydata.org/pandas-docs/stable/index.html" target="_blank" rel="noopener">pandas</a></li>
 <li><a href="https://docs.scipy.org/doc/numpy/user/index.html" target="_blank" rel="noopener">numpy</a></li>
@@ -142,7 +142,11 @@ ga('send', 'pageview');
 
 <img src="/blog/2019/11/19/exploratory-data-analysis-in-python/boxplot.png" title="Box plot">  
 <img src="/blog/2019/11/19/exploratory-data-analysis-in-python/boxplot_vs_pdf.png" title="Box plot VS PDF">  
-<p>Reference:<br>    - <a href="https://en.wikipedia.org/wiki/Box_plot" target="_blank" rel="noopener">Box plot</a><br>    - <a href="https://en.wikipedia.org/wiki/Probability_density_function" target="_blank" rel="noopener">Probability density function</a></p>
+<p>Reference:</p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Box_plot" target="_blank" rel="noopener">Box plot</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Probability_density_function" target="_blank" rel="noopener">Probability density function</a></li>
+</ul>
 <p>Distribution</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">data.plot(kind=<span class="string">"hist"</span>, bins=<span class="number">20</span>, edgecolor=<span class="string">"black"</span>);</span><br><span class="line"></span><br><span class="line">data.plot(kind=<span class="string">"kde"</span>);</span><br><span class="line">plt.plot((mean, mean), (<span class="number">0</span>, high), <span class="string">"--b"</span>, linewidth=<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">data[<span class="string">"column"</span>].skew()</span><br></pre></td></tr></table></figure>
 
@@ -150,7 +154,10 @@ ga('send', 'pageview');
 <img src="/blog/2019/11/19/exploratory-data-analysis-in-python/kde.png" title="Kernel density estimation">  
 <img src="/blog/2019/11/19/exploratory-data-analysis-in-python/normal_distribution.png" title="Normal distribution by Wikipedia">  
 
-<p>Reference:<br>    - <a href="https://en.wikipedia.org/wiki/Normal_distribution" target="_blank" rel="noopener">Normal distribution</a></p>
+<p>Reference:</p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Normal_distribution" target="_blank" rel="noopener">Normal distribution</a></li>
+</ul>
 <p>Count and proportion<br><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.value_counts.html" target="_blank" rel="noopener">pandas.Series.value_counts</a></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">data.describe(include=<span class="string">"all"</span>)</span><br><span class="line">data[<span class="string">"column"</span>].value_counts()</span><br><span class="line">data[<span class="string">"column"</span>].value_counts(normalize=<span class="literal">True</span>)</span><br><span class="line">data[<span class="string">"column"</span>].value_counts().plot(kind=<span class="string">"bar"</span>);</span><br></pre></td></tr></table></figure>
 
@@ -190,7 +197,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://www.lcodej.com/blog/2019/11/19/exploratory-data-analysis-in-python/" data-id="ck36rvxd9000gpwlvmafjoavg" class="article-share-link">Share</a>
+      <a data-url="https://www.lcodej.com/blog/2019/11/19/exploratory-data-analysis-in-python/" data-id="ck36umlmb000bxolvao4ve5vp" class="article-share-link">Share</a>
       
         <a href="https://www.lcodej.com/blog/2019/11/19/exploratory-data-analysis-in-python/#disqus_thread" class="article-comment-link">Comments</a>
       
