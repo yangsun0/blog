@@ -81,6 +81,124 @@ ga('send', 'pageview');
       <div class="outer">
         <section id="main">
   
+    <article id="post-exploratory-data-analysis-in-python" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2019/11/19/exploratory-data-analysis-in-python/" class="article-date">
+  <time datetime="2019-11-20T00:26:45.000Z" itemprop="datePublished">2019-11-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2019/11/19/exploratory-data-analysis-in-python/">Exploratory data analysis in python</a>
+    </h1>
+  
+
+        
+  <div class="article-updated">
+    Last updated: <time datetime="2019-11-20T04:11:25.113Z" itemprop="dateModified">2019-11-19</time>
+  </div>
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="https://en.wikipedia.org/wiki/Exploratory_data_analysis" target="_blank" rel="noopener">Exploratory data analysis</a> help us understand data. Python and data science packages are very useful. This post is a summary of basic usage.</p>
+<h2 id="Toolkit"><a href="#Toolkit" class="headerlink" title="Toolkit"></a>Toolkit</h2><ul>
+<li><a href="https://pandas.pydata.org/pandas-docs/stable/index.html" target="_blank" rel="noopener">pandas</a></li>
+<li><a href="https://docs.scipy.org/doc/numpy/user/index.html" target="_blank" rel="noopener">numpy</a></li>
+<li><a href="https://docs.scipy.org/doc/scipy/reference/stats.html" target="_blank" rel="noopener">scipy.stats</a></li>
+<li><a href="https://matplotlib.org/users/index.html" target="_blank" rel="noopener">matplotlib</a></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">%matplotlib inline <span class="comment"># magic function to show plot inside Notebook</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="Explore-data"><a href="#Explore-data" class="headerlink" title="Explore data"></a>Explore data</h2><h4 id="Data-structure"><a href="#Data-structure" class="headerlink" title="Data structure"></a>Data structure</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">type(data)    <span class="comment">## pandas.core.frame.DataFrame</span></span><br><span class="line">data.info()</span><br><span class="line">data.head()</span><br><span class="line">data.tail()</span><br></pre></td></tr></table></figure>
+
+<h4 id="Select-index-and-filter"><a href="#Select-index-and-filter" class="headerlink" title="Select, index, and filter"></a>Select, index, and filter</h4><p>Select column or columns.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">data[<span class="string">"column"</span>]</span><br><span class="line">data[[<span class="string">"column1"</span>, <span class="string">"column2"</span>]]</span><br></pre></td></tr></table></figure>
+
+<p>Select data by index<br><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.loc.html" target="_blank" rel="noopener">pandas.DataFrame.loc</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># index is a string</span></span><br><span class="line">data.loc[<span class="string">"label_1"</span>]</span><br><span class="line">data.loc[<span class="string">"label_1"</span>:]</span><br><span class="line">data.loc[<span class="string">"label_1"</span>:<span class="string">"label_n"</span>]</span><br><span class="line">data.loc[[<span class="string">"label_1"</span>, <span class="string">"label_2"</span>]]</span><br><span class="line">data.loc[<span class="string">"label_1"</span>:<span class="string">"label_n"</span>, [<span class="string">"column_1"</span>, <span class="string">"column_n"</span>]]</span><br><span class="line">data.loc[<span class="string">"label_1"</span>:<span class="string">"label_n"</span>, <span class="string">"column_1"</span>:<span class="string">"column_n"</span>]</span><br><span class="line"><span class="comment"># index is an integer</span></span><br><span class="line">data.loc[<span class="number">1</span>:n]</span><br></pre></td></tr></table></figure>
+
+<p>Filter data<br><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.apply.html" target="_blank" rel="noopener">pandas.DataFrame.apply</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">data[data[<span class="string">"column1"</span>] == <span class="string">"foo"</span>]</span><br><span class="line">data[data.apply(<span class="keyword">lambda</span> row: row[<span class="string">"column1"</span>] &gt; <span class="number">1</span> <span class="keyword">and</span> row[<span class="string">"column2"</span>] &gt; <span class="number">2</span>)]</span><br></pre></td></tr></table></figure>
+
+<h4 id="Statistics"><a href="#Statistics" class="headerlink" title="Statistics"></a>Statistics</h4><p>Basic statistics</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">data.describe()</span><br><span class="line">data[<span class="string">"column"</span>].min()</span><br><span class="line">data[<span class="string">"column"</span>].max()</span><br><span class="line">data[<span class="string">"column"</span>].quantile(<span class="number">.25</span>)</span><br><span class="line">data[<span class="string">"column"</span>].median()</span><br><span class="line">data[<span class="string">"column"</span>].mean()</span><br><span class="line">data[<span class="string">"column"</span>].std()</span><br><span class="line">data[<span class="string">"column"</span>].var()</span><br></pre></td></tr></table></figure>
+
+<p><a href="https://en.wikipedia.org/wiki/Box_plot" target="_blank" rel="noopener">Box plot</a>  </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data[<span class="string">"column"</span>].plot(kind=<span class="string">"box"</span>);</span><br></pre></td></tr></table></figure>
+
+<img src="/blog/2019/11/19/exploratory-data-analysis-in-python/boxplot.png" title="Box plot">  
+<img src="/blog/2019/11/19/exploratory-data-analysis-in-python/boxplot_vs_pdf.png" title="Box plot VS PDF">  
+<p>Reference:<br>    - <a href="https://en.wikipedia.org/wiki/Box_plot" target="_blank" rel="noopener">Box plot</a><br>    - <a href="https://en.wikipedia.org/wiki/Probability_density_function" target="_blank" rel="noopener">Probability density function</a></p>
+<p>Distribution</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">data.plot(kind=<span class="string">"hist"</span>, bins=<span class="number">20</span>, edgecolor=<span class="string">"black"</span>);</span><br><span class="line"></span><br><span class="line">data.plot(kind=<span class="string">"kde"</span>);</span><br><span class="line">plt.plot((mean, mean), (<span class="number">0</span>, high), <span class="string">"--b"</span>, linewidth=<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">data[<span class="string">"column"</span>].skew()</span><br></pre></td></tr></table></figure>
+
+<img src="/blog/2019/11/19/exploratory-data-analysis-in-python/hist.png" title="Histogram">  
+<img src="/blog/2019/11/19/exploratory-data-analysis-in-python/kde.png" title="Kernel density estimation">  
+<img src="/blog/2019/11/19/exploratory-data-analysis-in-python/normal_distribution.png" title="Normal distribution by Wikipedia">  
+
+<p>Reference:<br>    - <a href="https://en.wikipedia.org/wiki/Normal_distribution" target="_blank" rel="noopener">Normal distribution</a></p>
+<p>Count and proportion<br><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.value_counts.html" target="_blank" rel="noopener">pandas.Series.value_counts</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">data.describe(include=<span class="string">"all"</span>)</span><br><span class="line">data[<span class="string">"column"</span>].value_counts()</span><br><span class="line">data[<span class="string">"column"</span>].value_counts(normalize=<span class="literal">True</span>)</span><br><span class="line">data[<span class="string">"column"</span>].value_counts().plot(kind=<span class="string">"bar"</span>);</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="Data-manipulation"><a href="#Data-manipulation" class="headerlink" title="Data manipulation"></a>Data manipulation</h2><p>Column<br><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.drop.html" target="_blank" rel="noopener">pandas.DataFrame.drop</a><br><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.rename.html" target="_blank" rel="noopener">pandas.DataFrame.rename</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">data[<span class="string">"NewColumn"</span>] = data[<span class="string">"column1"</span>] / data[<span class="string">"column2"</span>]</span><br><span class="line">data[<span class="string">"NewColumn"</span>] = data[<span class="string">"column"</span>].mean()</span><br><span class="line">data.drop(columns=[<span class="string">'column1'</span>, <span class="string">'column2'</span>])</span><br><span class="line">data.rename(columns=&#123;<span class="string">"column"</span>: <span class="string">"NewColumn"</span>&#125;)</span><br><span class="line">data.columns = [<span class="string">"column1"</span>, <span class="string">"column2"</span>]</span><br></pre></td></tr></table></figure>
+
+<p>Index<br><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.set_index.html" target="_blank" rel="noopener">pandas.DataFrame.set_index</a><br><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.reset_index.html" target="_blank" rel="noopener">pandas.DataFrame.reset_index</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">data.set_index(<span class="string">"column"</span>, inplace=<span class="literal">True</span>)</span><br><span class="line">data.reset_index(inplace=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+
+<p>Sort<br><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.sort_index.html" target="_blank" rel="noopener">pandas.DataFrame.sort_index</a><br><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.sort_values.html" target="_blank" rel="noopener">pandas.DataFrame.sort_values</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">data.sort_index(inplace=<span class="literal">True</span>)</span><br><span class="line">data.sort_values(by=[<span class="string">'column'</span>])</span><br></pre></td></tr></table></figure>
+
+<p>Duplicate<br><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.duplicated.html" target="_blank" rel="noopener">pandas.DataFrame.duplicated</a><br><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.drop_duplicates.html" target="_blank" rel="noopener">pandas.DataFrame.drop_duplicates</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">data[data.duplicated()]</span><br><span class="line">data[data.duplicated([<span class="string">"column"</span>])]</span><br><span class="line">data.drop_duplicates()</span><br><span class="line">data.drop_duplicates([<span class="string">"column"</span>])</span><br></pre></td></tr></table></figure>
+
+<p>NA values<br><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.fillna.html" target="_blank" rel="noopener">pandas.DataFrame.fillna</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">result.fillna()</span><br><span class="line">result.fillna(value=&#123;<span class="string">"column"</span>: <span class="number">0</span>&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>Sets<br><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.concat.html" target="_blank" rel="noopener">pandas.concat</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">data = pd.concat([data1, data2], axis=<span class="number">1</span>)</span><br><span class="line">data = pd.concat([data1, data2], axis=<span class="number">1</span>, sort=<span class="literal">True</span>)</span><br><span class="line">data = pd.concat([data1, data2])</span><br></pre></td></tr></table></figure>
+
+<h2 id="I-O"><a href="#I-O" class="headerlink" title="I/O"></a>I/O</h2><p><a href="https://pandas.pydata.org/pandas-docs/stable/user_guide/io.html" target="_blank" rel="noopener">pandas I/O API</a><br><a href="https://pandas.pydata.org/pandas-docs/stable/user_guide/io.html#io-perf" target="_blank" rel="noopener">I/O performance</a>  </p>
+<hr>
+<p><em>The top-three are test_pickle_write, test_feather_write and test_hdf_fixed_write_compress.</em><br><em>The top three are test_feather_read, test_pickle_read and test_hdf_fixed_read.</em></p>
+<hr>
+<p>SQL</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pyodbc</span><br><span class="line"></span><br><span class="line">driver = <span class="string">"&#123;ODBC Driver 17 for SQL Server&#125;"</span></span><br><span class="line">server = <span class="string">"DATABASE_SERVER.database.windows.net"</span></span><br><span class="line">database = <span class="string">"DATABASE"</span></span><br><span class="line">username = <span class="string">"USERNAME"</span></span><br><span class="line">conn_str = <span class="string">f"DRIVER=<span class="subst">&#123;driver&#125;</span>; SERVER=<span class="subst">&#123;server&#125;</span>; DATABASE=<span class="subst">&#123;database&#125;</span>; UID=<span class="subst">&#123;username&#125;</span>; Encrypt=yes; Authentication=ActiveDirectoryInteractive"</span></span><br><span class="line">conn = pyodbc.connect(conn_str)</span><br><span class="line">sql = <span class="string">f"""</span></span><br><span class="line"><span class="string">SELECT </span></span><br><span class="line"><span class="string">    Column1,</span></span><br><span class="line"><span class="string">    Column2</span></span><br><span class="line"><span class="string">FROM Table</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line">data = pd.read_sql(sql, conn)</span><br></pre></td></tr></table></figure>
+
+<p>CSV</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pd.read_csv(file_name)</span><br><span class="line">pd.read_csv(file_name, delimiter=<span class="string">'\t'</span>)</span><br><span class="line">pd.read_csv(file_name, error_bad_lines=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
+
+<p>Python Pickle format</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">data.to_pickle(file_name)</span><br><span class="line">data = pd.read_pickle(file_name)</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://www.lcodej.com/blog/2019/11/19/exploratory-data-analysis-in-python/" data-id="ck36rvxd9000gpwlvmafjoavg" class="article-share-link">Share</a>
+      
+        <a href="https://www.lcodej.com/blog/2019/11/19/exploratory-data-analysis-in-python/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/data/">data</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-azure-sql-data-warehouse-deep-dive" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/blog/2019/09/13/azure-sql-data-warehouse-deep-dive/" class="article-date">
@@ -101,7 +219,7 @@ ga('send', 'pageview');
 
         
   <div class="article-updated">
-    Last updated: <time datetime="2019-09-14T21:33:36.708Z" itemprop="dateModified">2019-09-14</time>
+    Last updated: <time datetime="2019-11-20T00:50:17.148Z" itemprop="dateModified">2019-11-19</time>
   </div>
 
       </header>
@@ -170,19 +288,19 @@ ga('send', 'pageview');
 
 <p>Reference:</p>
 <ul>
-<li><a href="https://en.wikipedia.org/wiki/SIMD" target="_blank" rel="noopener">SIMD</a>)</li>
+<li><a href="https://en.wikipedia.org/wiki/SIMD" target="_blank" rel="noopener">SIMD</a></li>
 <li><a href="https://www.codingame.com/playgrounds/283/sse-avx-vectorization/what-is-sse-and-avx" target="_blank" rel="noopener">SSE &amp; AVX Vectorization</a></li>
 </ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://www.lcodej.com/blog/2019/09/13/azure-sql-data-warehouse-deep-dive/" data-id="ck0k206mc0000jwlvjqlcl4q0" class="article-share-link">Share</a>
+      <a data-url="https://www.lcodej.com/blog/2019/09/13/azure-sql-data-warehouse-deep-dive/" data-id="ck36rvxdg000upwlvcf5ldfbu" class="article-share-link">Share</a>
       
         <a href="https://www.lcodej.com/blog/2019/09/13/azure-sql-data-warehouse-deep-dive/#disqus_thread" class="article-comment-link">Comments</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Azure/">Azure</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Big-data/">Big data</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/data/">data</a></li></ul>
 
     </footer>
   </div>
@@ -236,7 +354,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://www.lcodej.com/blog/2019/09/02/hardware/" data-id="ck07n8v5o0008zklv3t5of3tt" class="article-share-link">Share</a>
+      <a data-url="https://www.lcodej.com/blog/2019/09/02/hardware/" data-id="ck36rvxd8000epwlvhpj9bbkr" class="article-share-link">Share</a>
       
         <a href="https://www.lcodej.com/blog/2019/09/02/hardware/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -250,97 +368,11 @@ ga('send', 'pageview');
 
 
   
-    <article id="post-visual-studio-code-shortcuts" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/blog/2019/08/30/visual-studio-code-shortcuts/" class="article-date">
-  <time datetime="2019-08-30T20:13:58.000Z" itemprop="datePublished">2019-08-30</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/08/30/visual-studio-code-shortcuts/">Visual Studio Code Shortcuts</a>
-    </h1>
-  
-
-        
-  <div class="article-updated">
-    Last updated: <time datetime="2019-09-02T21:10:25.900Z" itemprop="dateModified">2019-09-02</time>
-  </div>
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><a href="https://code.visualstudio.com/" target="_blank" rel="noopener">Visual Studio Code</a> is a great editor. I looked for a good editor for a long time. I used to use <a href="http://www.flos-freeware.ch/notepad2.html" target="_blank" rel="noopener">Notepad2</a>, <a href="https://notepad-plus-plus.org" target="_blank" rel="noopener">Notepad++</a>, <a href="https://www.sublimetext.com" target="_blank" rel="noopener">Sublime Text</a>, <a href="https://www.vim.org" target="_blank" rel="noopener">Vim</a>. Now, I like VSCode the most. VSCode is the best for develop. But I still keep Notepad2 and Notepad++ on my computer when I just want to quickly open a file.</p>
-<p>Here’s my favorite shortcuts. Build your muscle memory. :)</p>
-<h4 id="How-to-find-shortcut"><a href="#How-to-find-shortcut" class="headerlink" title="How to find shortcut"></a>How to find shortcut</h4><p>Ctrl + Shift + P, then type the name to find the shortcuts. E.g. bracket</p>
-<h4 id="Navigation"><a href="#Navigation" class="headerlink" title="Navigation"></a>Navigation</h4><p>Alt + ArrowLeft/Right<br>Go back/forward</p>
-<p>Ctrl + ArrowUp/Down<br>Scroll window</p>
-<p>Ctrl + Shift + \<br>Move the cursor between the beginning bracket and the ending bracket</p>
-<p>F3<br>Shift + F3<br>Find next/previous</p>
-<hr>
-<p>Ctrl + Shift + O<br>@:<br>Go to symbol. @: Go to symbol by category.</p>
-<p>Ctrl + T<br>Go to symbol in the workspace</p>
-<p>F12<br>Go to definition</p>
-<p>Alt + F12<br>Peek Definition</p>
-<p>Shift + F12<br>Show References</p>
-<hr>
-<p>Ctrl + P<br>Go to file</p>
-<p>Ctrl + Shift + Tab<br>Navigate between opened files</p>
-<hr>
-<p>F8<br>Shift + F8<br>Go to next/previous error</p>
-<p>Ctrl + Shift + M<br>Open Problems panel</p>
-<h4 id="Multi-cursor"><a href="#Multi-cursor" class="headerlink" title="Multi-cursor"></a>Multi-cursor</h4><p>Ctrl + D<br>Add selection to next Find match</p>
-<p>Ctrl + K, Ctrl + D<br>Undo the last selection. Move last selection to next Find match</p>
-<p>Ctrl + F2<br>Select all occurrences of current word</p>
-<p>Ctrl + Shift + L<br>Select all occurrences of current selection</p>
-<p>Ctrl + F, Alt + Enter<br>Select all occurrences of Find match</p>
-<p>Ctrl + Alt + Arrow Down/Up<br>Insert cursor above / below, then Shift to select, or Arrow Up/Down to move cursor, or type. Esc to escape.<br>Sometimes, it conflicts with the global hotkey to rotate screen.<br>To solve it, right click Desktop, select Graphics Options, select Hot Keys, select Disable.</p>
-<p>Shift + Alt + (drag mouse)<br>Ctrl + Shift + Alt + (arrow key)<br>Column (box) selection</p>
-<h4 id="Side-by-side"><a href="#Side-by-side" class="headerlink" title="Side by side"></a>Side by side</h4><p>Ctrl + \<br>Split editor</p>
-<p>Ctrl + W<br>Close editor</p>
-<p>Ctrl + 1/2/3<br>Active editor by order</p>
-<p>Ctrl + M, Ctrl + M (my custom shortcut)<br>Maximize current editor</p>
-<p>Ctrl + Shift + M, Ctrl + Shift + M (my custom shortcut)<br>Maximize current editor</p>
-<p>Ctrl + K, F12<br>Open definition to the side</p>
-<p>Alt + Z<br>Toggle word wrap</p>
-<h4 id="Editing"><a href="#Editing" class="headerlink" title="Editing"></a>Editing</h4><p>Ctrl + Shift + K<br>Delete line</p>
-<p>Ctrl + K, Ctrl + X<br>Trim trailing whitespace</p>
-<p>Ctrl + K, Ctrl + F<br>Format the selection</p>
-<p>Alt + Shift + F<br>Format the document</p>
-<p>Ctrl + /<br>Toggle line comment</p>
-<h4 id="Intelligence"><a href="#Intelligence" class="headerlink" title="Intelligence"></a>Intelligence</h4><p>Ctrl + .<br>Quick fix</p>
-<p>Ctrl + Space<br>Trigger suggestion</p>
-<p>Ctrl + Shift + Space<br>Trigger parameter hints</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://www.lcodej.com/blog/2019/08/30/visual-studio-code-shortcuts/" data-id="ck07n8v5r000bzklvgpwmc4km" class="article-share-link">Share</a>
-      
-        <a href="https://www.lcodej.com/blog/2019/08/30/visual-studio-code-shortcuts/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/vscode/">vscode</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
 
 
   <nav id="page-nav">
     
-    <span class="page-number current">1</span><a class="page-number" href="/blog/page/2/">2</a><a class="extend next" rel="next" href="/blog/page/2/">Next &raquo;</a>
+    <span class="page-number current">1</span><a class="page-number" href="/blog/page/2/">2</a><a class="page-number" href="/blog/page/3/">3</a><a class="extend next" rel="next" href="/blog/page/2/">Next &raquo;</a>
   </nav>
 
 </section>
@@ -364,7 +396,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Azure/">Azure</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Big-data/">Big data</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Github/">Github</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Hexo/">Hexo</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/hardware/">hardware</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/vscode/">vscode</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/data/">data</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/hardware/">hardware</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/tool/">tool</a><span class="tag-list-count">3</span></li></ul>
     </div>
   </div>
 
@@ -375,6 +407,10 @@ ga('send', 'pageview');
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/blog/2019/11/19/exploratory-data-analysis-in-python/">Exploratory data analysis in python</a>
+          </li>
         
           <li>
             <a href="/blog/2019/09/13/azure-sql-data-warehouse-deep-dive/">Azure SQL Data Warehouse Deep Dive</a>
@@ -392,10 +428,6 @@ ga('send', 'pageview');
             <a href="/blog/2019/08/26/customize-hexo-blog/">Customize Hexo blog</a>
           </li>
         
-          <li>
-            <a href="/blog/2019/08/20/how-to-create-blog/">How to create a blog</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -405,7 +437,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/09/">September 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/08/">August 2019</a><span class="archive-list-count">4</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/11/">November 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/09/">September 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/08/">August 2019</a><span class="archive-list-count">4</span></li></ul>
     </div>
   </div>
 

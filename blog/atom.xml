@@ -5,9 +5,9 @@
   
   <link href="/blog/atom.xml" rel="self"/>
   
-  <link href="https://www.lcodej.com/blog/"/>
-  <updated>2019-09-14T21:33:36.708Z</updated>
-  <id>https://www.lcodej.com/blog/</id>
+  <link href="https://www.lcodej.com"/>
+  <updated>2019-11-20T04:11:25.113Z</updated>
+  <id>https://www.lcodej.com</id>
   
   <author>
     <name>Yang Sun</name>
@@ -17,11 +17,35 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Exploratory data analysis in python</title>
+    <link href="https://www.lcodej.com/blog/2019/11/19/exploratory-data-analysis-in-python/"/>
+    <id>https://www.lcodej.com/blog/2019/11/19/exploratory-data-analysis-in-python/</id>
+    <published>2019-11-20T00:26:45.000Z</published>
+    <updated>2019-11-20T04:11:25.113Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Exploratory_data_analysis&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Exploratory data analysis&lt;/a&gt; help us
+        
+      
+    
+    </summary>
+    
+    
+      <category term="data" scheme="https://www.lcodej.com/blog/tags/data/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Azure SQL Data Warehouse Deep Dive</title>
     <link href="https://www.lcodej.com/blog/2019/09/13/azure-sql-data-warehouse-deep-dive/"/>
     <id>https://www.lcodej.com/blog/2019/09/13/azure-sql-data-warehouse-deep-dive/</id>
     <published>2019-09-13T23:26:05.000Z</published>
-    <updated>2019-09-14T21:33:36.708Z</updated>
+    <updated>2019-11-20T00:50:17.148Z</updated>
     
     <summary type="html">
     
@@ -30,9 +54,7 @@
     </summary>
     
     
-      <category term="Azure" scheme="https://www.lcodej.com/blog/tags/Azure/"/>
-    
-      <category term="Big data" scheme="https://www.lcodej.com/blog/tags/Big-data/"/>
+      <category term="data" scheme="https://www.lcodej.com/blog/tags/data/"/>
     
   </entry>
   
@@ -59,7 +81,7 @@
     <link href="https://www.lcodej.com/blog/2019/08/30/visual-studio-code-shortcuts/"/>
     <id>https://www.lcodej.com/blog/2019/08/30/visual-studio-code-shortcuts/</id>
     <published>2019-08-30T20:13:58.000Z</published>
-    <updated>2019-09-02T21:10:25.900Z</updated>
+    <updated>2019-11-20T00:49:53.589Z</updated>
     
     <summary type="html">
     
@@ -68,7 +90,7 @@
     </summary>
     
     
-      <category term="vscode" scheme="https://www.lcodej.com/blog/tags/vscode/"/>
+      <category term="tool" scheme="https://www.lcodej.com/blog/tags/tool/"/>
     
   </entry>
   
@@ -77,7 +99,7 @@
     <link href="https://www.lcodej.com/blog/2019/08/26/customize-hexo-blog/"/>
     <id>https://www.lcodej.com/blog/2019/08/26/customize-hexo-blog/</id>
     <published>2019-08-26T20:40:46.000Z</published>
-    <updated>2019-09-02T21:10:25.897Z</updated>
+    <updated>2019-11-20T04:12:49.767Z</updated>
     
     <summary type="html">
     
@@ -86,7 +108,7 @@
     </summary>
     
     
-      <category term="Hexo" scheme="https://www.lcodej.com/blog/tags/Hexo/"/>
+      <category term="tool" scheme="https://www.lcodej.com/blog/tags/tool/"/>
     
   </entry>
   
@@ -95,7 +117,7 @@
     <link href="https://www.lcodej.com/blog/2019/08/20/how-to-create-blog/"/>
     <id>https://www.lcodej.com/blog/2019/08/20/how-to-create-blog/</id>
     <published>2019-08-20T22:28:39.000Z</published>
-    <updated>2019-09-02T21:10:25.898Z</updated>
+    <updated>2019-11-20T04:12:38.351Z</updated>
     
     <summary type="html">
     
@@ -104,9 +126,7 @@
     </summary>
     
     
-      <category term="Hexo" scheme="https://www.lcodej.com/blog/tags/Hexo/"/>
-    
-      <category term="Github" scheme="https://www.lcodej.com/blog/tags/Github/"/>
+      <category term="tool" scheme="https://www.lcodej.com/blog/tags/tool/"/>
     
   </entry>
   

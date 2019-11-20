@@ -3,14 +3,41 @@
   <url>
     <loc>https://www.lcodej.com/</loc>
     
-    <lastmod>2019-09-14T21:33:36.708Z</lastmod>
+    <lastmod>2019-11-20T04:12:49.767Z</lastmod>
     
   </url>
-
+  <url>
+    <loc>https://www.lcodej.com/blog/2019/08/26/customize-hexo-blog/</loc>
+    
+    <lastmod>2019-11-20T04:12:49.767Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.lcodej.com/blog/2019/08/20/how-to-create-blog/</loc>
+    
+    <lastmod>2019-11-20T04:12:38.351Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.lcodej.com/blog/2019/11/19/exploratory-data-analysis-in-python/</loc>
+    
+    <lastmod>2019-11-20T04:11:25.113Z</lastmod>
+    
+  </url>
+  
   <url>
     <loc>https://www.lcodej.com/blog/2019/09/13/azure-sql-data-warehouse-deep-dive/</loc>
     
-    <lastmod>2019-09-14T21:33:36.708Z</lastmod>
+    <lastmod>2019-11-20T00:50:17.148Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.lcodej.com/blog/2019/08/30/visual-studio-code-shortcuts/</loc>
+    
+    <lastmod>2019-11-20T00:49:53.589Z</lastmod>
     
   </url>
   
@@ -22,30 +49,9 @@
   </url>
   
   <url>
-    <loc>https://www.lcodej.com/blog/2019/08/30/visual-studio-code-shortcuts/</loc>
-    
-    <lastmod>2019-09-02T21:10:25.900Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://www.lcodej.com/blog/about/index.html</loc>
     
     <lastmod>2019-09-02T21:10:25.900Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://www.lcodej.com/blog/2019/08/20/how-to-create-blog/</loc>
-    
-    <lastmod>2019-09-02T21:10:25.898Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://www.lcodej.com/blog/2019/08/26/customize-hexo-blog/</loc>
-    
-    <lastmod>2019-09-02T21:10:25.897Z</lastmod>
     
   </url>
   
