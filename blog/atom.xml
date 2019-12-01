@@ -5,9 +5,9 @@
   
   <link href="/blog/atom.xml" rel="self"/>
   
-  <link href="https://www.lcodej.com"/>
-  <updated>2019-11-20T04:28:34.336Z</updated>
-  <id>https://www.lcodej.com</id>
+  <link href="https://www.lcodej.com/blog/"/>
+  <updated>2019-12-01T23:47:47.497Z</updated>
+  <id>https://www.lcodej.com/blog/</id>
   
   <author>
     <name>Yang Sun</name>
@@ -17,11 +17,35 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>LEGO Tree House</title>
+    <link href="https://www.lcodej.com/blog/2019/12/01/lego-tree-house/"/>
+    <id>https://www.lcodej.com/blog/2019/12/01/lego-tree-house/</id>
+    <published>2019-12-01T22:57:20.000Z</published>
+    <updated>2019-12-01T23:47:47.497Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;This is my favorite LEGO set: &lt;a href=&quot;https://www.lego.com/en-us/product/tree-house-21318&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Tree
+        
+      
+    
+    </summary>
+    
+    
+      <category term="fun" scheme="https://www.lcodej.com/blog/tags/fun/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Exploratory data analysis in python</title>
     <link href="https://www.lcodej.com/blog/2019/11/19/exploratory-data-analysis-in-python/"/>
     <id>https://www.lcodej.com/blog/2019/11/19/exploratory-data-analysis-in-python/</id>
     <published>2019-11-20T00:26:45.000Z</published>
-    <updated>2019-11-20T04:28:34.336Z</updated>
+    <updated>2019-11-21T22:05:25.883Z</updated>
     
     <summary type="html">
     
@@ -63,7 +87,7 @@
     <link href="https://www.lcodej.com/blog/2019/09/02/hardware/"/>
     <id>https://www.lcodej.com/blog/2019/09/02/hardware/</id>
     <published>2019-09-02T21:42:12.000Z</published>
-    <updated>2019-09-10T03:16:28.349Z</updated>
+    <updated>2019-12-01T23:48:21.003Z</updated>
     
     <summary type="html">
     
@@ -72,7 +96,7 @@
     </summary>
     
     
-      <category term="hardware" scheme="https://www.lcodej.com/blog/tags/hardware/"/>
+      <category term="fun" scheme="https://www.lcodej.com/blog/tags/fun/"/>
     
   </entry>
   

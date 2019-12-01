@@ -81,10 +81,10 @@ ga('send', 'pageview');
       <div class="outer">
         <section id="main">
   
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-how-to-create-blog" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/blog/2019/08/20/hello-world/" class="article-date">
-  <time datetime="2019-08-20T22:15:23.000Z" itemprop="datePublished">2019-08-20</time>
+    <a href="/blog/2019/08/20/how-to-create-blog/" class="article-date">
+  <time datetime="2019-08-20T22:28:39.000Z" itemprop="datePublished">2019-08-20</time>
 </a>
     
   </div>
@@ -95,29 +95,76 @@ ga('send', 'pageview');
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/08/20/hello-world/">Hello world!</a>
+      <a class="article-title" href="/blog/2019/08/20/how-to-create-blog/">How to create a blog</a>
     </h1>
   
 
         
   <div class="article-updated">
-    Last updated: <time datetime="2019-09-02T21:10:25.897Z" itemprop="dateModified">2019-09-02</time>
+    Last updated: <time datetime="2019-11-20T04:12:38.351Z" itemprop="dateModified">2019-11-19</time>
   </div>
 
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Hello world! This is my first blog. I have nothing to say here. Here’s my second blog <a href="/blog/2019/08/20/how-to-create-blog/" title="How to create a blog">How to create a blog</a></p>
+        <p>I plan to have my personal blog. Here’s the ideas:</p>
+<ul>
+<li>The blog is a technique blog, it contains code.</li>
+<li>I like source control, so I can easily know what change I made.</li>
+<li>I don’t want to start from scratch. But I want to highly customize my blog.</li>
+<li>I want my personal domain.</li>
+</ul>
+<p>This is my solution:<br><a href="https://en.wikipedia.org/wiki/Markdown" target="_blank" rel="noopener">Markdown</a> + <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> + <a href="https://pages.github.com/" target="_blank" rel="noopener">Github Pages</a> + <a href="https://domains.google" target="_blank" rel="noopener">Custom domain</a></p>
+<p>Let’s start!</p>
+<h2 id="Prepare-git-repo"><a href="#Prepare-git-repo" class="headerlink" title="Prepare git repo"></a>Prepare git repo</h2><h4 id="Get-a-Github-account"><a href="#Get-a-Github-account" class="headerlink" title="Get a Github account."></a>Get a <a href="https://github.com/" target="_blank" rel="noopener">Github</a> account.</h4><h4 id="Create-two-repo"><a href="#Create-two-repo" class="headerlink" title="Create two repo"></a>Create two repo</h4><p>One is for blog source code, the other is for the blog website. <a href="https://help.github.com/en/articles/create-a-repo" target="_blank" rel="noopener">Github create a repo</a></p>
+<h4 id="On-your-local-box-clone-your-repo"><a href="#On-your-local-box-clone-your-repo" class="headerlink" title="On your local box, clone your repo."></a>On your local box, clone your repo.</h4><p>Create two folders <code>blog-src</code>, <code>blog-website</code>. And run git clone accordingly.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/&lt;your_account&gt;/&lt;your_repo&gt;.git</span><br></pre></td></tr></table></figure>
+
+<h2 id="Create-a-local-blog-web-site"><a href="#Create-a-local-blog-web-site" class="headerlink" title="Create a local blog web site"></a>Create a local blog web site</h2><h4 id="Install-git"><a href="#Install-git" class="headerlink" title="Install git"></a>Install <a href="https://git-scm.com/downloads" target="_blank" rel="noopener">git</a></h4><h4 id="Install-Nodejs"><a href="#Install-Nodejs" class="headerlink" title="Install Nodejs"></a>Install <a href="https://nodejs.org/en/download/" target="_blank" rel="noopener">Nodejs</a></h4><h4 id="Install-Hexo"><a href="#Install-Hexo" class="headerlink" title="Install Hexo"></a>Install Hexo</h4><p><a href="https://hexo.io/docs" target="_blank" rel="noopener">Hexo docs</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br><span class="line">npm install hexo</span><br></pre></td></tr></table></figure>
+
+<h4 id="Initialize-the-blog-source-code-folder"><a href="#Initialize-the-blog-source-code-folder" class="headerlink" title="Initialize the blog source code folder."></a>Initialize the blog source code folder.</h4><p>Under the folder <code>blog-src</code>, run the command.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init</span><br></pre></td></tr></table></figure>
+
+<h4 id="Run-npm-to-install-packages"><a href="#Run-npm-to-install-packages" class="headerlink" title="Run npm to install packages."></a>Run npm to install packages.</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install</span><br></pre></td></tr></table></figure>
+
+<h4 id="Create-your-first-post"><a href="#Create-your-first-post" class="headerlink" title="Create your first post."></a>Create your first post.</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new post hello-world</span><br></pre></td></tr></table></figure>
+
+<p>The file hello-world.md will be created under _posts folder. The folder structure:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">+-- scaffolds</span><br><span class="line">+-- source</span><br><span class="line">|   +-- _posts</span><br><span class="line">|       +-- hello-world.md</span><br><span class="line">+-- themes</span><br><span class="line">+-- _config.yml</span><br></pre></td></tr></table></figure>
+
+<h4 id="Generate-the-web-site-static-files"><a href="#Generate-the-web-site-static-files" class="headerlink" title="Generate the web site static files."></a>Generate the web site static files.</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>The public folder contains the files. Now, we’re ready to publish the web site.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public</span><br><span class="line">+-- 2019</span><br><span class="line">|   +-- 08</span><br><span class="line">|       +-- 20</span><br><span class="line">|           +-- hello-world</span><br><span class="line">|               +-- index.html</span><br><span class="line">+-- archives</span><br><span class="line">+-- css</span><br><span class="line">+-- js</span><br><span class="line">+-- index.html</span><br></pre></td></tr></table></figure>
+
+<h4 id="Run-locally"><a href="#Run-locally" class="headerlink" title="Run locally"></a>Run locally</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo server</span><br></pre></td></tr></table></figure>
+
+<p>Open browser with <code>http://localhost:4000</code>, see how the blog looks like.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">INFO  Start processing</span><br><span class="line">INFO  Hexo is running at http://localhost:4000 . Press Ctrl+C to stop.</span><br></pre></td></tr></table></figure>
+
+<h2 id="Publish-to-Github"><a href="#Publish-to-Github" class="headerlink" title="Publish to Github"></a>Publish to Github</h2><h4 id="Publish-to-the-blog-website-repo"><a href="#Publish-to-the-blog-website-repo" class="headerlink" title="Publish to the blog website repo."></a>Publish to the blog website repo.</h4><p>Copy all the files under public folder to the <code>blog-website</code> folder, then commit and push.</p>
+<h4 id="Enable-Github-Pages"><a href="#Enable-Github-Pages" class="headerlink" title="Enable Github Pages."></a>Enable Github Pages.</h4><p>Click on the Settings tab and scroll down to the GitHub Pages section.<br>Select <strong>master branch</strong> and click <strong>Save</strong>.</p>
+<img src="/blog/2019/08/20/how-to-create-blog/github-pages-source.png" title="Github pages settings">
+<p>The Github pages should be ready to go.<br><a href="http://YOUR_ACCOUNT.github.io/blog_website" target="_blank" rel="noopener">http://YOUR_ACCOUNT.github.io/blog_website</a></p>
+<h4 id="Custom-domain"><a href="#Custom-domain" class="headerlink" title="Custom domain"></a>Custom domain</h4><p>Create a CNAME in your DNS provider, config <strong>www</strong> mapping to <strong>YOUR_ACCOUNT.github.io</strong></p>
+<img src="/blog/2019/08/20/how-to-create-blog/cname.png" title="CNAME">
+<p>Back to Github settings, type the your domain in the <strong>Custom domain</strong> of Github Pages. Click <strong>Save</strong>. Check <strong>Enforce HTTPS</strong>.</p>
+<img src="/blog/2019/08/20/how-to-create-blog/github-pages-domain.png" title="Github Pages custom domain">
+<p>Wait for a minute, your domain should be ready to go.</p>
+<h4 id="You’re-all-done"><a href="#You’re-all-done" class="headerlink" title="You’re all done."></a>You’re all done.</h4><p>Next <a href="/blog/2019/08/26/customize-hexo-blog/" title="Customize Hexo blog">Customize Hexo blog</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://www.lcodej.com/blog/2019/08/20/hello-world/" data-id="ck36umlmd000fxolv9y996qb6" class="article-share-link">Share</a>
+      <a data-url="https://www.lcodej.com/blog/2019/08/20/how-to-create-blog/" data-id="ck3nnpgib000i4slv1pi4xde2" class="article-share-link">Share</a>
       
-        <a href="https://www.lcodej.com/blog/2019/08/20/hello-world/#disqus_thread" class="article-comment-link">Comments</a>
+        <a href="https://www.lcodej.com/blog/2019/08/20/how-to-create-blog/#disqus_thread" class="article-comment-link">Comments</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/tool/">tool</a></li></ul>
+
     </footer>
   </div>
   
@@ -129,7 +176,7 @@ ga('send', 'pageview');
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/blog/page/6/">&laquo; Prev</a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/5/">5</a><a class="page-number" href="/blog/page/6/">6</a><span class="page-number current">7</span>
+    <a class="extend prev" rel="prev" href="/blog/page/6/">&laquo; Prev</a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/5/">5</a><a class="page-number" href="/blog/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/blog/page/8/">8</a><a class="extend next" rel="next" href="/blog/page/8/">Next &raquo;</a>
   </nav>
 
 </section>
@@ -153,7 +200,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/data/">data</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/hardware/">hardware</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/tool/">tool</a><span class="tag-list-count">3</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/data/">data</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/fun/">fun</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/tool/">tool</a><span class="tag-list-count">3</span></li></ul>
     </div>
   </div>
 
@@ -164,6 +211,10 @@ ga('send', 'pageview');
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/blog/2019/12/01/lego-tree-house/">LEGO Tree House</a>
+          </li>
         
           <li>
             <a href="/blog/2019/11/19/exploratory-data-analysis-in-python/">Exploratory data analysis in python</a>
@@ -181,10 +232,6 @@ ga('send', 'pageview');
             <a href="/blog/2019/08/30/visual-studio-code-shortcuts/">Visual Studio Code Shortcuts</a>
           </li>
         
-          <li>
-            <a href="/blog/2019/08/26/customize-hexo-blog/">Customize Hexo blog</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -194,7 +241,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/11/">November 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/09/">September 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/08/">August 2019</a><span class="archive-list-count">4</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/12/">December 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/11/">November 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/09/">September 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/08/">August 2019</a><span class="archive-list-count">4</span></li></ul>
     </div>
   </div>
 

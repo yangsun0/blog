@@ -81,10 +81,10 @@ ga('send', 'pageview');
       <div class="outer">
         <section id="main">
   
-    <article id="post-azure-sql-data-warehouse-deep-dive" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-exploratory-data-analysis-in-python" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/blog/2019/09/13/azure-sql-data-warehouse-deep-dive/" class="article-date">
-  <time datetime="2019-09-13T23:26:05.000Z" itemprop="datePublished">2019-09-13</time>
+    <a href="/blog/2019/11/19/exploratory-data-analysis-in-python/" class="article-date">
+  <time datetime="2019-11-20T00:26:45.000Z" itemprop="datePublished">2019-11-19</time>
 </a>
     
   </div>
@@ -95,91 +95,106 @@ ga('send', 'pageview');
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/09/13/azure-sql-data-warehouse-deep-dive/">Azure SQL Data Warehouse Deep Dive</a>
+      <a class="article-title" href="/blog/2019/11/19/exploratory-data-analysis-in-python/">Exploratory data analysis in python</a>
     </h1>
   
 
         
   <div class="article-updated">
-    Last updated: <time datetime="2019-11-20T00:50:17.148Z" itemprop="dateModified">2019-11-19</time>
+    Last updated: <time datetime="2019-11-21T22:05:25.883Z" itemprop="dateModified">2019-11-21</time>
   </div>
 
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>My recent project uses Azure SQL Data Warehouse. The performance is good. I’m wondering how the Azure SQL Data Warehouse is designed compared to traditional SQL Server Database, and how the performance is improved? Let’s take a deep dive.</p>
-<h3 id="Azure-SQL-Data-Warehouse-Architecture"><a href="#Azure-SQL-Data-Warehouse-Architecture" class="headerlink" title="Azure SQL Data Warehouse Architecture"></a>Azure SQL Data Warehouse Architecture</h3><p>Azure SQL Data Warehouse is a distributed computing system. It isn’t a collection of computers which run SQL Server and operate partial of the data. Actually, Azure SQL Data Warehouse has a better design. BTW, it’s big data, but it’s not MapReduce.</p>
-<img src="/blog/2019/09/13/azure-sql-data-warehouse-deep-dive/azure-sql-data-warehouse-architecture.png" title="Azure SQL Data Warehouse Architecture">
-
-<p>References:</p>
-<ul>
-<li><a href="https://azure.microsoft.com/en-us/blog/adaptive-caching-powers-azure-sql-data-warehouse-performance-gains/" target="_blank" rel="noopener">Adaptive caching powers Azure SQL Data Warehouse performance gains</a></li>
-<li><a href="https://azure.microsoft.com/en-us/blog/lightning-fast-query-performance-with-azure-sql-data-warehouse/" target="_blank" rel="noopener">Lightning fast query performance with Azure SQL Data Warehouse</a></li>
+        <p><a href="https://en.wikipedia.org/wiki/Exploratory_data_analysis" target="_blank" rel="noopener">Exploratory data analysis</a> help us understand data. Python and data science packages are very useful. This post is a summary of the basic usage.</p>
+<h2 id="Toolkit"><a href="#Toolkit" class="headerlink" title="Toolkit"></a>Toolkit</h2><ul>
+<li><a href="https://pandas.pydata.org/pandas-docs/stable/index.html" target="_blank" rel="noopener">pandas</a></li>
+<li><a href="https://docs.scipy.org/doc/numpy/user/index.html" target="_blank" rel="noopener">numpy</a></li>
+<li><a href="https://docs.scipy.org/doc/scipy/reference/stats.html" target="_blank" rel="noopener">scipy.stats</a></li>
+<li><a href="https://matplotlib.org/users/index.html" target="_blank" rel="noopener">matplotlib</a></li>
 </ul>
-<h4 id="Storage-and-compute-are-decoupled"><a href="#Storage-and-compute-are-decoupled" class="headerlink" title="Storage and compute are decoupled"></a>Storage and compute are decoupled</h4><p>Storage and compute are decoupled. The compute node doesn’t manage the storage. Instead, the compute node is attached to the storage. It means we can scale up/down compute independently. There is no limitation on storage capacity. And we don’t pay for the storage. We only pay for compute. If we want to improve performance, we can allocated more compute nodes, and attach them to the storage. If we want to save money, we can reduce the compute nodes. One interesting thing is we can reduce to zero, we pay nothing, but we can’t access the data. It doesn’t mean we lost data, once we re-attach the compute nodes, we can access the data again. We call it pause/resume the data warehouse. It’s quite flexible. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">%matplotlib inline <span class="comment"># magic function to show plot inside Notebook</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="Explore-data"><a href="#Explore-data" class="headerlink" title="Explore data"></a>Explore data</h2><h4 id="Data-structure"><a href="#Data-structure" class="headerlink" title="Data structure"></a>Data structure</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">type(data)    <span class="comment">## pandas.core.frame.DataFrame</span></span><br><span class="line">data.info()</span><br><span class="line">data.head()</span><br><span class="line">data.tail()</span><br></pre></td></tr></table></figure>
+
+<h4 id="Select-index-and-filter"><a href="#Select-index-and-filter" class="headerlink" title="Select, index, and filter"></a>Select, index, and filter</h4><p>Select column or columns.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">data[<span class="string">"column"</span>]</span><br><span class="line">data[[<span class="string">"column1"</span>, <span class="string">"column2"</span>]]</span><br></pre></td></tr></table></figure>
+
+<p>Select data by index<br><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.loc.html" target="_blank" rel="noopener">pandas.DataFrame.loc</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># index is a string</span></span><br><span class="line">data.loc[<span class="string">"label_1"</span>]</span><br><span class="line">data.loc[<span class="string">"label_1"</span>:]</span><br><span class="line">data.loc[<span class="string">"label_1"</span>:<span class="string">"label_n"</span>]</span><br><span class="line">data.loc[[<span class="string">"label_1"</span>, <span class="string">"label_2"</span>]]</span><br><span class="line">data.loc[<span class="string">"label_1"</span>:<span class="string">"label_n"</span>, [<span class="string">"column_1"</span>, <span class="string">"column_n"</span>]]</span><br><span class="line">data.loc[<span class="string">"label_1"</span>:<span class="string">"label_n"</span>, <span class="string">"column_1"</span>:<span class="string">"column_n"</span>]</span><br><span class="line"><span class="comment"># index is an integer</span></span><br><span class="line">data.loc[<span class="number">1</span>:n]</span><br></pre></td></tr></table></figure>
+
+<p>Filter data<br><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.apply.html" target="_blank" rel="noopener">pandas.DataFrame.apply</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">data[data[<span class="string">"column1"</span>] == <span class="string">"foo"</span>]</span><br><span class="line">data[data.apply(<span class="keyword">lambda</span> row: row[<span class="string">"column1"</span>] &gt; <span class="number">1</span> <span class="keyword">and</span> row[<span class="string">"column2"</span>] &gt; <span class="number">2</span>, axis=<span class="number">1</span>)]</span><br></pre></td></tr></table></figure>
+
+<h4 id="Statistics"><a href="#Statistics" class="headerlink" title="Statistics"></a>Statistics</h4><p>Basic statistics</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">data.describe()</span><br><span class="line">data[<span class="string">"column"</span>].min()</span><br><span class="line">data[<span class="string">"column"</span>].max()</span><br><span class="line">data[<span class="string">"column"</span>].quantile(<span class="number">.25</span>)</span><br><span class="line">data[<span class="string">"column"</span>].median()</span><br><span class="line">data[<span class="string">"column"</span>].mean()</span><br><span class="line">data[<span class="string">"column"</span>].std()</span><br><span class="line">data[<span class="string">"column"</span>].var()</span><br></pre></td></tr></table></figure>
+
+<p><a href="https://en.wikipedia.org/wiki/Box_plot" target="_blank" rel="noopener">Box plot</a>  </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data[<span class="string">"column"</span>].plot(kind=<span class="string">"box"</span>);</span><br></pre></td></tr></table></figure>
+
+<img src="/blog/2019/11/19/exploratory-data-analysis-in-python/boxplot.png" title="Box plot">  
+<img src="/blog/2019/11/19/exploratory-data-analysis-in-python/boxplot_vs_pdf.png" title="Box plot VS PDF">  
 <p>Reference:</p>
 <ul>
-<li><a href="https://docs.microsoft.com/en-us/azure/sql-data-warehouse/massively-parallel-processing-mpp-architecture" target="_blank" rel="noopener">Massively parallel processing (MPP) architecture</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Box_plot" target="_blank" rel="noopener">Box plot</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Probability_density_function" target="_blank" rel="noopener">Probability density function</a></li>
 </ul>
-<h4 id="Distribution"><a href="#Distribution" class="headerlink" title="Distribution"></a>Distribution</h4><p>There’s a magic number: <strong>60</strong>. Azure SQL Data Warehouse always has 60 distributions. In other words, it divides the data into 60 pieces, the compute node process one or more pieces of the data. If we want to improve the performance, we pay for more compute nodes, and process data in parallel. For example, we have one compute node, the compute node need process all of the 60 distributions. If we have two compute nodes, each one process 30 distributions and they work in parallel. The performance is improved. However, it doesn’t mean adding more compute nodes always improve performance. Another important factor is how the data distributed. If distribution is unbalanced, some distribution has more, some has less, the compute time is the longest time of the compute node who process the most heavy distribution.  </p>
-<p>Azure SQL Data Warehouse has two distribution algorithms: hash and round-robin. (Note: the distribution strategy of Azure Data Warehouse is different from MapReduce.)</p>
-<ul>
-<li>Hash: using a deterministic hashing function to assign a row to 1 of the 60 distributions.</li>
-<li>Round-robin: distribute rows evenly across all distributions.</li>
-</ul>
-<p>Hash distributed table:</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> [dbo].[FactOrder]</span><br><span class="line">(</span><br><span class="line">    [OrderKey]            <span class="built_in">int</span>          <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">    [ProductKey]          <span class="built_in">int</span>          <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">    [Quantity]            <span class="built_in">smallint</span>     <span class="keyword">NOT</span> <span class="literal">NULL</span></span><br><span class="line">)</span><br><span class="line"><span class="keyword">WITH</span></span><br><span class="line">(</span><br><span class="line">    CLUSTERED COLUMNSTORE <span class="keyword">INDEX</span>,</span><br><span class="line">    DISTRIBUTION = <span class="keyword">HASH</span>([ProductKey])</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>Distribution</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">data.plot(kind=<span class="string">"hist"</span>, bins=<span class="number">20</span>, edgecolor=<span class="string">"black"</span>);</span><br><span class="line"></span><br><span class="line">data.plot(kind=<span class="string">"kde"</span>);</span><br><span class="line">plt.plot((mean, mean), (<span class="number">0</span>, high), <span class="string">"--b"</span>, linewidth=<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">data[<span class="string">"column"</span>].skew()</span><br></pre></td></tr></table></figure>
 
-<p>Round-robin distributed table:</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> [dbo].[FactOrder]</span><br><span class="line">(</span><br><span class="line">    [OrderKey]            <span class="built_in">int</span>          <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">    [ProductKey]          <span class="built_in">int</span>          <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">    [Quantity]            <span class="built_in">smallint</span>     <span class="keyword">NOT</span> <span class="literal">NULL</span></span><br><span class="line">)</span><br><span class="line"><span class="keyword">WITH</span></span><br><span class="line">(</span><br><span class="line">    CLUSTERED COLUMNSTORE <span class="keyword">INDEX</span>,</span><br><span class="line">    DISTRIBUTION = ROUND_ROBIN</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-
-<p>Round-robin is OK, if the scenario is simple. But in real world, we use Hash to optimize the distribution. And it’s the only way we can control the distribution. Choosing the correct hash column is critical for performance. Choosing hash column isn’t difficult. We can start from our business scenario. For example, which column is used to join two tables, which column is frequently used in group by clause. The optimization goal is to minimize the data movement. In the two tables joining scenario, the hash column is the joining column, the rows of the two tables share the same joining key are distributed to the same compute node. Otherwise, data movement is required.  </p>
-<img src="/blog/2019/09/13/azure-sql-data-warehouse-deep-dive/distribution.png" title="Distribution">  
-<img src="/blog/2019/09/13/azure-sql-data-warehouse-deep-dive/azure-sql-data-warehouse-scale.png" title="Azure SQL Data Warehouse Scale">  
-
-<p>The hash distribution has limitations. One limitation is the data skew problem. When data is not distribute evenly, scale up computing can’t efficiently help the performance. Another limitation is we can only have one hash column, if the business scenario requires more columns, data movement is required.</p>
-<p>Reference:</p>
-<ul>
-<li><a href="https://docs.microsoft.com/en-us/azure/sql-data-warehouse/memory-and-concurrency-limits" target="_blank" rel="noopener">Memory and concurrency limits for Azure SQL Data Warehouses</a></li>
-<li><a href="https://docs.microsoft.com/en-us/azure/sql-data-warehouse/sql-data-warehouse-tables-distribute" target="_blank" rel="noopener">Guidance for designing distributed tables in Azure SQL Data Warehouse</a></li>
-<li><a href="https://docs.microsoft.com/en-us/sql/t-sql/statements/create-table-azure-sql-data-warehouse" target="_blank" rel="noopener">CREATE TABLE (Azure SQL Data Warehouse)</a></li>
-</ul>
-<h3 id="Columnstore-Index"><a href="#Columnstore-Index" class="headerlink" title="Columnstore Index"></a>Columnstore Index</h3><p>Columnstore index is a new method to solve the problem how data is physically stored and how data is indexed.  </p>
-<p>A data table is logically organized with rows and columns. The tradition method physically stores data by row. The new method physically store data by column. Wait, the columns are determined, but rows are not. How it works? The data table is divided by columns. Columns are separately stored. A column is a sequence of values. In addition, the sequence is divided into groups, and each group is compressed. A column’s physical representation is a sequence of compressed groups. Why it’s good? It’s because the data warehouse scenario is analysis. The analysis is always column focused. For example, we want to calculate the total sales amount. The data warehouse just load the “sales amount” column from physical media, decompress the data, and calculate the sum. The process is compact, only the column we cared are loaded into memory, not the whole row. The compression is important, it saves the I/O cost (mostly, I/O is the bottleneck). The compression is also efficient, since the values in a column are belong to the same business domain, so they’re similar, and similar values have high compress rate. The group size is fixed, it’s 1,048,576 (another magic number: 2^20). The group size is carefully decided, large enough to improve compression rates, and small enough to benefit from in-memory operations. Decompress can be optimized by CPU AVX technologies, like the video encoding/decoding technologies.  </p>
-<img src="/blog/2019/09/13/azure-sql-data-warehouse-deep-dive/columnstore-index.png" title="Columnstore Index">  
-
-<p>For a comparison, let’s take a look at the tradition method. Data is stored by row physically. Index is created on column. The index is implemented by B-tree. The tree node contains the key, the index of the row, and pointers to the child tree nodes. Time complexity of searching a row is O(log(n)). For the same scenario, “calculate the total sales amount”, load the index into memory, traversal the tree, and calculate the sum of all the keys. The process isn’t as efficient as columnstore index, when the data size is large.</p>
-<img src="/blog/2019/09/13/azure-sql-data-warehouse-deep-dive/btree-index.png" title="B-Tree Index">  
+<img src="/blog/2019/11/19/exploratory-data-analysis-in-python/hist.png" title="Histogram">  
+<img src="/blog/2019/11/19/exploratory-data-analysis-in-python/kde.png" title="Kernel density estimation">  
+<img src="/blog/2019/11/19/exploratory-data-analysis-in-python/normal_distribution.png" title="Normal distribution by Wikipedia">  
 
 <p>Reference:</p>
 <ul>
-<li><a href="https://docs.microsoft.com/en-us/sql/relational-databases/indexes/columnstore-indexes-overview?view=sql-server-2017" target="_blank" rel="noopener">Columnstore indexes: Overview</a></li>
-<li><a href="https://www.geeksforgeeks.org/indexing-in-databases-set-1/" target="_blank" rel="noopener">Indexing in Databases | Set 1</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Normal_distribution" target="_blank" rel="noopener">Normal distribution</a></li>
 </ul>
-<h3 id="Hardware-innovation"><a href="#Hardware-innovation" class="headerlink" title="Hardware innovation"></a>Hardware innovation</h3><h4 id="MVMe-SSD"><a href="#MVMe-SSD" class="headerlink" title="MVMe SSD"></a>MVMe SSD</h4><p>I/O bandwidth is critical. Azure SQL Data Warehouse Gen 2 takes advantage of <a href="https://amzn.to/2NN3kz0" target="_blank" rel="noopener">MVMe SSD</a>, which offer up to 2 2GB/s of local I/O bandwidth.<br>Here’s the read/write speed comparisons between HDD, SATA SSD and MVMe SSD.</p>
-<ul>
-<li>7200RPM SATA HDD read/write speed is around 100MB/s</li>
-<li>SATA SSD read/write speed is around 500MB/s</li>
-<li><a href="https://amzn.to/2NN3kz0" target="_blank" rel="noopener">MVMe SSD</a> read speed is up to 3,500MB/s</li>
-</ul>
-<h4 id="AVX"><a href="#AVX" class="headerlink" title="AVX"></a>AVX</h4><p>Azure SQL Data Warehouse operates directly over compressed data, which take the advantage of the CPU technology: AVX.<br><a href="https://en.wikipedia.org/wiki/Advanced_Vector_Extensions" target="_blank" rel="noopener">Advanced Vector Extensions (AVX)</a> uses 16 YMM registers to perform single instruction on multiple pieces of data (<a href="https://en.wikipedia.org/wiki/SIMD" target="_blank" rel="noopener">SIMD</a>). The register is increased to 256 bits from 128 bits. New instructions are added.  </p>
-<img src="/blog/2019/09/13/azure-sql-data-warehouse-deep-dive/sisd.png" title="SISD(Single Instruction Single Data)">  
-<img src="/blog/2019/09/13/azure-sql-data-warehouse-deep-dive/simd.png" title="SIMD(Single Instruction Multiple Data)">  
-<img src="/blog/2019/09/13/azure-sql-data-warehouse-deep-dive/avxplus.png" title="AVX plus operation">  
+<p>Count and proportion<br><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.value_counts.html" target="_blank" rel="noopener">pandas.Series.value_counts</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">data.describe(include=<span class="string">"all"</span>)</span><br><span class="line">data[<span class="string">"column"</span>].value_counts()</span><br><span class="line">data[<span class="string">"column"</span>].value_counts(normalize=<span class="literal">True</span>)</span><br><span class="line">data[<span class="string">"column"</span>].value_counts().plot(kind=<span class="string">"bar"</span>);</span><br></pre></td></tr></table></figure>
 
-<p>Reference:</p>
-<ul>
-<li><a href="https://en.wikipedia.org/wiki/SIMD" target="_blank" rel="noopener">SIMD</a></li>
-<li><a href="https://www.codingame.com/playgrounds/283/sse-avx-vectorization/what-is-sse-and-avx" target="_blank" rel="noopener">SSE &amp; AVX Vectorization</a></li>
-</ul>
+<hr>
+<h2 id="Data-manipulation"><a href="#Data-manipulation" class="headerlink" title="Data manipulation"></a>Data manipulation</h2><p>Column<br><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.drop.html" target="_blank" rel="noopener">pandas.DataFrame.drop</a><br><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.rename.html" target="_blank" rel="noopener">pandas.DataFrame.rename</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">data[<span class="string">"NewColumn"</span>] = data[<span class="string">"column1"</span>] / data[<span class="string">"column2"</span>]</span><br><span class="line">data[<span class="string">"NewColumn"</span>] = data[<span class="string">"column"</span>].mean()</span><br><span class="line">data.drop(columns=[<span class="string">'column1'</span>, <span class="string">'column2'</span>])</span><br><span class="line">data.rename(columns=&#123;<span class="string">"column"</span>: <span class="string">"NewColumn"</span>&#125;)</span><br><span class="line">data.columns = [<span class="string">"column1"</span>, <span class="string">"column2"</span>]</span><br></pre></td></tr></table></figure>
+
+<p>Index<br><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.set_index.html" target="_blank" rel="noopener">pandas.DataFrame.set_index</a><br><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.reset_index.html" target="_blank" rel="noopener">pandas.DataFrame.reset_index</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">data.set_index(<span class="string">"column"</span>, inplace=<span class="literal">True</span>)</span><br><span class="line">data.reset_index(inplace=<span class="literal">True</span>)</span><br><span class="line">data.reset_index(inplace=<span class="literal">True</span>, drop=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+
+<p>Sort<br><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.sort_index.html" target="_blank" rel="noopener">pandas.DataFrame.sort_index</a><br><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.sort_values.html" target="_blank" rel="noopener">pandas.DataFrame.sort_values</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">data.sort_index(inplace=<span class="literal">True</span>)</span><br><span class="line">data.sort_values(by=[<span class="string">'column'</span>])</span><br></pre></td></tr></table></figure>
+
+<p>Duplicate<br><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.duplicated.html" target="_blank" rel="noopener">pandas.DataFrame.duplicated</a><br><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.drop_duplicates.html" target="_blank" rel="noopener">pandas.DataFrame.drop_duplicates</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">data[data.duplicated()]</span><br><span class="line">data[data.duplicated([<span class="string">"column"</span>])]</span><br><span class="line">data.drop_duplicates()</span><br><span class="line">data.drop_duplicates([<span class="string">"column"</span>])</span><br></pre></td></tr></table></figure>
+
+<p>NA values<br><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.fillna.html" target="_blank" rel="noopener">pandas.DataFrame.fillna</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">result.fillna()</span><br><span class="line">result.fillna(value=&#123;<span class="string">"column"</span>: <span class="number">0</span>&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>Sets<br><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.concat.html" target="_blank" rel="noopener">pandas.concat</a><br><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.join.html" target="_blank" rel="noopener">pandas.DataFrame.join</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">data = pd.concat([data1, data2], axis=<span class="number">1</span>)</span><br><span class="line">data = pd.concat([data1, data2], axis=<span class="number">1</span>, sort=<span class="literal">True</span>)</span><br><span class="line">data = pd.concat([data1, data2])</span><br><span class="line"></span><br><span class="line">data1.join(data2, how=<span class="string">"outer"</span>, lsuffix=<span class="string">"_left"</span>, rsuffix=<span class="string">"_right"</span>)</span><br><span class="line">data1.set_index(<span class="string">"column"</span>).join(data2.set_index(<span class="string">"column"</span>))</span><br></pre></td></tr></table></figure>
+
+<h2 id="I-O"><a href="#I-O" class="headerlink" title="I/O"></a>I/O</h2><p><a href="https://pandas.pydata.org/pandas-docs/stable/user_guide/io.html" target="_blank" rel="noopener">pandas I/O API</a><br><a href="https://pandas.pydata.org/pandas-docs/stable/user_guide/io.html#io-perf" target="_blank" rel="noopener">I/O performance</a>  </p>
+<hr>
+<p><em>The top-three are test_pickle_write, test_feather_write and test_hdf_fixed_write_compress.</em><br><em>The top three are test_feather_read, test_pickle_read and test_hdf_fixed_read.</em></p>
+<hr>
+<p>SQL</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pyodbc</span><br><span class="line"></span><br><span class="line">driver = <span class="string">"&#123;ODBC Driver 17 for SQL Server&#125;"</span></span><br><span class="line">server = <span class="string">"DATABASE_SERVER.database.windows.net"</span></span><br><span class="line">database = <span class="string">"DATABASE"</span></span><br><span class="line">username = <span class="string">"USERNAME"</span></span><br><span class="line">conn_str = <span class="string">f"DRIVER=<span class="subst">&#123;driver&#125;</span>; SERVER=<span class="subst">&#123;server&#125;</span>; DATABASE=<span class="subst">&#123;database&#125;</span>; UID=<span class="subst">&#123;username&#125;</span>; Encrypt=yes; Authentication=ActiveDirectoryInteractive"</span></span><br><span class="line">conn = pyodbc.connect(conn_str)</span><br><span class="line">sql = <span class="string">f"""</span></span><br><span class="line"><span class="string">SELECT </span></span><br><span class="line"><span class="string">    Column1,</span></span><br><span class="line"><span class="string">    Column2</span></span><br><span class="line"><span class="string">FROM Table</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line">data = pd.read_sql(sql, conn)</span><br></pre></td></tr></table></figure>
+
+<p>CSV</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pd.read_csv(file_name)</span><br><span class="line">pd.read_csv(file_name, delimiter=<span class="string">'\t'</span>)</span><br><span class="line">pd.read_csv(file_name, error_bad_lines=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
+
+<p>Python Pickle format</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">data.to_pickle(file_name)</span><br><span class="line">data = pd.read_pickle(file_name)</span><br></pre></td></tr></table></figure>
+
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://www.lcodej.com/blog/2019/09/13/azure-sql-data-warehouse-deep-dive/" data-id="ck36umlml000vxolv8gh1vk4j" class="article-share-link">Share</a>
+      <a data-url="https://www.lcodej.com/blog/2019/11/19/exploratory-data-analysis-in-python/" data-id="ck3nnpgi8000c4slv8budbp1n" class="article-share-link">Share</a>
       
-        <a href="https://www.lcodej.com/blog/2019/09/13/azure-sql-data-warehouse-deep-dive/#disqus_thread" class="article-comment-link">Comments</a>
+        <a href="https://www.lcodej.com/blog/2019/11/19/exploratory-data-analysis-in-python/#disqus_thread" class="article-comment-link">Comments</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/data/">data</a></li></ul>
@@ -195,7 +210,7 @@ ga('send', 'pageview');
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/blog/">&laquo; Prev</a><a class="page-number" href="/blog/">1</a><span class="page-number current">2</span><a class="page-number" href="/blog/page/3/">3</a><a class="page-number" href="/blog/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/7/">7</a><a class="extend next" rel="next" href="/blog/page/3/">Next &raquo;</a>
+    <a class="extend prev" rel="prev" href="/blog/">&laquo; Prev</a><a class="page-number" href="/blog/">1</a><span class="page-number current">2</span><a class="page-number" href="/blog/page/3/">3</a><a class="page-number" href="/blog/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/8/">8</a><a class="extend next" rel="next" href="/blog/page/3/">Next &raquo;</a>
   </nav>
 
 </section>
@@ -219,7 +234,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/data/">data</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/hardware/">hardware</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/tool/">tool</a><span class="tag-list-count">3</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/data/">data</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/fun/">fun</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/tool/">tool</a><span class="tag-list-count">3</span></li></ul>
     </div>
   </div>
 
@@ -230,6 +245,10 @@ ga('send', 'pageview');
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/blog/2019/12/01/lego-tree-house/">LEGO Tree House</a>
+          </li>
         
           <li>
             <a href="/blog/2019/11/19/exploratory-data-analysis-in-python/">Exploratory data analysis in python</a>
@@ -247,10 +266,6 @@ ga('send', 'pageview');
             <a href="/blog/2019/08/30/visual-studio-code-shortcuts/">Visual Studio Code Shortcuts</a>
           </li>
         
-          <li>
-            <a href="/blog/2019/08/26/customize-hexo-blog/">Customize Hexo blog</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -260,7 +275,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/11/">November 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/09/">September 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/08/">August 2019</a><span class="archive-list-count">4</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/12/">December 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/11/">November 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/09/">September 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/08/">August 2019</a><span class="archive-list-count">4</span></li></ul>
     </div>
   </div>
 

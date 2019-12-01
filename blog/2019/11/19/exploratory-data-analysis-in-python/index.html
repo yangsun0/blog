@@ -33,7 +33,7 @@ ga('send', 'pageview');
 <meta property="og:image" content="https://www.lcodej.com/blog/2019/11/19/exploratory-data-analysis-in-python/hist.png">
 <meta property="og:image" content="https://www.lcodej.com/blog/2019/11/19/exploratory-data-analysis-in-python/kde.png">
 <meta property="og:image" content="https://www.lcodej.com/blog/2019/11/19/exploratory-data-analysis-in-python/normal_distribution.png">
-<meta property="og:updated_time" content="2019-11-20T04:28:34.336Z">
+<meta property="og:updated_time" content="2019-11-21T22:05:25.883Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Exploratory data analysis in python">
 <meta name="twitter:description" content="Exploratory data analysis help us understand data. Python and data science packages are very useful. This post is a summary of the basic usage. Toolkit pandas numpy scipy.stats matplotlib  12345import">
@@ -106,7 +106,7 @@ ga('send', 'pageview');
 
         
   <div class="article-updated">
-    Last updated: <time datetime="2019-11-20T04:28:34.336Z" itemprop="dateModified">2019-11-19</time>
+    Last updated: <time datetime="2019-11-21T22:05:25.883Z" itemprop="dateModified">2019-11-21</time>
   </div>
 
       </header>
@@ -132,7 +132,7 @@ ga('send', 'pageview');
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># index is a string</span></span><br><span class="line">data.loc[<span class="string">"label_1"</span>]</span><br><span class="line">data.loc[<span class="string">"label_1"</span>:]</span><br><span class="line">data.loc[<span class="string">"label_1"</span>:<span class="string">"label_n"</span>]</span><br><span class="line">data.loc[[<span class="string">"label_1"</span>, <span class="string">"label_2"</span>]]</span><br><span class="line">data.loc[<span class="string">"label_1"</span>:<span class="string">"label_n"</span>, [<span class="string">"column_1"</span>, <span class="string">"column_n"</span>]]</span><br><span class="line">data.loc[<span class="string">"label_1"</span>:<span class="string">"label_n"</span>, <span class="string">"column_1"</span>:<span class="string">"column_n"</span>]</span><br><span class="line"><span class="comment"># index is an integer</span></span><br><span class="line">data.loc[<span class="number">1</span>:n]</span><br></pre></td></tr></table></figure>
 
 <p>Filter data<br><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.apply.html" target="_blank" rel="noopener">pandas.DataFrame.apply</a></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">data[data[<span class="string">"column1"</span>] == <span class="string">"foo"</span>]</span><br><span class="line">data[data.apply(<span class="keyword">lambda</span> row: row[<span class="string">"column1"</span>] &gt; <span class="number">1</span> <span class="keyword">and</span> row[<span class="string">"column2"</span>] &gt; <span class="number">2</span>)]</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">data[data[<span class="string">"column1"</span>] == <span class="string">"foo"</span>]</span><br><span class="line">data[data.apply(<span class="keyword">lambda</span> row: row[<span class="string">"column1"</span>] &gt; <span class="number">1</span> <span class="keyword">and</span> row[<span class="string">"column2"</span>] &gt; <span class="number">2</span>, axis=<span class="number">1</span>)]</span><br></pre></td></tr></table></figure>
 
 <h4 id="Statistics"><a href="#Statistics" class="headerlink" title="Statistics"></a>Statistics</h4><p>Basic statistics</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">data.describe()</span><br><span class="line">data[<span class="string">"column"</span>].min()</span><br><span class="line">data[<span class="string">"column"</span>].max()</span><br><span class="line">data[<span class="string">"column"</span>].quantile(<span class="number">.25</span>)</span><br><span class="line">data[<span class="string">"column"</span>].median()</span><br><span class="line">data[<span class="string">"column"</span>].mean()</span><br><span class="line">data[<span class="string">"column"</span>].std()</span><br><span class="line">data[<span class="string">"column"</span>].var()</span><br></pre></td></tr></table></figure>
@@ -166,7 +166,7 @@ ga('send', 'pageview');
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">data[<span class="string">"NewColumn"</span>] = data[<span class="string">"column1"</span>] / data[<span class="string">"column2"</span>]</span><br><span class="line">data[<span class="string">"NewColumn"</span>] = data[<span class="string">"column"</span>].mean()</span><br><span class="line">data.drop(columns=[<span class="string">'column1'</span>, <span class="string">'column2'</span>])</span><br><span class="line">data.rename(columns=&#123;<span class="string">"column"</span>: <span class="string">"NewColumn"</span>&#125;)</span><br><span class="line">data.columns = [<span class="string">"column1"</span>, <span class="string">"column2"</span>]</span><br></pre></td></tr></table></figure>
 
 <p>Index<br><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.set_index.html" target="_blank" rel="noopener">pandas.DataFrame.set_index</a><br><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.reset_index.html" target="_blank" rel="noopener">pandas.DataFrame.reset_index</a></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">data.set_index(<span class="string">"column"</span>, inplace=<span class="literal">True</span>)</span><br><span class="line">data.reset_index(inplace=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">data.set_index(<span class="string">"column"</span>, inplace=<span class="literal">True</span>)</span><br><span class="line">data.reset_index(inplace=<span class="literal">True</span>)</span><br><span class="line">data.reset_index(inplace=<span class="literal">True</span>, drop=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
 
 <p>Sort<br><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.sort_index.html" target="_blank" rel="noopener">pandas.DataFrame.sort_index</a><br><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.sort_values.html" target="_blank" rel="noopener">pandas.DataFrame.sort_values</a></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">data.sort_index(inplace=<span class="literal">True</span>)</span><br><span class="line">data.sort_values(by=[<span class="string">'column'</span>])</span><br></pre></td></tr></table></figure>
@@ -177,8 +177,8 @@ ga('send', 'pageview');
 <p>NA values<br><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.fillna.html" target="_blank" rel="noopener">pandas.DataFrame.fillna</a></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">result.fillna()</span><br><span class="line">result.fillna(value=&#123;<span class="string">"column"</span>: <span class="number">0</span>&#125;)</span><br></pre></td></tr></table></figure>
 
-<p>Sets<br><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.concat.html" target="_blank" rel="noopener">pandas.concat</a></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">data = pd.concat([data1, data2], axis=<span class="number">1</span>)</span><br><span class="line">data = pd.concat([data1, data2], axis=<span class="number">1</span>, sort=<span class="literal">True</span>)</span><br><span class="line">data = pd.concat([data1, data2])</span><br></pre></td></tr></table></figure>
+<p>Sets<br><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.concat.html" target="_blank" rel="noopener">pandas.concat</a><br><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.join.html" target="_blank" rel="noopener">pandas.DataFrame.join</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">data = pd.concat([data1, data2], axis=<span class="number">1</span>)</span><br><span class="line">data = pd.concat([data1, data2], axis=<span class="number">1</span>, sort=<span class="literal">True</span>)</span><br><span class="line">data = pd.concat([data1, data2])</span><br><span class="line"></span><br><span class="line">data1.join(data2, how=<span class="string">"outer"</span>, lsuffix=<span class="string">"_left"</span>, rsuffix=<span class="string">"_right"</span>)</span><br><span class="line">data1.set_index(<span class="string">"column"</span>).join(data2.set_index(<span class="string">"column"</span>))</span><br></pre></td></tr></table></figure>
 
 <h2 id="I-O"><a href="#I-O" class="headerlink" title="I/O"></a>I/O</h2><p><a href="https://pandas.pydata.org/pandas-docs/stable/user_guide/io.html" target="_blank" rel="noopener">pandas I/O API</a><br><a href="https://pandas.pydata.org/pandas-docs/stable/user_guide/io.html#io-perf" target="_blank" rel="noopener">I/O performance</a>  </p>
 <hr>
@@ -197,7 +197,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://www.lcodej.com/blog/2019/11/19/exploratory-data-analysis-in-python/" data-id="ck36umlmb000bxolvao4ve5vp" class="article-share-link">Share</a>
+      <a data-url="https://www.lcodej.com/blog/2019/11/19/exploratory-data-analysis-in-python/" data-id="ck3nnpgi8000c4slv8budbp1n" class="article-share-link">Share</a>
       
         <a href="https://www.lcodej.com/blog/2019/11/19/exploratory-data-analysis-in-python/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -209,6 +209,15 @@ ga('send', 'pageview');
   
     
 <nav id="article-nav">
+  
+    <a href="/blog/2019/12/01/lego-tree-house/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          LEGO Tree House
+        
+      </div>
+    </a>
   
   
     <a href="/blog/2019/09/13/azure-sql-data-warehouse-deep-dive/" id="article-nav-older" class="article-nav-link-wrap">
@@ -248,7 +257,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/data/">data</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/hardware/">hardware</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/tool/">tool</a><span class="tag-list-count">3</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/data/">data</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/fun/">fun</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/tool/">tool</a><span class="tag-list-count">3</span></li></ul>
     </div>
   </div>
 
@@ -259,6 +268,10 @@ ga('send', 'pageview');
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/blog/2019/12/01/lego-tree-house/">LEGO Tree House</a>
+          </li>
         
           <li>
             <a href="/blog/2019/11/19/exploratory-data-analysis-in-python/">Exploratory data analysis in python</a>
@@ -276,10 +289,6 @@ ga('send', 'pageview');
             <a href="/blog/2019/08/30/visual-studio-code-shortcuts/">Visual Studio Code Shortcuts</a>
           </li>
         
-          <li>
-            <a href="/blog/2019/08/26/customize-hexo-blog/">Customize Hexo blog</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -289,7 +298,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/11/">November 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/09/">September 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/08/">August 2019</a><span class="archive-list-count">4</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/12/">December 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/11/">November 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/09/">September 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/08/">August 2019</a><span class="archive-list-count">4</span></li></ul>
     </div>
   </div>
 

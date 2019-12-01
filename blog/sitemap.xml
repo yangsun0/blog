@@ -1,16 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
+    <url>
     <loc>https://www.lcodej.com/</loc>
     
-    <lastmod>2019-11-20T04:28:34.336Z</lastmod>
+    <lastmod>2019-12-01T23:48:21.003Z</lastmod>
     
   </url>
 
   <url>
+    <loc>https://www.lcodej.com/blog/2019/09/02/hardware/</loc>
+    
+    <lastmod>2019-12-01T23:48:21.003Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.lcodej.com/blog/2019/12/01/lego-tree-house/</loc>
+    
+    <lastmod>2019-12-01T23:47:47.497Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://www.lcodej.com/blog/2019/11/19/exploratory-data-analysis-in-python/</loc>
     
-    <lastmod>2019-11-20T04:28:34.336Z</lastmod>
+    <lastmod>2019-11-21T22:05:25.883Z</lastmod>
     
   </url>
   
@@ -39,13 +53,6 @@
     <loc>https://www.lcodej.com/blog/2019/08/30/visual-studio-code-shortcuts/</loc>
     
     <lastmod>2019-11-20T00:49:53.589Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://www.lcodej.com/blog/2019/09/02/hardware/</loc>
-    
-    <lastmod>2019-09-10T03:16:28.349Z</lastmod>
     
   </url>
   
