@@ -6,7 +6,7 @@
   <link href="/blog/atom.xml" rel="self"/>
   
   <link href="https://www.lcodej.com/blog/"/>
-  <updated>2019-12-01T23:47:47.497Z</updated>
+  <updated>2019-12-30T17:22:29.281Z</updated>
   <id>https://www.lcodej.com/blog/</id>
   
   <author>
@@ -17,11 +17,36 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Plot</title>
+    <link href="https://www.lcodej.com/blog/2019/12/27/plot/"/>
+    <id>https://www.lcodej.com/blog/2019/12/27/plot/</id>
+    <published>2019-12-28T06:27:11.000Z</published>
+    <updated>2019-12-30T17:22:29.281Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;Numbers doesn’t talk, data visualization is must-have. This post is a quick lookup for plot customization.&lt;/p&gt;
+&lt;figure class=&quot;highlight
+        
+      
+    
+    </summary>
+    
+    
+      <category term="data" scheme="https://www.lcodej.com/blog/tags/data/"/>
+    
+  </entry>
+  
+  <entry>
     <title>LEGO Tree House</title>
     <link href="https://www.lcodej.com/blog/2019/12/01/lego-tree-house/"/>
     <id>https://www.lcodej.com/blog/2019/12/01/lego-tree-house/</id>
     <published>2019-12-01T22:57:20.000Z</published>
-    <updated>2019-12-01T23:47:47.497Z</updated>
+    <updated>2019-12-02T05:06:37.742Z</updated>
     
     <summary type="html">
     

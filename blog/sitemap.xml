@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-    <url>
-    <loc>https://www.lcodej.com/</loc>
-    
-    <lastmod>2019-12-01T23:48:21.003Z</lastmod>
-    
-  </url>
-
+  
   <url>
-    <loc>https://www.lcodej.com/blog/2019/09/02/hardware/</loc>
+    <loc>https://www.lcodej.com/blog/2019/12/27/plot/</loc>
     
-    <lastmod>2019-12-01T23:48:21.003Z</lastmod>
+    <lastmod>2019-12-30T17:22:29.281Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://www.lcodej.com/blog/2019/12/01/lego-tree-house/</loc>
     
-    <lastmod>2019-12-01T23:47:47.497Z</lastmod>
+    <lastmod>2019-12-02T05:06:37.742Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.lcodej.com/blog/2019/09/02/hardware/</loc>
+    
+    <lastmod>2019-12-01T23:48:21.003Z</lastmod>
     
   </url>
   
