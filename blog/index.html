@@ -81,10 +81,10 @@ ga('send', 'pageview');
       <div class="outer">
         <section id="main">
   
-    <article id="post-plot" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-dependency-injection" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/blog/2019/12/27/plot/" class="article-date">
-  <time datetime="2019-12-28T06:27:11.000Z" itemprop="datePublished">2019-12-27</time>
+    <a href="/blog/2020/01/31/dependency-injection/" class="article-date">
+  <time datetime="2020-02-01T03:51:06.000Z" itemprop="datePublished">2020-01-31</time>
 </a>
     
   </div>
@@ -95,192 +95,78 @@ ga('send', 'pageview');
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/12/27/plot/">Plot</a>
+      <a class="article-title" href="/blog/2020/01/31/dependency-injection/">Dependency Injection</a>
     </h1>
   
 
         
   <div class="article-updated">
-    Last updated: <time datetime="2019-12-30T17:22:29.281Z" itemprop="dateModified">2019-12-30</time>
+    Last updated: <time datetime="2020-02-03T01:00:45.236Z" itemprop="dateModified">2020-02-02</time>
   </div>
 
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Numbers doesn’t talk, data visualization is must-have. This post is a quick lookup for plot customization.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">%matplotlib inline</span><br><span class="line"><span class="comment"># %matplotlib notebook   # Interactive plot, need restart Jupyter Notebook kernel</span></span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> matplotlib.ticker <span class="keyword">as</span> ticker</span><br><span class="line"><span class="keyword">import</span> matplotlib.dates <span class="keyword">as</span> mdates</span><br><span class="line"></span><br><span class="line">fig, ax = plt.subplots()</span><br><span class="line">data.plot(ax=ax)</span><br><span class="line">data[<span class="string">"column"</span>].plot(ax=ax)</span><br><span class="line"><span class="comment"># plot type</span></span><br><span class="line">data.plot(ax=ax, kind=<span class="string">"line"</span>)</span><br><span class="line"><span class="comment"># style</span></span><br><span class="line">data.plot(ax=ax, style=[<span class="string">"b"</span>, <span class="string">"ro--"</span>])</span><br><span class="line"><span class="comment"># legend</span></span><br><span class="line">data.plot(ax=ax, legend=<span class="literal">True</span>)</span><br><span class="line">ax.legend(labels=[<span class="string">"label1"</span>, <span class="string">"label2"</span>], loc=<span class="string">"upper right"</span>)</span><br><span class="line"><span class="comment"># title</span></span><br><span class="line">fig.suptittle(<span class="string">""</span>)</span><br><span class="line">ax.set_title(<span class="string">"title"</span>)</span><br><span class="line">ax.set_ylabel(<span class="string">"y label"</span>)</span><br><span class="line">ax.set_xlabel(<span class="string">"x label"</span>)</span><br><span class="line"><span class="comment"># grid</span></span><br><span class="line">ax.grid(<span class="literal">True</span>)</span><br><span class="line"><span class="comment"># axis, tick</span></span><br><span class="line">ax.set_xlim(left, right)</span><br><span class="line">ax.get_xaxis().set_major_locator(mdates.MonthLocator(interval=<span class="number">4</span>))</span><br><span class="line">ax.get_xaxis().set_major_formatter(mdates.DateFormatter(<span class="string">"%b %Y"</span>))</span><br><span class="line">ax.get_yaxis().set_major_formatter(ticker.PercentFormatter())</span><br><span class="line"><span class="comment"># annotation</span></span><br><span class="line">ax.annotate(text=<span class="string">"text"</span>, xy=(x, y), xytext=(x + <span class="number">5</span>, y + <span class="number">5</span>), arrowprops=dict(arrowstyle=<span class="string">"-&gt;"</span>))</span><br><span class="line"><span class="comment"># size</span></span><br><span class="line">fig.set_size_inches(width, height)</span><br><span class="line">fig.tight_layout()</span><br></pre></td></tr></table></figure>
+        <p>Dependency injection is supper useful. The constructor dependency injection is like a magic. What’s secret behind it? Let’s take a deep look.</p>
+<h2 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h2><p>Why dependency injection is useful? The most important benefit is decouple. Class A reference class B, because A relies on B’s functionality, simply saying A calls B’s function. However, B doesn’t come out of blue. A has to know how to create or obtain B. But actually, A doesn’t really care about it. Even more, if B’s construction logic changed, it’s a breaking change to A. Dependency injection is a way to decouple.</p>
+<p>How does dependency injection work? Here’s a full example: <a href="https://docs.microsoft.com/en-us/aspnet/core/mvc/controllers/dependency-injection" target="_blank" rel="noopener">Dependency injection into controllers in ASP.NET Core</a></p>
+<p>A short summary is:</p>
+<ol>
+<li>Define the class B and interface IB</li>
+<li>Declare IB as A’s constructor parameter, A save it as a member variable.</li>
+<li>Register IB with B in the startup</li>
+</ol>
+<p>In the below example, A-&gt;B-&gt;C, the dependency chain is well constructed by the dependency injection library. Good job! It’s like a magic. I want to know the secret.</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title">IA</span></span><br><span class="line">&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">A</span>: <span class="title">IA</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">readonly</span> IB _b;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">A</span>(<span class="params">IB b</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        _b = b;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title">IB</span></span><br><span class="line">&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">B</span> : <span class="title">IB</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">readonly</span> IC _c;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">B</span>(<span class="params">IC c</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        _c = c;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title">IC</span></span><br><span class="line">&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">C</span> : <span class="title">IC</span></span><br><span class="line">&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">ConfigureServices</span>(<span class="params">IServiceCollection services</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    services.AddScoped&lt;IB, B&gt;();</span><br><span class="line">    services.AddScoped&lt;IC, C&gt;();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// Library: Microsoft.Extensions.DependencyInjection</span></span><br><span class="line">    <span class="keyword">var</span> serviceCollection = <span class="keyword">new</span> ServiceCollection()</span><br><span class="line">            .AddTransient&lt;IA, A&gt;()</span><br><span class="line">            .AddTransient&lt;IB, B&gt;()</span><br><span class="line">            .AddTransient&lt;IC, C&gt;();</span><br><span class="line">    <span class="keyword">var</span> serviceProvider = serviceCollection.BuildServiceProvider();</span><br><span class="line">    IA a = serviceProvider.GetService&lt;IA&gt;();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<img src="/blog/2019/12/27/plot/figure.png" title="Figure">  
+<h2 id="Dependency-Injection-deep-dive"><a href="#Dependency-Injection-deep-dive" class="headerlink" title="Dependency Injection deep dive"></a>Dependency Injection deep dive</h2><h3 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h3><p>The question is: given a type at runtime, how to create the instance? The source code of the dependency injection library is on Github: <a href="https://github.com/dotnet/extensions/tree/master/src/DependencyInjection" target="_blank" rel="noopener">Dependency injection library</a>. After reading the code, I found the library uses three ways to dynamically create instance for runtime type. There’re three ways not one, it’s because the .Net runtime version. The code is here: <a href="https://github.com/dotnet/extensions/blob/master/src/DependencyInjection/DI/src/ServiceProvider.cs" target="_blank" rel="noopener">ServiceProvider</a>:</p>
+<ol>
+<li>Expression Tree</li>
+<li>Dynamic Method</li>
+<li>Reflection</li>
+</ol>
+<p>The underlying mechanism of the 1st and the 2nd approach are same, they’re equivalent to new operator(<code>var a = new A();</code>), so they’re the most efficient. The 3rd one is reflection, which is less efficient.</p>
+<h3 id="Intermediate-Language-IL"><a href="#Intermediate-Language-IL" class="headerlink" title="Intermediate Language (IL)"></a>Intermediate Language (IL)</h3><p>Intermediate Language (IL) is a concept in .NET. C# is high level programing language. C# compiler compiles C# code into IL code, and stored in the assembly, which may be a dll or exe file. <a href="https://github.com/icsharpcode/ILSpy" target="_blank" rel="noopener">ILSpy</a> is a tool to view IL code inside the assembly. .NET CLR (Common Language Runtime) loads the assembly, JIT(Just-In-Time) compiles the IL code into native code. The native code are native machine instructions, and executed by machine. Here’s the full explanation <a href="https://docs.microsoft.com/en-us/dotnet/csharp/getting-started/introduction-to-the-csharp-language-and-the-net-framework" target="_blank" rel="noopener">Introduction to the C# language and the .NET Framework</a>.</p>
+<p>Back to this topic, the idea is to generate IL code to new an instance for a type at runtime, which is equivalent to write C# code to new an instance for a known type. .Net framework provides dynamic method and expression tree to generate IL code at runtime. </p>
+<hr>
+<p>C# -&gt; IL -&gt; native code</p>
+<hr>
+<p><code>new</code> operator’s corresponding IL code is <a href="https://docs.microsoft.com/en-us/dotnet/api/system.reflection.emit.opcodes.newobj" target="_blank" rel="noopener">newobj</a>. </p>
+<h4 id="C"><a href="#C" class="headerlink" title="C#"></a>C#</h4><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="keyword">new</span> A();</span><br></pre></td></tr></table></figure>
 
-<h3 id="Plot-types"><a href="#Plot-types" class="headerlink" title="Plot types"></a>Plot types</h3><p>kind=</p>
-<table>
-<thead>
-<tr>
-<th>value</th>
-<th>graphic</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>line</td>
-<td>line plot (default)</td>
-</tr>
-<tr>
-<td>bar</td>
-<td>vertical bar plot</td>
-</tr>
-<tr>
-<td>barh</td>
-<td>horizontal bar plot</td>
-</tr>
-<tr>
-<td>hist</td>
-<td>histogram</td>
-</tr>
-<tr>
-<td>box</td>
-<td>boxplot</td>
-</tr>
-<tr>
-<td>kde</td>
-<td>Kernel Density Estimation plot</td>
-</tr>
-<tr>
-<td>density</td>
-<td>same as kde</td>
-</tr>
-<tr>
-<td>area</td>
-<td>area plot</td>
-</tr>
-<tr>
-<td>pie</td>
-<td>pie plot</td>
-</tr>
-<tr>
-<td>scatter</td>
-<td>scatter plot</td>
-</tr>
-<tr>
-<td>hexbin</td>
-<td>hexbin plot</td>
-</tr>
-</tbody></table>
-<h3 id="Style"><a href="#Style" class="headerlink" title="Style"></a>Style</h3><p>style=”[color][marker][linestyle]”</p>
-<h4 id="Color"><a href="#Color" class="headerlink" title="Color"></a>Color</h4><table>
-<thead>
-<tr>
-<th>shortname</th>
-<th>color</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>b</td>
-<td>blue</td>
-</tr>
-<tr>
-<td>g</td>
-<td>green</td>
-</tr>
-<tr>
-<td>r</td>
-<td>red</td>
-</tr>
-<tr>
-<td>c</td>
-<td>cyan</td>
-</tr>
-<tr>
-<td>m</td>
-<td>magenta</td>
-</tr>
-<tr>
-<td>y</td>
-<td>yellow</td>
-</tr>
-<tr>
-<td>k</td>
-<td>black</td>
-</tr>
-<tr>
-<td>w</td>
-<td>white</td>
-</tr>
-</tbody></table>
-<p>Hex decimal code is supported. e.g. #aabbcc</p>
-<h4 id="Marker"><a href="#Marker" class="headerlink" title="Marker"></a>Marker</h4><table>
-<thead>
-<tr>
-<th>shortname</th>
-<th>name</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>o</td>
-<td>circle</td>
-</tr>
-<tr>
-<td>.</td>
-<td>point</td>
-</tr>
-<tr>
-<td>s</td>
-<td>square</td>
-</tr>
-<tr>
-<td>*</td>
-<td>star</td>
-</tr>
-<tr>
-<td>+</td>
-<td>plus</td>
-</tr>
-</tbody></table>
-<h4 id="Line-style"><a href="#Line-style" class="headerlink" title="Line style"></a>Line style</h4><table>
-<thead>
-<tr>
-<th>shortname</th>
-<th>name</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>-</td>
-<td>solid</td>
-</tr>
-<tr>
-<td>–</td>
-<td>dashed</td>
-</tr>
-<tr>
-<td>:</td>
-<td>dotted</td>
-</tr>
-<tr>
-<td>-.</td>
-<td>dashdot</td>
-</tr>
-<tr>
-<td>{I’m a space}</td>
-<td>none</td>
-</tr>
-</tbody></table>
-<h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h3><ul>
-<li><a href="https://pandas.pydata.org/pandas-docs/stable/reference/frame.html#plotting" target="_blank" rel="noopener">pandas.DataFrame.plot</a></li>
-<li><a href="https://matplotlib.org//api/axes_api.html#the-axes-class" target="_blank" rel="noopener">matplotlib.axes.Axes</a></li>
-<li><a href="https://matplotlib.org/api/_as_gen/matplotlib.figure.Figure.html#matplotlib.figure.Figure.tight_layout" target="_blank" rel="noopener">matplotlib.figure.Figure</a></li>
-<li><a href="https://matplotlib.org//api/ticker_api.html" target="_blank" rel="noopener">Tick locating and formatting</a></li>
-<li><a href="https://matplotlib.org//api/dates_api.html" target="_blank" rel="noopener">Date tick locator and formatter</a></li>
-</ul>
+<h4 id="IL"><a href="#IL" class="headerlink" title="IL"></a>IL</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">IL_0001: newobj instance void ConsoleApp.A::.ctor()</span><br><span class="line">IL_0002: stloc.0</span><br></pre></td></tr></table></figure>
+
+<h3 id="Dynamic-method"><a href="#Dynamic-method" class="headerlink" title="Dynamic method"></a>Dynamic method</h3><p>Here’s the steps to use Dynamic Method, and the full explanation of the <a href="https://docs.microsoft.com/en-us/dotnet/framework/reflection-and-codedom/how-to-define-and-execute-dynamic-methods" target="_blank" rel="noopener">document</a>.</p>
+<ol>
+<li>Create a Dynamic Method object</li>
+<li>Generate IL codes as the body of the Dynamic Method.</li>
+<li>Create a delegate to invoke the Dynamic Method. </li>
+</ol>
+<p>Dynamic Method is efficient. The disadvantage is the code maintenance. IL is stack-based language (<a href="https://en.wikipedia.org/wiki/Common_Intermediate_Language" target="_blank" rel="noopener">wiki</a>). The variables are defined on the stack, the instructions operates the variables on the stack. It’s easy for machine (CPU and memory) to understand, but it’s not easy for human to understand. Human’s brain doesn’t work like CPU and memory. :P. The second is generating wrong IL code, the compiler won’t complain. The code is here: <a href="https://github.com/dotnet/extensions/blob/master/src/DependencyInjection/DI/src/ServiceLookup/ILEmit/ILEmitResolverBuilder.cs" target="_blank" rel="noopener">ILEmitResolverBuilder</a></p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">DynamicMethod dynamicMethod = <span class="keyword">new</span> DynamicMethod(</span><br><span class="line">    <span class="string">"NewInstance"</span>,</span><br><span class="line">    <span class="keyword">object</span>,</span><br><span class="line">    <span class="keyword">new</span> Type[] &#123; &#125;);</span><br><span class="line"><span class="keyword">var</span> il = dynamicMethod.GetILGenerator();</span><br><span class="line">ConstructorInfo constructor = type.GetConstructors()[<span class="number">0</span>];</span><br><span class="line">il.Emit(OpCodes.Newobj, constructor);</span><br><span class="line">il.Emit(OpCodes.Stloc_0);</span><br><span class="line">il.Emit(OpCodes.Ldloc_0);</span><br><span class="line">il.Emit(OpCodes.Ret);</span><br><span class="line"><span class="keyword">var</span> newInstance = dynamicMethod.CreateDelegate(<span class="keyword">typeof</span>(Func&lt;Object&gt;));</span><br><span class="line"><span class="keyword">var</span> obj = newInstance();</span><br></pre></td></tr></table></figure>
+
+<h3 id="Expression-Tree"><a href="#Expression-Tree" class="headerlink" title="Expression Tree"></a>Expression Tree</h3><p>The previous generate IL code approach is a way like we’re the compiler, we translate the programing language to the code machine can execute. All the work are done by us. The Expression Tree approach is a way like we build the <a href="https://en.wikipedia.org/wiki/Abstract_syntax_tree" target="_blank" rel="noopener">syntax tree</a>, and let the compiler generate the machine code. This approach is also efficient, and the code maintenance is also improved. Here’s the <a href="https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/expression-trees/" target="_blank" rel="noopener">document</a>. The code is here: <a href="https://github.com/dotnet/extensions/blob/master/src/DependencyInjection/DI/src/ServiceLookup/Expressions/ExpressionResolverBuilder.cs" target="_blank" rel="noopener">ExpressionResolverBuilder</a></p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ConstructorInfo constructor = type.GetConstructors()[<span class="number">0</span>];</span><br><span class="line"><span class="keyword">var</span> newExpression = Expression.New(constructor, <span class="keyword">new</span>[] &#123; &#125;);</span><br><span class="line"><span class="keyword">var</span> lambda = Expression.Lambda&lt;Func&lt;<span class="keyword">object</span>&gt;&gt;(newExpression, <span class="keyword">new</span>[] &#123; &#125; );</span><br><span class="line"><span class="keyword">var</span> newInstance = lambda.Compile();</span><br><span class="line"><span class="keyword">var</span> obj = newInstance();</span><br></pre></td></tr></table></figure>
+
+<h3 id="Reflection"><a href="#Reflection" class="headerlink" title="Reflection"></a>Reflection</h3><p><a href="https://docs.microsoft.com/en-us/dotnet/framework/reflection-and-codedom/reflection" target="_blank" rel="noopener">Reflection</a> is different from the previous two. The approach is to call the <a href="https://docs.microsoft.com/en-us/dotnet/api/system.reflection.constructorinfo" target="_blank" rel="noopener">Invoke</a> function on the ConstructorInfo. Digging into the call stack, the last function call is <code>RuntimeMethodHandle::InvokeMethod</code>, which is implemented by .NET runtime internal (<a href="https://docs.microsoft.com/en-us/dotnet/api/system.runtime.compilerservices.methodimploptions" target="_blank" rel="noopener">MethodImplOptions.InternalCall</a>). The code is simple, but the performance is not good as the previous two. By spying the implementation, I found the implantation isn’t simple, it constructs a Signature, perform security check on demand, and argument’s value type check. All these check contribute to slow down performance. The code is here: <a href="https://github.com/dotnet/extensions/blob/master/src/DependencyInjection/DI/src/ServiceLookup/CallSiteRuntimeResolver.cs" target="_blank" rel="noopener">CallSiteRuntimeResolver</a>.</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ConstructorInfo constructor = type.GetConstructors()[<span class="number">0</span>];</span><br><span class="line"><span class="keyword">var</span> obj = constructor.Invoke(<span class="keyword">new</span> []&#123; &#125;);</span><br></pre></td></tr></table></figure>
+
+<img src="/blog/2020/01/31/dependency-injection/RuntimeConstructorInfo_Invoke.png" title="RuntimeConstructorInfo::Invoke()">
+
+<img src="/blog/2020/01/31/dependency-injection/RuntimeMethodHandle_InvokeMethod.png" title="RuntimeMethodHandle::InvokeMethod()">
+
+<p><em>This post isn’t finished. I’ll update later.</em></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://www.lcodej.com/blog/2019/12/27/plot/" data-id="ck4spsrro0009dklvm4zj7uh7" class="article-share-link">Share</a>
+      <a data-url="https://www.lcodej.com/blog/2020/01/31/dependency-injection/" data-id="ck65r3cgq000ej4lvxomlwmq7" class="article-share-link">Share</a>
       
-        <a href="https://www.lcodej.com/blog/2019/12/27/plot/#disqus_thread" class="article-comment-link">Comments</a>
+        <a href="https://www.lcodej.com/blog/2020/01/31/dependency-injection/#disqus_thread" class="article-comment-link">Comments</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/data/">data</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/design/">design</a></li></ul>
 
     </footer>
   </div>
@@ -293,7 +179,7 @@ ga('send', 'pageview');
 
   <nav id="page-nav">
     
-    <span class="page-number current">1</span><a class="page-number" href="/blog/page/2/">2</a><a class="page-number" href="/blog/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/9/">9</a><a class="extend next" rel="next" href="/blog/page/2/">Next &raquo;</a>
+    <span class="page-number current">1</span><a class="page-number" href="/blog/page/2/">2</a><a class="page-number" href="/blog/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/10/">10</a><a class="extend next" rel="next" href="/blog/page/2/">Next &raquo;</a>
   </nav>
 
 </section>
@@ -317,7 +203,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/data/">data</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/fun/">fun</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/tool/">tool</a><span class="tag-list-count">3</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/data/">data</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/design/">design</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/fun/">fun</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/tool/">tool</a><span class="tag-list-count">3</span></li></ul>
     </div>
   </div>
 
@@ -328,6 +214,10 @@ ga('send', 'pageview');
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/blog/2020/01/31/dependency-injection/">Dependency Injection</a>
+          </li>
         
           <li>
             <a href="/blog/2019/12/27/plot/">Plot</a>
@@ -345,10 +235,6 @@ ga('send', 'pageview');
             <a href="/blog/2019/09/13/azure-sql-data-warehouse-deep-dive/">Azure SQL Data Warehouse Deep Dive</a>
           </li>
         
-          <li>
-            <a href="/blog/2019/09/02/hardware/">Hardware</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -358,7 +244,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/12/">December 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/11/">November 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/09/">September 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/08/">August 2019</a><span class="archive-list-count">4</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2020/01/">January 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/12/">December 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/11/">November 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/09/">September 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/08/">August 2019</a><span class="archive-list-count">4</span></li></ul>
     </div>
   </div>
 
@@ -371,7 +257,7 @@ ga('send', 'pageview');
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2019 Yang Sun<br>
+      &copy; 2020 Yang Sun<br>
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>

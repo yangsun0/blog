@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.lcodej.com/blog/2020/01/31/dependency-injection/</loc>
+    
+    <lastmod>2020-02-03T01:00:45.236Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://www.lcodej.com/blog/2019/12/27/plot/</loc>
     
     <lastmod>2019-12-30T17:22:29.281Z</lastmod>

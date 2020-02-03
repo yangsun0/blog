@@ -81,10 +81,10 @@ ga('send', 'pageview');
       <div class="outer">
         <section id="main">
   
-    <article id="post-lego-tree-house" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-plot" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/blog/2019/12/01/lego-tree-house/" class="article-date">
-  <time datetime="2019-12-01T22:57:20.000Z" itemprop="datePublished">2019-12-01</time>
+    <a href="/blog/2019/12/27/plot/" class="article-date">
+  <time datetime="2019-12-28T06:27:11.000Z" itemprop="datePublished">2019-12-27</time>
 </a>
     
   </div>
@@ -95,45 +95,192 @@ ga('send', 'pageview');
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/12/01/lego-tree-house/">LEGO Tree House</a>
+      <a class="article-title" href="/blog/2019/12/27/plot/">Plot</a>
     </h1>
   
 
         
   <div class="article-updated">
-    Last updated: <time datetime="2019-12-02T05:06:37.742Z" itemprop="dateModified">2019-12-01</time>
+    Last updated: <time datetime="2019-12-30T17:22:29.281Z" itemprop="dateModified">2019-12-30</time>
   </div>
 
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>This is my favorite LEGO set: <a href="https://www.lego.com/en-us/product/tree-house-21318" target="_blank" rel="noopener">Tree House</a>. The tree house is amazing, there’re so many details. When I play with it, I can imagine I’m living in it. I found one drawback that the room was dark when the tree has top leaves. Hahaha! The real tree’s leaves make a shadow, too. How can I complain about it? But I have my own idea. I provided the electricity to the tree house, and lighted up the tree house. It’s so beautiful.</p>
-<p>Behind the scene, this set belongs to Ideas collection. The Ideas collection is very special, they’re created by LEGO fans, not the LEGO company. Here’s the short version of the story, the super LEGO fans made the tree house, and submit to LEGO. Once he got 10K supporters from the other LEGO fans, the LEGO company made this as official LEGO product. Awesome!</p>
-<ul>
-<li><a href="https://www.lego.com/en-us/product/tree-house-21318" target="_blank" rel="noopener">Tree house</a></li>
-<li><a href="https://www.lego.com/en-us/themes/ideas/articles/21318-tree-house" target="_blank" rel="noopener">Tree house Ideas</a></li>
-<li><a href="https://ideas.lego.com/projects/ab7ac32b-e713-489d-bdc6-e14b22738ba8" target="_blank" rel="noopener">Tree house Ideas project</a></li>
+        <p>Numbers doesn’t talk, data visualization is must-have. This post is a quick lookup for plot customization.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">%matplotlib inline</span><br><span class="line"><span class="comment"># %matplotlib notebook   # Interactive plot, need restart Jupyter Notebook kernel</span></span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> matplotlib.ticker <span class="keyword">as</span> ticker</span><br><span class="line"><span class="keyword">import</span> matplotlib.dates <span class="keyword">as</span> mdates</span><br><span class="line"></span><br><span class="line">fig, ax = plt.subplots()</span><br><span class="line">data.plot(ax=ax)</span><br><span class="line">data[<span class="string">"column"</span>].plot(ax=ax)</span><br><span class="line"><span class="comment"># plot type</span></span><br><span class="line">data.plot(ax=ax, kind=<span class="string">"line"</span>)</span><br><span class="line"><span class="comment"># style</span></span><br><span class="line">data.plot(ax=ax, style=[<span class="string">"b"</span>, <span class="string">"ro--"</span>])</span><br><span class="line"><span class="comment"># legend</span></span><br><span class="line">data.plot(ax=ax, legend=<span class="literal">True</span>)</span><br><span class="line">ax.legend(labels=[<span class="string">"label1"</span>, <span class="string">"label2"</span>], loc=<span class="string">"upper right"</span>)</span><br><span class="line"><span class="comment"># title</span></span><br><span class="line">fig.suptittle(<span class="string">""</span>)</span><br><span class="line">ax.set_title(<span class="string">"title"</span>)</span><br><span class="line">ax.set_ylabel(<span class="string">"y label"</span>)</span><br><span class="line">ax.set_xlabel(<span class="string">"x label"</span>)</span><br><span class="line"><span class="comment"># grid</span></span><br><span class="line">ax.grid(<span class="literal">True</span>)</span><br><span class="line"><span class="comment"># axis, tick</span></span><br><span class="line">ax.set_xlim(left, right)</span><br><span class="line">ax.get_xaxis().set_major_locator(mdates.MonthLocator(interval=<span class="number">4</span>))</span><br><span class="line">ax.get_xaxis().set_major_formatter(mdates.DateFormatter(<span class="string">"%b %Y"</span>))</span><br><span class="line">ax.get_yaxis().set_major_formatter(ticker.PercentFormatter())</span><br><span class="line"><span class="comment"># annotation</span></span><br><span class="line">ax.annotate(text=<span class="string">"text"</span>, xy=(x, y), xytext=(x + <span class="number">5</span>, y + <span class="number">5</span>), arrowprops=dict(arrowstyle=<span class="string">"-&gt;"</span>))</span><br><span class="line"><span class="comment"># size</span></span><br><span class="line">fig.set_size_inches(width, height)</span><br><span class="line">fig.tight_layout()</span><br></pre></td></tr></table></figure>
+
+<img src="/blog/2019/12/27/plot/figure.png" title="Figure">  
+
+<h3 id="Plot-types"><a href="#Plot-types" class="headerlink" title="Plot types"></a>Plot types</h3><p>kind=</p>
+<table>
+<thead>
+<tr>
+<th>value</th>
+<th>graphic</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>line</td>
+<td>line plot (default)</td>
+</tr>
+<tr>
+<td>bar</td>
+<td>vertical bar plot</td>
+</tr>
+<tr>
+<td>barh</td>
+<td>horizontal bar plot</td>
+</tr>
+<tr>
+<td>hist</td>
+<td>histogram</td>
+</tr>
+<tr>
+<td>box</td>
+<td>boxplot</td>
+</tr>
+<tr>
+<td>kde</td>
+<td>Kernel Density Estimation plot</td>
+</tr>
+<tr>
+<td>density</td>
+<td>same as kde</td>
+</tr>
+<tr>
+<td>area</td>
+<td>area plot</td>
+</tr>
+<tr>
+<td>pie</td>
+<td>pie plot</td>
+</tr>
+<tr>
+<td>scatter</td>
+<td>scatter plot</td>
+</tr>
+<tr>
+<td>hexbin</td>
+<td>hexbin plot</td>
+</tr>
+</tbody></table>
+<h3 id="Style"><a href="#Style" class="headerlink" title="Style"></a>Style</h3><p>style=”[color][marker][linestyle]”</p>
+<h4 id="Color"><a href="#Color" class="headerlink" title="Color"></a>Color</h4><table>
+<thead>
+<tr>
+<th>shortname</th>
+<th>color</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>b</td>
+<td>blue</td>
+</tr>
+<tr>
+<td>g</td>
+<td>green</td>
+</tr>
+<tr>
+<td>r</td>
+<td>red</td>
+</tr>
+<tr>
+<td>c</td>
+<td>cyan</td>
+</tr>
+<tr>
+<td>m</td>
+<td>magenta</td>
+</tr>
+<tr>
+<td>y</td>
+<td>yellow</td>
+</tr>
+<tr>
+<td>k</td>
+<td>black</td>
+</tr>
+<tr>
+<td>w</td>
+<td>white</td>
+</tr>
+</tbody></table>
+<p>Hex decimal code is supported. e.g. #aabbcc</p>
+<h4 id="Marker"><a href="#Marker" class="headerlink" title="Marker"></a>Marker</h4><table>
+<thead>
+<tr>
+<th>shortname</th>
+<th>name</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>o</td>
+<td>circle</td>
+</tr>
+<tr>
+<td>.</td>
+<td>point</td>
+</tr>
+<tr>
+<td>s</td>
+<td>square</td>
+</tr>
+<tr>
+<td>*</td>
+<td>star</td>
+</tr>
+<tr>
+<td>+</td>
+<td>plus</td>
+</tr>
+</tbody></table>
+<h4 id="Line-style"><a href="#Line-style" class="headerlink" title="Line style"></a>Line style</h4><table>
+<thead>
+<tr>
+<th>shortname</th>
+<th>name</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-</td>
+<td>solid</td>
+</tr>
+<tr>
+<td>–</td>
+<td>dashed</td>
+</tr>
+<tr>
+<td>:</td>
+<td>dotted</td>
+</tr>
+<tr>
+<td>-.</td>
+<td>dashdot</td>
+</tr>
+<tr>
+<td>{I’m a space}</td>
+<td>none</td>
+</tr>
+</tbody></table>
+<h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h3><ul>
+<li><a href="https://pandas.pydata.org/pandas-docs/stable/reference/frame.html#plotting" target="_blank" rel="noopener">pandas.DataFrame.plot</a></li>
+<li><a href="https://matplotlib.org//api/axes_api.html#the-axes-class" target="_blank" rel="noopener">matplotlib.axes.Axes</a></li>
+<li><a href="https://matplotlib.org/api/_as_gen/matplotlib.figure.Figure.html#matplotlib.figure.Figure.tight_layout" target="_blank" rel="noopener">matplotlib.figure.Figure</a></li>
+<li><a href="https://matplotlib.org//api/ticker_api.html" target="_blank" rel="noopener">Tick locating and formatting</a></li>
+<li><a href="https://matplotlib.org//api/dates_api.html" target="_blank" rel="noopener">Date tick locator and formatter</a></li>
 </ul>
-<p>Tree house  </p>
-<img src="/blog/2019/12/01/lego-tree-house/tree.jpg" title="Tree house">  
-<p>The room is dark.  </p>
-<img src="/blog/2019/12/01/lego-tree-house/room.jpg" title="Tree house room">
-<p>The room is is lighted up.  </p>
-<img src="/blog/2019/12/01/lego-tree-house/room-light.jpg" title="Tree house room light up">
-<p>The details of the room.  </p>
-<img src="/blog/2019/12/01/lego-tree-house/room-detail.jpg" title="Tree house room details">
-<p>The tree is lighted up.  </p>
-<img src="/blog/2019/12/01/lego-tree-house/tree-light.jpg" title="Tree house with light">
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://www.lcodej.com/blog/2019/12/01/lego-tree-house/" data-id="ck4spsrrp000bdklvnsulp9mi" class="article-share-link">Share</a>
+      <a data-url="https://www.lcodej.com/blog/2019/12/27/plot/" data-id="ck65r3cgu000lj4lvwvvyttgd" class="article-share-link">Share</a>
       
-        <a href="https://www.lcodej.com/blog/2019/12/01/lego-tree-house/#disqus_thread" class="article-comment-link">Comments</a>
+        <a href="https://www.lcodej.com/blog/2019/12/27/plot/#disqus_thread" class="article-comment-link">Comments</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/fun/">fun</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/data/">data</a></li></ul>
 
     </footer>
   </div>
@@ -146,7 +293,7 @@ ga('send', 'pageview');
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/blog/">&laquo; Prev</a><a class="page-number" href="/blog/">1</a><span class="page-number current">2</span><a class="page-number" href="/blog/page/3/">3</a><a class="page-number" href="/blog/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/9/">9</a><a class="extend next" rel="next" href="/blog/page/3/">Next &raquo;</a>
+    <a class="extend prev" rel="prev" href="/blog/">&laquo; Prev</a><a class="page-number" href="/blog/">1</a><span class="page-number current">2</span><a class="page-number" href="/blog/page/3/">3</a><a class="page-number" href="/blog/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/10/">10</a><a class="extend next" rel="next" href="/blog/page/3/">Next &raquo;</a>
   </nav>
 
 </section>
@@ -170,7 +317,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/data/">data</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/fun/">fun</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/tool/">tool</a><span class="tag-list-count">3</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/data/">data</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/design/">design</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/fun/">fun</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/tool/">tool</a><span class="tag-list-count">3</span></li></ul>
     </div>
   </div>
 
@@ -181,6 +328,10 @@ ga('send', 'pageview');
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/blog/2020/01/31/dependency-injection/">Dependency Injection</a>
+          </li>
         
           <li>
             <a href="/blog/2019/12/27/plot/">Plot</a>
@@ -198,10 +349,6 @@ ga('send', 'pageview');
             <a href="/blog/2019/09/13/azure-sql-data-warehouse-deep-dive/">Azure SQL Data Warehouse Deep Dive</a>
           </li>
         
-          <li>
-            <a href="/blog/2019/09/02/hardware/">Hardware</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -211,7 +358,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/12/">December 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/11/">November 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/09/">September 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/08/">August 2019</a><span class="archive-list-count">4</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2020/01/">January 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/12/">December 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/11/">November 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/09/">September 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/08/">August 2019</a><span class="archive-list-count">4</span></li></ul>
     </div>
   </div>
 
@@ -224,7 +371,7 @@ ga('send', 'pageview');
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2019 Yang Sun<br>
+      &copy; 2020 Yang Sun<br>
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>

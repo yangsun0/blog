@@ -6,7 +6,7 @@
   <link href="/blog/atom.xml" rel="self"/>
   
   <link href="https://www.lcodej.com/blog/"/>
-  <updated>2019-12-30T17:22:29.281Z</updated>
+  <updated>2020-02-03T01:00:45.236Z</updated>
   <id>https://www.lcodej.com/blog/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Dependency Injection</title>
+    <link href="https://www.lcodej.com/blog/2020/01/31/dependency-injection/"/>
+    <id>https://www.lcodej.com/blog/2020/01/31/dependency-injection/</id>
+    <published>2020-02-01T03:51:06.000Z</published>
+    <updated>2020-02-03T01:00:45.236Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;Dependency injection is supper useful. The constructor dependency injection is like a magic. What’s secret behind it? Let’s take a deep
+        
+      
+    
+    </summary>
+    
+    
+      <category term="design" scheme="https://www.lcodej.com/blog/tags/design/"/>
+    
+  </entry>
   
   <entry>
     <title>Plot</title>
