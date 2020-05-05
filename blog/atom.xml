@@ -6,7 +6,7 @@
   <link href="/blog/atom.xml" rel="self"/>
   
   <link href="https://www.lcodej.com/blog/"/>
-  <updated>2020-02-03T01:00:45.236Z</updated>
+  <updated>2020-05-05T23:12:17.545Z</updated>
   <id>https://www.lcodej.com/blog/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://www.lcodej.com/blog/2020/01/31/dependency-injection/"/>
     <id>https://www.lcodej.com/blog/2020/01/31/dependency-injection/</id>
     <published>2020-02-01T03:51:06.000Z</published>
-    <updated>2020-02-03T01:00:45.236Z</updated>
+    <updated>2020-05-05T23:12:17.545Z</updated>
     
     <summary type="html">
     
@@ -29,7 +29,8 @@
       
         
         
-          &lt;p&gt;Dependency injection is supper useful. The constructor dependency injection is like a magic. What’s secret behind it? Let’s take a deep
+          &lt;p&gt;Dependency injection is supper useful. The usage is so transparent, I’m wondering how it works? And what about the performance?&lt;/p&gt;
+&lt;h2
         
       
     
