@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Exploratory data analysis in python - LcodeJ</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/css/mainroad.css">
+
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo">
+		<a class="logo__link" href="/" title="LcodeJ" rel="home">
+			<div class="logo__item logo__text">
+					<div class="logo__title">LcodeJ</div>
+					<div class="logo__tagline">Yang&#39;s blog</div>
+				</div>
+		</a>
+	</div>
+		<div class="divider"></div>
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">Exploratory data analysis in python</h1>
+			<div class="post__meta meta">
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2019-11-19T16:26:45Z">November 19, 2019</time></div></div>
+		</header>
+		<div class="content post__content clearfix">
+			<p><a href="https://en.wikipedia.org/wiki/Exploratory_data_analysis">Exploratory data analysis</a> help us understand data. Python and data science packages are very useful. This post is a summary of the basic usage.</p>
+<h2 id="toolkit">Toolkit</h2>
+<ul>
+<li><a href="https://pandas.pydata.org/pandas-docs/stable/index.html">pandas</a></li>
+<li><a href="https://docs.scipy.org/doc/numpy/user/index.html">numpy</a></li>
+<li><a href="https://docs.scipy.org/doc/scipy/reference/stats.html">scipy.stats</a></li>
+<li><a href="https://matplotlib.org/users/index.html">matplotlib</a></li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> pandas <span style="color:#66d9ef">as</span> pd
+<span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+<span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+
+<span style="color:#f92672">%</span>matplotlib inline <span style="color:#75715e"># magic function to show plot inside Notebook</span>
+</code></pre></div><hr>
+<h2 id="explore-data">Explore data</h2>
+<h4 id="data-structure">Data structure</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">type(data)    <span style="color:#75715e">## pandas.core.frame.DataFrame</span>
+data<span style="color:#f92672">.</span>info()
+data<span style="color:#f92672">.</span>head()
+data<span style="color:#f92672">.</span>tail()
+</code></pre></div><h4 id="select-index-and-filter">Select, index, and filter</h4>
+<p>Select column or columns.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">data[<span style="color:#e6db74">&#34;column&#34;</span>]
+data[[<span style="color:#e6db74">&#34;column1&#34;</span>, <span style="color:#e6db74">&#34;column2&#34;</span>]]
+</code></pre></div><p>Select data by index<br>
+<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.loc.html">pandas.DataFrame.loc</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># index is a string</span>
+data<span style="color:#f92672">.</span>loc[<span style="color:#e6db74">&#34;label_1&#34;</span>]
+data<span style="color:#f92672">.</span>loc[<span style="color:#e6db74">&#34;label_1&#34;</span>:]
+data<span style="color:#f92672">.</span>loc[<span style="color:#e6db74">&#34;label_1&#34;</span>:<span style="color:#e6db74">&#34;label_n&#34;</span>]
+data<span style="color:#f92672">.</span>loc[[<span style="color:#e6db74">&#34;label_1&#34;</span>, <span style="color:#e6db74">&#34;label_2&#34;</span>]]
+data<span style="color:#f92672">.</span>loc[<span style="color:#e6db74">&#34;label_1&#34;</span>:<span style="color:#e6db74">&#34;label_n&#34;</span>, [<span style="color:#e6db74">&#34;column_1&#34;</span>, <span style="color:#e6db74">&#34;column_n&#34;</span>]]
+data<span style="color:#f92672">.</span>loc[<span style="color:#e6db74">&#34;label_1&#34;</span>:<span style="color:#e6db74">&#34;label_n&#34;</span>, <span style="color:#e6db74">&#34;column_1&#34;</span>:<span style="color:#e6db74">&#34;column_n&#34;</span>]
+<span style="color:#75715e"># index is an integer</span>
+data<span style="color:#f92672">.</span>loc[<span style="color:#ae81ff">1</span>:n]
+</code></pre></div><p>Filter data<br>
+<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.apply.html">pandas.DataFrame.apply</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">data[data[<span style="color:#e6db74">&#34;column1&#34;</span>] <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;foo&#34;</span>]
+data[data<span style="color:#f92672">.</span>apply(<span style="color:#66d9ef">lambda</span> row: row[<span style="color:#e6db74">&#34;column1&#34;</span>] <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">and</span> row[<span style="color:#e6db74">&#34;column2&#34;</span>] <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">2</span>, axis<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)]
+</code></pre></div><h4 id="statistics">Statistics</h4>
+<p>Basic statistics</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">data<span style="color:#f92672">.</span>describe()
+data[<span style="color:#e6db74">&#34;column&#34;</span>]<span style="color:#f92672">.</span>min()
+data[<span style="color:#e6db74">&#34;column&#34;</span>]<span style="color:#f92672">.</span>max()
+data[<span style="color:#e6db74">&#34;column&#34;</span>]<span style="color:#f92672">.</span>quantile(<span style="color:#ae81ff">.25</span>)
+data[<span style="color:#e6db74">&#34;column&#34;</span>]<span style="color:#f92672">.</span>median()
+data[<span style="color:#e6db74">&#34;column&#34;</span>]<span style="color:#f92672">.</span>mean()
+data[<span style="color:#e6db74">&#34;column&#34;</span>]<span style="color:#f92672">.</span>std()
+data[<span style="color:#e6db74">&#34;column&#34;</span>]<span style="color:#f92672">.</span>var()
+</code></pre></div><p><a href="https://en.wikipedia.org/wiki/Box_plot">Box plot</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">data[<span style="color:#e6db74">&#34;column&#34;</span>]<span style="color:#f92672">.</span>plot(kind<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;box&#34;</span>);
+</code></pre></div><p><img src="boxplot.png" alt="Box plot"></p>
+<p><img src="boxplot_vs_pdf.png" alt="Box plot VS PDF"></p>
+<p>Reference:</p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Box_plot">Box plot</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Probability_density_function">Probability density function</a></li>
+</ul>
+<p>Distribution</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">data<span style="color:#f92672">.</span>plot(kind<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;hist&#34;</span>, bins<span style="color:#f92672">=</span><span style="color:#ae81ff">20</span>, edgecolor<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;black&#34;</span>);
+
+data<span style="color:#f92672">.</span>plot(kind<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;kde&#34;</span>);
+plt<span style="color:#f92672">.</span>plot((mean, mean), (<span style="color:#ae81ff">0</span>, high), <span style="color:#e6db74">&#34;--b&#34;</span>, linewidth<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>);
+
+data[<span style="color:#e6db74">&#34;column&#34;</span>]<span style="color:#f92672">.</span>skew()
+</code></pre></div><p><img src="hist.png" alt="Histogram"></p>
+<p><img src="kde.png" alt="Kernel density estimation"></p>
+<p><img src="normal_distribution.png" alt="Normal distribution by Wikipedia"></p>
+<p>Reference:</p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Normal_distribution">Normal distribution</a></li>
+</ul>
+<p>Count and proportion<br>
+<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.value_counts.html">pandas.Series.value_counts</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">data<span style="color:#f92672">.</span>describe(include<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;all&#34;</span>)
+data[<span style="color:#e6db74">&#34;column&#34;</span>]<span style="color:#f92672">.</span>value_counts()
+data[<span style="color:#e6db74">&#34;column&#34;</span>]<span style="color:#f92672">.</span>value_counts(normalize<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+data[<span style="color:#e6db74">&#34;column&#34;</span>]<span style="color:#f92672">.</span>value_counts()<span style="color:#f92672">.</span>plot(kind<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;bar&#34;</span>);
+</code></pre></div><hr>
+<h2 id="data-manipulation">Data manipulation</h2>
+<p>Column<br>
+<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.drop.html">pandas.DataFrame.drop</a><br>
+<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.rename.html">pandas.DataFrame.rename</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">data[<span style="color:#e6db74">&#34;NewColumn&#34;</span>] <span style="color:#f92672">=</span> data[<span style="color:#e6db74">&#34;column1&#34;</span>] <span style="color:#f92672">/</span> data[<span style="color:#e6db74">&#34;column2&#34;</span>]
+data[<span style="color:#e6db74">&#34;NewColumn&#34;</span>] <span style="color:#f92672">=</span> data[<span style="color:#e6db74">&#34;column&#34;</span>]<span style="color:#f92672">.</span>mean()
+data<span style="color:#f92672">.</span>drop(columns<span style="color:#f92672">=</span>[<span style="color:#e6db74">&#39;column1&#39;</span>, <span style="color:#e6db74">&#39;column2&#39;</span>])
+data<span style="color:#f92672">.</span>rename(columns<span style="color:#f92672">=</span>{<span style="color:#e6db74">&#34;column&#34;</span>: <span style="color:#e6db74">&#34;NewColumn&#34;</span>})
+data<span style="color:#f92672">.</span>columns <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#34;column1&#34;</span>, <span style="color:#e6db74">&#34;column2&#34;</span>]
+</code></pre></div><p>Index<br>
+<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.set_index.html">pandas.DataFrame.set_index</a><br>
+<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.reset_index.html">pandas.DataFrame.reset_index</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">data<span style="color:#f92672">.</span>set_index(<span style="color:#e6db74">&#34;column&#34;</span>, inplace<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+data<span style="color:#f92672">.</span>reset_index(inplace<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+data<span style="color:#f92672">.</span>reset_index(inplace<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>, drop<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</code></pre></div><p>Sort<br>
+<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.sort_index.html">pandas.DataFrame.sort_index</a><br>
+<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.sort_values.html">pandas.DataFrame.sort_values</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">data<span style="color:#f92672">.</span>sort_index(inplace<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+data<span style="color:#f92672">.</span>sort_values(by<span style="color:#f92672">=</span>[<span style="color:#e6db74">&#39;column&#39;</span>])
+</code></pre></div><p>Duplicate<br>
+<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.duplicated.html">pandas.DataFrame.duplicated</a><br>
+<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.drop_duplicates.html">pandas.DataFrame.drop_duplicates</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">data[data<span style="color:#f92672">.</span>duplicated()]
+data[data<span style="color:#f92672">.</span>duplicated([<span style="color:#e6db74">&#34;column&#34;</span>])]
+data<span style="color:#f92672">.</span>drop_duplicates()
+data<span style="color:#f92672">.</span>drop_duplicates([<span style="color:#e6db74">&#34;column&#34;</span>])
+</code></pre></div><p>NA values<br>
+<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.fillna.html">pandas.DataFrame.fillna</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">result<span style="color:#f92672">.</span>fillna()
+result<span style="color:#f92672">.</span>fillna(value<span style="color:#f92672">=</span>{<span style="color:#e6db74">&#34;column&#34;</span>: <span style="color:#ae81ff">0</span>})
+</code></pre></div><p>Sets<br>
+<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.concat.html">pandas.concat</a>
+<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.join.html">pandas.DataFrame.join</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">data <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>concat([data1, data2], axis<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
+data <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>concat([data1, data2], axis<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, sort<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+data <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>concat([data1, data2])
+
+data1<span style="color:#f92672">.</span>join(data2, how<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;outer&#34;</span>, lsuffix<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;_left&#34;</span>, rsuffix<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;_right&#34;</span>)
+data1<span style="color:#f92672">.</span>set_index(<span style="color:#e6db74">&#34;column&#34;</span>)<span style="color:#f92672">.</span>join(data2<span style="color:#f92672">.</span>set_index(<span style="color:#e6db74">&#34;column&#34;</span>))
+</code></pre></div><h2 id="io">I/O</h2>
+<p><a href="https://pandas.pydata.org/pandas-docs/stable/user_guide/io.html">pandas I/O API</a><br>
+<a href="https://pandas.pydata.org/pandas-docs/stable/user_guide/io.html#io-perf">I/O performance</a></p>
+<hr>
+<p><em>The top-three are test_pickle_write, test_feather_write and test_hdf_fixed_write_compress.</em><br>
+<em>The top three are test_feather_read, test_pickle_read and test_hdf_fixed_read.</em></p>
+<hr>
+<p>SQL</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> pyodbc
+
+driver <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;{ODBC Driver 17 for SQL Server}&#34;</span>
+server <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;DATABASE_SERVER.database.windows.net&#34;</span>
+database <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;DATABASE&#34;</span>
+username <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;USERNAME&#34;</span>
+conn_str <span style="color:#f92672">=</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;DRIVER=</span><span style="color:#e6db74">{</span>driver<span style="color:#e6db74">}</span><span style="color:#e6db74">; SERVER=</span><span style="color:#e6db74">{</span>server<span style="color:#e6db74">}</span><span style="color:#e6db74">; DATABASE=</span><span style="color:#e6db74">{</span>database<span style="color:#e6db74">}</span><span style="color:#e6db74">; UID=</span><span style="color:#e6db74">{</span>username<span style="color:#e6db74">}</span><span style="color:#e6db74">; Encrypt=yes; Authentication=ActiveDirectoryInteractive&#34;</span>
+conn <span style="color:#f92672">=</span> pyodbc<span style="color:#f92672">.</span>connect(conn_str)
+sql <span style="color:#f92672">=</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;&#34;&#34;
+</span><span style="color:#e6db74">SELECT 
+</span><span style="color:#e6db74">    Column1,
+</span><span style="color:#e6db74">    Column2
+</span><span style="color:#e6db74">FROM Table
+</span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+data <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>read_sql(sql, conn)
+</code></pre></div><p>CSV</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">pd<span style="color:#f92672">.</span>read_csv(file_name)
+pd<span style="color:#f92672">.</span>read_csv(file_name, delimiter<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\t</span><span style="color:#e6db74">&#39;</span>)
+pd<span style="color:#f92672">.</span>read_csv(file_name, error_bad_lines<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>)
+</code></pre></div><p>Python Pickle format</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">data<span style="color:#f92672">.</span>to_pickle(file_name)
+data <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>read_pickle(file_name)
+</code></pre></div>
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/data/" rel="tag">data</a>
+		</li>
+	</ul>
+</div>
+		</footer>
+	</article>
+</main>
+
+
+
+
+			</div>
+			
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2021 Yang Sun.
+			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+</body>
+</html>

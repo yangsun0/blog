@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Azure SQL Data Warehouse Deep Dive - LcodeJ</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/css/mainroad.css">
+
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo">
+		<a class="logo__link" href="/" title="LcodeJ" rel="home">
+			<div class="logo__item logo__text">
+					<div class="logo__title">LcodeJ</div>
+					<div class="logo__tagline">Yang&#39;s blog</div>
+				</div>
+		</a>
+	</div>
+		<div class="divider"></div>
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">Azure SQL Data Warehouse Deep Dive</h1>
+			<div class="post__meta meta">
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2019-09-13T16:26:05Z">September 13, 2019</time></div></div>
+		</header>
+		<div class="content post__content clearfix">
+			<p>My recent project uses Azure SQL Data Warehouse. The performance is good. I&rsquo;m wondering how the Azure SQL Data Warehouse is designed compared to traditional SQL Server Database, and how the performance is improved? Let&rsquo;s take a deep dive.</p>
+<h3 id="azure-sql-data-warehouse-architecture">Azure SQL Data Warehouse Architecture</h3>
+<p>Azure SQL Data Warehouse is a distributed computing system. It isn&rsquo;t a collection of computers which run SQL Server and operate partial of the data. Actually, Azure SQL Data Warehouse has a better design. BTW, it&rsquo;s big data, but it&rsquo;s not MapReduce.
+<img src="azure-sql-data-warehouse-architecture.png" alt="Azure SQL Data Warehouse Architecture"></p>
+<p>References:</p>
+<ul>
+<li><a href="https://azure.microsoft.com/en-us/blog/adaptive-caching-powers-azure-sql-data-warehouse-performance-gains/">Adaptive caching powers Azure SQL Data Warehouse performance gains</a></li>
+<li><a href="https://azure.microsoft.com/en-us/blog/lightning-fast-query-performance-with-azure-sql-data-warehouse/">Lightning fast query performance with Azure SQL Data Warehouse</a></li>
+</ul>
+<h4 id="storage-and-compute-are-decoupled">Storage and compute are decoupled</h4>
+<p>Storage and compute are decoupled. The compute node doesn&rsquo;t manage the storage. Instead, the compute node is attached to the storage. It means we can scale up/down compute independently. There is no limitation on storage capacity. And we don&rsquo;t pay for the storage. We only pay for compute. If we want to improve performance, we can allocated more compute nodes, and attach them to the storage. If we want to save money, we can reduce the compute nodes. One interesting thing is we can reduce to zero, we pay nothing, but we can&rsquo;t access the data. It doesn&rsquo;t mean we lost data, once we re-attach the compute nodes, we can access the data again. We call it pause/resume the data warehouse. It&rsquo;s quite flexible.</p>
+<p>Reference:</p>
+<ul>
+<li><a href="https://docs.microsoft.com/en-us/azure/sql-data-warehouse/massively-parallel-processing-mpp-architecture">Massively parallel processing (MPP) architecture</a></li>
+</ul>
+<h4 id="distribution">Distribution</h4>
+<p>There&rsquo;s a magic number: <strong>60</strong>. Azure SQL Data Warehouse always has 60 distributions. In other words, it divides the data into 60 pieces, the compute node process one or more pieces of the data. If we want to improve the performance, we pay for more compute nodes, and process data in parallel. For example, we have one compute node, the compute node need process all of the 60 distributions. If we have two compute nodes, each one process 30 distributions and they work in parallel. The performance is improved. However, it doesn&rsquo;t mean adding more compute nodes always improve performance. Another important factor is how the data distributed. If distribution is unbalanced, some distribution has more, some has less, the compute time is the longest time of the compute node who process the most heavy distribution.</p>
+<p>Azure SQL Data Warehouse has two distribution algorithms: hash and round-robin. (Note: the distribution strategy of Azure Data Warehouse is different from MapReduce.)</p>
+<ul>
+<li>Hash: using a deterministic hashing function to assign a row to 1 of the 60 distributions.</li>
+<li>Round-robin: distribute rows evenly across all distributions.</li>
+</ul>
+<p>Hash distributed table:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">TABLE</span> [dbo].[FactOrder]
+(
+    [OrderKey]            int          <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">NULL</span>,
+    [ProductKey]          int          <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">NULL</span>,
+    [Quantity]            smallint     <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">NULL</span>
+)
+<span style="color:#66d9ef">WITH</span>
+(
+    CLUSTERED COLUMNSTORE <span style="color:#66d9ef">INDEX</span>,
+    DISTRIBUTION <span style="color:#f92672">=</span> HASH([ProductKey])
+)
+</code></pre></div><p>Round-robin distributed table:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">TABLE</span> [dbo].[FactOrder]
+(
+    [OrderKey]            int          <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">NULL</span>,
+    [ProductKey]          int          <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">NULL</span>,
+    [Quantity]            smallint     <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">NULL</span>
+)
+<span style="color:#66d9ef">WITH</span>
+(
+    CLUSTERED COLUMNSTORE <span style="color:#66d9ef">INDEX</span>,
+    DISTRIBUTION <span style="color:#f92672">=</span> ROUND_ROBIN
+)
+</code></pre></div><p>Round-robin is OK, if the scenario is simple. But in real world, we use Hash to optimize the distribution. And it&rsquo;s the only way we can control the distribution. Choosing the correct hash column is critical for performance. Choosing hash column isn&rsquo;t difficult. We can start from our business scenario. For example, which column is used to join two tables, which column is frequently used in group by clause. The optimization goal is to minimize the data movement. In the two tables joining scenario, the hash column is the joining column, the rows of the two tables share the same joining key are distributed to the same compute node. Otherwise, data movement is required.</p>
+<p><img src="distribution.png" alt="Distribution"></p>
+<p><img src="azure-sql-data-warehouse-scale.png" alt="Azure SQL Data Warehouse Scale"></p>
+<p>The hash distribution has limitations. One limitation is the data skew problem. When data is not distribute evenly, scale up computing can&rsquo;t efficiently help the performance. Another limitation is we can only have one hash column, if the business scenario requires more columns, data movement is required.</p>
+<p>Reference:</p>
+<ul>
+<li><a href="https://docs.microsoft.com/en-us/azure/sql-data-warehouse/memory-and-concurrency-limits">Memory and concurrency limits for Azure SQL Data Warehouses</a></li>
+<li><a href="https://docs.microsoft.com/en-us/azure/sql-data-warehouse/sql-data-warehouse-tables-distribute">Guidance for designing distributed tables in Azure SQL Data Warehouse</a></li>
+<li><a href="https://docs.microsoft.com/en-us/sql/t-sql/statements/create-table-azure-sql-data-warehouse">CREATE TABLE (Azure SQL Data Warehouse)</a></li>
+</ul>
+<h3 id="columnstore-index">Columnstore Index</h3>
+<p>Columnstore index is a new method to solve the problem how data is physically stored and how data is indexed.</p>
+<p>A data table is logically organized with rows and columns. The tradition method physically stores data by row. The new method physically store data by column. Wait, the columns are determined, but rows are not. How it works? The data table is divided by columns. Columns are separately stored. A column is a sequence of values. In addition, the sequence is divided into groups, and each group is compressed. A column&rsquo;s physical representation is a sequence of compressed groups. Why it&rsquo;s good? It&rsquo;s because the data warehouse scenario is analysis. The analysis is always column focused. For example, we want to calculate the total sales amount. The data warehouse just load the &ldquo;sales amount&rdquo; column from physical media, decompress the data, and calculate the sum. The process is compact, only the column we cared are loaded into memory, not the whole row. The compression is important, it saves the I/O cost (mostly, I/O is the bottleneck). The compression is also efficient, since the values in a column are belong to the same business domain, so they&rsquo;re similar, and similar values have high compress rate. The group size is fixed, it&rsquo;s 1,048,576 (another magic number: 2^20). The group size is carefully decided, large enough to improve compression rates, and small enough to benefit from in-memory operations. Decompress can be optimized by CPU AVX technologies, like the video encoding/decoding technologies.</p>
+<p><img src="columnstore-index.png" alt="Columnstore Index"></p>
+<p>For a comparison, let&rsquo;s take a look at the tradition method. Data is stored by row physically. Index is created on column. The index is implemented by B-tree. The tree node contains the key, the index of the row, and pointers to the child tree nodes. Time complexity of searching a row is O(log(n)). For the same scenario, &ldquo;calculate the total sales amount&rdquo;, load the index into memory, traversal the tree, and calculate the sum of all the keys. The process isn&rsquo;t as efficient as columnstore index, when the data size is large.</p>
+<p><img src="btree-index.png" alt="B-Tree Index"></p>
+<p>Reference:</p>
+<ul>
+<li><a href="https://docs.microsoft.com/en-us/sql/relational-databases/indexes/columnstore-indexes-overview?view=sql-server-2017">Columnstore indexes: Overview</a></li>
+<li><a href="https://www.geeksforgeeks.org/indexing-in-databases-set-1/">Indexing in Databases | Set 1</a></li>
+</ul>
+<h3 id="hardware-innovation">Hardware innovation</h3>
+<h4 id="mvme-ssd">MVMe SSD</h4>
+<p>I/O bandwidth is critical. Azure SQL Data Warehouse Gen 2 takes advantage of <a href="https://amzn.to/2NN3kz0">MVMe SSD</a>, which offer up to 2 2GB/s of local I/O bandwidth.
+Here&rsquo;s the read/write speed comparisons between HDD, SATA SSD and MVMe SSD.</p>
+<ul>
+<li>7200RPM SATA HDD read/write speed is around 100MB/s</li>
+<li>SATA SSD read/write speed is around 500MB/s</li>
+<li><a href="https://amzn.to/2NN3kz0">MVMe SSD</a> read speed is up to 3,500MB/s</li>
+</ul>
+<h4 id="avx">AVX</h4>
+<p>Azure SQL Data Warehouse operates directly over compressed data, which take the advantage of the CPU technology: AVX.<br>
+<a href="https://en.wikipedia.org/wiki/Advanced_Vector_Extensions">Advanced Vector Extensions (AVX)</a> uses 16 YMM registers to perform single instruction on multiple pieces of data (<a href="https://en.wikipedia.org/wiki/SIMD">SIMD</a>). The register is increased to 256 bits from 128 bits. New instructions are added.</p>
+<p><img src="sisd.png" alt="SISD(Single Instruction Single Data)"></p>
+<p><img src="simd.png" alt="SIMD(Single Instruction Multiple Data)"></p>
+<p><img src="avxplus.png" alt="AVX plus operation"></p>
+<p>Reference:</p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/SIMD">SIMD</a></li>
+<li><a href="https://www.codingame.com/playgrounds/283/sse-avx-vectorization/what-is-sse-and-avx">SSE &amp; AVX Vectorization</a></li>
+</ul>
+
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/data/" rel="tag">data</a>
+		</li>
+	</ul>
+</div>
+		</footer>
+	</article>
+</main>
+
+
+
+
+			</div>
+			
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2021 Yang Sun.
+			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+</body>
+</html>

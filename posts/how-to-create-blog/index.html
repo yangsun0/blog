@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>How to create a blog - LcodeJ</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/css/mainroad.css">
+
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo">
+		<a class="logo__link" href="/" title="LcodeJ" rel="home">
+			<div class="logo__item logo__text">
+					<div class="logo__title">LcodeJ</div>
+					<div class="logo__tagline">Yang&#39;s blog</div>
+				</div>
+		</a>
+	</div>
+		<div class="divider"></div>
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">How to create a blog</h1>
+			<div class="post__meta meta">
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2019-08-20T15:28:39Z">August 20, 2019</time></div></div>
+		</header>
+		<div class="content post__content clearfix">
+			<p>I plan to have my personal blog. Here&rsquo;s the ideas:</p>
+<ul>
+<li>The blog is a technique blog, it contains code.</li>
+<li>I like source control, so I can easily know what change I made.</li>
+<li>I don&rsquo;t want to start from scratch. But I want to highly customize my blog.</li>
+<li>I want my personal domain.</li>
+</ul>
+<p>This is my solution:
+<a href="https://en.wikipedia.org/wiki/Markdown">Markdown</a> + <a href="https://hexo.io">Hexo</a> + <a href="https://pages.github.com/">Github Pages</a> + <a href="https://domains.google">Custom domain</a></p>
+<p>Let&rsquo;s start!</p>
+<h2 id="prepare-git-repo">Prepare git repo</h2>
+<h4 id="get-a-githubhttpsgithubcom-account">Get a <a href="https://github.com/">Github</a> account.</h4>
+<h4 id="create-two-repo">Create two repo</h4>
+<p>One is for blog source code, the other is for the blog website. <a href="https://help.github.com/en/articles/create-a-repo">Github create a repo</a></p>
+<h4 id="on-your-local-box-clone-your-repo">On your local box, clone your repo.</h4>
+<p>Create two folders <code>blog-src</code>, <code>blog-website</code>. And run git clone accordingly.</p>
+<pre tabindex="0"><code>git clone https://github.com/&lt;your_account&gt;/&lt;your_repo&gt;.git
+</code></pre><h2 id="create-a-local-blog-web-site">Create a local blog web site</h2>
+<h4 id="install-githttpsgit-scmcomdownloads">Install <a href="https://git-scm.com/downloads">git</a></h4>
+<h4 id="install-nodejshttpsnodejsorgendownload">Install <a href="https://nodejs.org/en/download/">Nodejs</a></h4>
+<h4 id="install-hexo">Install Hexo</h4>
+<p><a href="https://hexo.io/docs">Hexo docs</a></p>
+<pre tabindex="0"><code>npm install -g hexo-cli
+npm install hexo
+</code></pre><h4 id="initialize-the-blog-source-code-folder">Initialize the blog source code folder.</h4>
+<p>Under the folder <code>blog-src</code>, run the command.</p>
+<pre tabindex="0"><code>hexo init
+</code></pre><h4 id="run-npm-to-install-packages">Run npm to install packages.</h4>
+<pre tabindex="0"><code>npm install
+</code></pre><h4 id="create-your-first-post">Create your first post.</h4>
+<pre tabindex="0"><code>hexo new post hello-world
+</code></pre><p>The file hello-world.md will be created under _posts folder. The folder structure:</p>
+<pre tabindex="0"><code>.
++-- scaffolds
++-- source
+|   +-- _posts
+|       +-- hello-world.md
++-- themes
++-- _config.yml
+</code></pre><h4 id="generate-the-web-site-static-files">Generate the web site static files.</h4>
+<pre tabindex="0"><code>hexo generate
+</code></pre><p>The public folder contains the files. Now, we&rsquo;re ready to publish the web site.</p>
+<pre tabindex="0"><code>public
++-- 2019
+|   +-- 08
+|       +-- 20
+|           +-- hello-world
+|               +-- index.html
++-- archives
++-- css
++-- js
++-- index.html
+</code></pre><h4 id="run-locally">Run locally</h4>
+<pre tabindex="0"><code>hexo server
+</code></pre><p>Open browser with <code>http://localhost:4000</code>, see how the blog looks like.</p>
+<pre tabindex="0"><code>INFO  Start processing
+INFO  Hexo is running at http://localhost:4000 . Press Ctrl+C to stop.
+</code></pre><h2 id="publish-to-github">Publish to Github</h2>
+<h4 id="publish-to-the-blog-website-repo">Publish to the blog website repo.</h4>
+<p>Copy all the files under public folder to the <code>blog-website</code> folder, then commit and push.</p>
+<h4 id="enable-github-pages">Enable Github Pages.</h4>
+<p>Click on the Settings tab and scroll down to the GitHub Pages section.
+Select <strong>master branch</strong> and click <strong>Save</strong>.</p>
+<p><img src="github-pages-source.png" alt="Github pages settings"></p>
+<p>The Github pages should be ready to go.
+<a href="http://YOUR_ACCOUNT.github.io/blog_website">http://YOUR_ACCOUNT.github.io/blog_website</a></p>
+<h4 id="custom-domain">Custom domain</h4>
+<p>Create a CNAME in your DNS provider, config <strong>www</strong> mapping to <strong>YOUR_ACCOUNT.github.io</strong></p>
+<p><img src="cname.png" alt="CNAME"></p>
+<p>Back to Github settings, type the your domain in the <strong>Custom domain</strong> of Github Pages. Click <strong>Save</strong>. Check <strong>Enforce HTTPS</strong>.</p>
+<p><img src="github-pages-domain.png" alt="Github Pages custom domain"></p>
+<p>Wait for a minute, your domain should be ready to go.</p>
+<h4 id="youre-all-done">You&rsquo;re all done.</h4>
+<p>Next <a href="https://www.lcodej.com/posts/customize-hexo-blog/">Customize Hexo blog</a></p>
+
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/tool/" rel="tag">tool</a>
+		</li>
+	</ul>
+</div>
+		</footer>
+	</article>
+</main>
+
+
+
+
+			</div>
+			
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2021 Yang Sun.
+			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+</body>
+</html>

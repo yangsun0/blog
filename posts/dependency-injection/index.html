@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Dependency Injection - LcodeJ</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/css/mainroad.css">
+
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo">
+		<a class="logo__link" href="/" title="LcodeJ" rel="home">
+			<div class="logo__item logo__text">
+					<div class="logo__title">LcodeJ</div>
+					<div class="logo__tagline">Yang&#39;s blog</div>
+				</div>
+		</a>
+	</div>
+		<div class="divider"></div>
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">Dependency Injection</h1>
+			<div class="post__meta meta">
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2020-01-31T19:51:06Z">January 31, 2020</time></div></div>
+		</header>
+		<div class="content post__content clearfix">
+			<p>Dependency injection is supper useful. The usage is so transparent, I&rsquo;m wondering how it works? And what about the performance?</p>
+<h2 id="how-to-use-dependency-injection">How to use dependency injection</h2>
+<p>Why dependency injection is useful? The most important benefit is decouple. For example, A dependents on B, B dependents on C. It&rsquo;s like a path A -&gt; B -&gt; C. One day, C add a new dependency D. Everyone on the path need to change. Dependency injection handles this problem very well.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#66d9ef">new</span> C()
+<span style="color:#66d9ef">new</span> B(<span style="color:#66d9ef">new</span> C())
+<span style="color:#66d9ef">new</span> A(<span style="color:#66d9ef">new</span> B(<span style="color:#66d9ef">new</span> C()))
+
+<span style="color:#75715e">// C add a dependency D
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">new</span> C(<span style="color:#66d9ef">new</span> D())
+<span style="color:#66d9ef">new</span> B(<span style="color:#66d9ef">new</span> C(<span style="color:#66d9ef">new</span> D()))
+<span style="color:#66d9ef">new</span> A(<span style="color:#66d9ef">new</span> B(<span style="color:#66d9ef">new</span> C(<span style="color:#66d9ef">new</span> D())))
+</code></pre></div><p>How to use dependency injection? Here&rsquo;s a good article: <a href="https://docs.microsoft.com/en-us/aspnet/core/mvc/controllers/dependency-injection">Dependency injection into controllers in ASP.NET Core</a></p>
+<p>A short version is:</p>
+<ol>
+<li>Define both the class and interface</li>
+<li>Depend on the interface, instead of the class</li>
+<li>Declare the dependents as constructor parameters</li>
+<li>Register class and interface at global entry point</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">interface</span> ICar
+{
+}
+
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Car</span>: ICar
+{
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">readonly</span> IEngine engine;
+    <span style="color:#66d9ef">public</span> Car(IEngine engine)
+    {
+        <span style="color:#66d9ef">this</span>.engine = engine
+    }
+}
+
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">interface</span> IEngine
+{
+}
+
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Engine</span> : IEngine
+{
+}
+
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> Main()
+{
+    <span style="color:#66d9ef">var</span> serviceCollection = <span style="color:#66d9ef">new</span> Microsoft.Extensions.DependencyInjection.ServiceCollection()
+            .AddTransient&lt;ICar, Car&gt;()
+            .AddTransient&lt;IEngine, Engine&gt;()
+    <span style="color:#66d9ef">var</span> serviceProvider = serviceCollection.BuildServiceProvider();
+    ICar car = serviceProvider.GetService&lt;ICar&gt;();
+}
+</code></pre></div><p>Looking at the code, except the registration code in the main entry point, there is no any other extra code. Declaring the dependency, then things just work. It&rsquo;s like a magic. :)</p>
+<h2 id="how-dependency-injection-works">How dependency injection works</h2>
+<p>Dependency injection need to solve two problems. First is the dependency path, for example A-&gt;B-&gt;C. To create A, we need create B first. To create B, we need create C first. This problem can be solved by recursion.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">object</span> GetService(Type type)
+{
+    <span style="color:#75715e">// some code is omitted
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i = <span style="color:#ae81ff">0</span>; i &lt; arguments.Length; i++)
+    {
+        arguments[i] = <span style="color:#66d9ef">this</span>.GetService(argumentType);
+    }
+
+    <span style="color:#66d9ef">return</span> NewObj(type, arguments);
+}
+</code></pre></div><p>Second is given a type at runtime, how to dynamically create an object. This problem is not easy. I found the source code of <a href="https://github.com/dotnet/extensions/tree/master/src/DependencyInjection">Microsoft.Extensions.DependencyInjection</a>(Update: the link is broken) on Github.  I learned a lot. I tried to understand the concept, so I implemented a simple example. Here&rsquo;s the source code <a href="https://github.com/yangsun-master/dependency-injection-example">dependency-injection-example</a>.</p>
+<p>There&rsquo;re three ways to dynamically create an object of a type:</p>
+<ol>
+<li>Reflection</li>
+<li>Dynamic Method</li>
+<li>Lambda Expression</li>
+</ol>
+<h3 id="reflection">Reflection</h3>
+<p><a href="https://docs.microsoft.com/en-us/dotnet/framework/reflection-and-codedom/reflection">Reflection</a> is straightforward. .NET framework provide official support to create an object based on a type.. Given a Type, call <a href="https://docs.microsoft.com/en-us/dotnet/api/system.type.getconstructor">GetConstructor</a> to get the <a href="https://docs.microsoft.com/en-us/dotnet/api/system.reflection.constructorinfo">ConstructorInfo</a>, call <a href="https://docs.microsoft.com/en-us/dotnet/api/system.reflection.constructorinfo.invoke">Invoke</a> with constructor arguments. All done.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp">ConstructorInfo constructor = GetConstructors()[<span style="color:#ae81ff">0</span>];
+<span style="color:#66d9ef">object</span>[] arguments = <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">object</span>[] { arg1, arg2, arg3 };
+<span style="color:#66d9ef">object</span> obj = constructor.Invoke(arguments);
+</code></pre></div><p>The code is simple, but the performance is bad. The benchmark in the end shows 70x slower. Digging into the implementation, the code isn&rsquo;t simple. It constructs a Signature, perform security check on demand, and argument&rsquo;s value type check. All these logics will slow down the performance. At the end, it call .NET runtime internal function to create the object. It&rsquo;s probably some C/C++ native code we don&rsquo;t know.</p>
+<p>ConstructorInfo.Invoke:</p>
+<p><img src="RuntimeConstructorInfo_Invoke.png" alt="RuntimeConstructorInfo::Invoke()"></p>
+<p>.NET Runtime internal Invoke:</p>
+<p><img src="RuntimeMethodHandle_InvokeMethod.png" alt="RuntimeMethodHandle::InvokeMethod()"></p>
+<h3 id="intermediate-language-il">Intermediate Language (IL)</h3>
+<p>Before talking about the other two approaches, we need some knowledge about IL. Intermediate Language (IL) is a low level programing language in .NET. Think about the relationship between Assembly language and C++. IL and C# are similar. C# compiler compiles C# code into IL code, and stored in the assembly, which may be a dll or exe file. <a href="https://github.com/icsharpcode/ILSpy">ILSpy</a> is a tool to view IL code inside the assembly. .NET CLR (Common Language Runtime) loads the assembly, JIT(Just-In-Time) compiles the IL code into native code. The native code are native machine instructions, and executed by machine. Here&rsquo;s the full explanation <a href="https://docs.microsoft.com/en-us/dotnet/csharp/getting-started/introduction-to-the-csharp-language-and-the-net-framework">Introduction to the C# language and the .NET Framework</a>.</p>
+<hr>
+<p>C# -&gt; IL -&gt; native code</p>
+<hr>
+<p>Back to our topic, the idea is we&rsquo;ll do the compiler&rsquo;s work, generate IL code at runtime, and then let .NET CLR execute the generated IL code. (The idea is brilliant!) .NET framework provides <a href="https://docs.microsoft.com/en-us/dotnet/api/system.reflection.emit.dynamicmethod">DynamicMethod</a> to support it. Later, .NET Framework provide lambda expression in newer version, which improved the dynamic code generation.</p>
+<p><code>new</code> operator&rsquo;s corresponding IL code is <a href="https://docs.microsoft.com/en-us/dotnet/api/system.reflection.emit.opcodes.newobj">newobj</a>.</p>
+<h4 id="c">C#</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#66d9ef">new</span> Car(engine);
+</code></pre></div><h4 id="il">IL</h4>
+<pre tabindex="0"><code>ldarg.0
+newobj instance void DependencyInjectionExample.Car::.ctor(class DependencyInjectionExample.IEngine)
+</code></pre><h3 id="dynamic-method">Dynamic method</h3>
+<p>Here&rsquo;s the steps to use Dynamic Method, and the full explanation is <a href="https://docs.microsoft.com/en-us/dotnet/framework/reflection-and-codedom/how-to-define-and-execute-dynamic-methods">here</a>.</p>
+<ol>
+<li>Create a Dynamic Method object</li>
+<li>Generate IL codes as the body of the Dynamic Method.</li>
+<li>Create a delegate to invoke the Dynamic Method. It&rsquo;s just like a normal function call.</li>
+</ol>
+<p>Now, the question is what kind of IL code to generate? How to use IL? It&rsquo;s another big topic. Here&rsquo;s a good article I read <a href="https://www.codeproject.com/Articles/3778/Introduction-to-IL-Assembly-Language">Introduction to IL Assembly Language</a>. For a very short and rough explanation, think about <a href="https://en.wikipedia.org/wiki/Assembly_language">Assembly language</a>. CPU execute instructions, register stores value. The CPU instruction reads value from register, calculates, saves the result to register. IL uses the same pattern, instruction and stack. The process is, push arguments on the stack, instruction execute, the instruction read the value from stack and pop the stack, then push the result on the stack.</p>
+<p>1 + 2 in Assembly language:</p>
+<pre tabindex="0"><code class="language-assembly" data-lang="assembly">MOV EAX 1
+MOV EBX 2
+ADD EAX, EBX    ; Add EBX to EAX
+</code></pre><p>We&rsquo;ll create a dynamic method which is a function with a parameter which type is object array, and return type is object. The parameter object array contains the arguments need to pass to the constructor, the function return the created object. The function body is IL code, which push the objects of the array on the stack one by one, and then call the constructor function, the constructor function push the object on the stack, then return it.</p>
+<p>The generated pseudo code:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#66d9ef">object</span> DynamicNewCar(<span style="color:#66d9ef">object</span>[] parameters)
+{
+    <span style="color:#75715e">// IL code:
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// arg_0 is the first parameter of the dynamic method
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// push arg_0 on the stack
+</span><span style="color:#75715e"></span>    ldarg.<span style="color:#ae81ff">0</span>
+
+    <span style="color:#75715e">// push index 0 on the stack
+</span><span style="color:#75715e"></span>    ldc.i4.<span style="color:#ae81ff">0</span>
+
+    <span style="color:#75715e">// read the array by index, pop previous and push args[i] on the stack
+</span><span style="color:#75715e"></span>    ldelem.<span style="color:#66d9ef">ref</span>
+
+    <span style="color:#75715e">// convert to the corresponding constructor argument type, pop previous and push
+</span><span style="color:#75715e"></span>    castclass DependencyInjectionExample.IEngine
+
+    <span style="color:#75715e">// push the second argument
+</span><span style="color:#75715e"></span>    ldarg.<span style="color:#ae81ff">0</span>
+    ldc.i4.<span style="color:#ae81ff">1</span>
+    ldelem.<span style="color:#66d9ef">ref</span>
+    castclass DependencyInjectionExample.IControlPanel
+
+    <span style="color:#75715e">// Call newobj instruction with the constructor, pop previous and push the object on the stack
+</span><span style="color:#75715e"></span>    newobj instance <span style="color:#66d9ef">void</span> DependencyInjectionExample.Car::.ctor(<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">DependencyInjectionExample</span>.IEngine, <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">DependencyInjectionExample</span>.IControlPanel)
+
+    <span style="color:#75715e">// return with the return value on the stack
+</span><span style="color:#75715e"></span>	ret
+}
+</code></pre></div><p>Dynamic method:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp">DynamicMethod dynamicMethod = <span style="color:#66d9ef">new</span> DynamicMethod(
+    <span style="color:#e6db74">&#34;NewObj&#34;</span>,
+    <span style="color:#66d9ef">typeof</span>(<span style="color:#66d9ef">object</span>),
+    <span style="color:#66d9ef">new</span> Type[] { <span style="color:#66d9ef">typeof</span>(<span style="color:#66d9ef">object</span>[]) });
+<span style="color:#66d9ef">var</span> il = dynamicMethod.GetILGenerator();
+
+<span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i = <span style="color:#ae81ff">0</span>; i &lt; constructorParameterTypes.Length; i++)
+{
+    <span style="color:#75715e">// arg_0 is the parameter of the dynamic method, the type is object array
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// push arg_0 on the stack
+</span><span style="color:#75715e"></span>    il.Emit(OpCodes.Ldarg_0);
+
+    <span style="color:#75715e">// push index i on the stack
+</span><span style="color:#75715e"></span>    il.Emit(OpCodes.Ldc_I4, i);
+
+    <span style="color:#75715e">// read the array by index, pop previous and push args[i] on the stack
+</span><span style="color:#75715e"></span>    il.Emit(OpCodes.Ldelem_Ref);
+
+    <span style="color:#75715e">// convert to the corresponding constructor argument type, pop previous and push
+</span><span style="color:#75715e"></span>    il.Emit(OpCodes.Castclass, constructorParameterTypes[i]);
+}
+
+<span style="color:#75715e">// Call newobj instruction with the constructor, pop previous and push the object on the stack
+</span><span style="color:#75715e"></span>il.Emit(OpCodes.Newobj, constructor);
+<span style="color:#75715e">// return with the return value on the stack
+</span><span style="color:#75715e"></span>il.Emit(OpCodes.Ret);
+<span style="color:#66d9ef">var</span> newObj = (Func&lt;<span style="color:#66d9ef">object</span>, <span style="color:#66d9ef">object</span>[]&gt;)dynamicMethod.CreateDelegate(<span style="color:#66d9ef">typeof</span>(Func&lt;<span style="color:#66d9ef">object</span>, <span style="color:#66d9ef">object</span>[]&gt;));
+
+<span style="color:#75715e">/// use the delegate
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">var</span> arguments = <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">object</span>[] { engine };
+<span style="color:#66d9ef">var</span> car = (ICar) newObj(arguments);
+</code></pre></div><p>Dynamic Method is efficient. But the disadvantage is the code maintenance. The IL code isn&rsquo;t compiled. It means if we generate wrong IL code, it will error at runtime, but we don&rsquo;t get any error at compile time. Besides, IL is machine oriented low level programming language, it&rsquo;s not easy to read and write.</p>
+<h3 id="lambda-expression">Lambda Expression</h3>
+<p>With lambda expression, we don&rsquo;t need to write IL directly. We still write C# code, but in a special &ldquo;compiler&rdquo; way. What does C# compiler do? Simply saying, the compiling process has two steps: 1) parse the C# code to build a <a href="https://en.wikipedia.org/wiki/Abstract_syntax_tree">syntax tree</a>; 2) use the syntax tree to generate IL code. The idea is we do the first step building an <a href="https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/expression-trees/">Expression Tree</a>, then leave the remaining to the compiler.</p>
+<p><img src="expression_tree.png" alt="Expressio Tree"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#66d9ef">var</span> parametersExpr = Expression.Parameter(<span style="color:#66d9ef">typeof</span>(<span style="color:#66d9ef">object</span>[]));
+<span style="color:#66d9ef">var</span> constructorArgumentList = <span style="color:#66d9ef">new</span> List&lt;Expression&gt;();
+<span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i = <span style="color:#ae81ff">0</span>; i &lt; constructorParameterTypes.Length; i++)
+{
+    <span style="color:#66d9ef">var</span> indexExpr = Expression.Constant(i);
+    <span style="color:#66d9ef">var</span> arrayItemExpr = Expression.ArrayIndex(parametersExpr, indexExpr);
+    <span style="color:#66d9ef">var</span> castExpr = Expression.Convert(arrayItemExpr, constructorParameterTypes[i]);
+    constructorArgumentList.Add(castExpr);
+}
+
+<span style="color:#66d9ef">var</span> newExpr = Expression.New(constructor, constructorArgumentList.ToArray());
+<span style="color:#66d9ef">var</span> lambda = Expression.Lambda&lt;NewObjDelegate&gt;(newExpr, parametersExpr);
+<span style="color:#66d9ef">var</span> newObj = lambda.Compile();
+
+<span style="color:#75715e">/// use the delegate
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">var</span> arguments = <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">object</span>[] { engine };
+<span style="color:#66d9ef">var</span> car = (ICar) newObj(arguments);
+</code></pre></div><h2 id="benchmark">Benchmark</h2>
+<p>Here&rsquo;s the source code of the benchmark: <a href="https://github.com/yangsun-master/dependency-injection-example">dependency-injection-example</a>. The performance is also determined by  the dependency path.</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th style="text-align:right">Mean</th>
+<th style="text-align:right">Error</th>
+<th style="text-align:right">StdDev</th>
+<th style="text-align:right">Ratio</th>
+<th style="text-align:right">RatioSD</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SimpleCreate</td>
+<td style="text-align:right">13.28 ns</td>
+<td style="text-align:right">0.045 ns</td>
+<td style="text-align:right">0.042 ns</td>
+<td style="text-align:right">1.00</td>
+<td style="text-align:right">0.00</td>
+</tr>
+<tr>
+<td>LibraryCreate</td>
+<td style="text-align:right">56.57 ns</td>
+<td style="text-align:right">0.062 ns</td>
+<td style="text-align:right">0.058 ns</td>
+<td style="text-align:right">4.26</td>
+<td style="text-align:right">0.02</td>
+</tr>
+<tr>
+<td>DynamicMethodCreate</td>
+<td style="text-align:right">110.48 ns</td>
+<td style="text-align:right">0.575 ns</td>
+<td style="text-align:right">0.538 ns</td>
+<td style="text-align:right">8.32</td>
+<td style="text-align:right">0.05</td>
+</tr>
+<tr>
+<td>LambdaExpressionCreate</td>
+<td style="text-align:right">106.78 ns</td>
+<td style="text-align:right">0.069 ns</td>
+<td style="text-align:right">0.064 ns</td>
+<td style="text-align:right">8.04</td>
+<td style="text-align:right">0.03</td>
+</tr>
+<tr>
+<td>ConstructorInvokeCreate</td>
+<td style="text-align:right">970.19 ns</td>
+<td style="text-align:right">6.023 ns</td>
+<td style="text-align:right">5.634 ns</td>
+<td style="text-align:right">73.04</td>
+<td style="text-align:right">0.43</td>
+</tr>
+</tbody>
+</table>
+<p>Mean    : Arithmetic mean of all measurements<br>
+Error   : Half of 99.9% confidence interval<br>
+StdDev  : Standard deviation of all measurements<br>
+Ratio   : Mean of the ratio distribution ([Current]/[Baseline])<br>
+RatioSD : Standard deviation of the ratio distribution ([Current]/[Baseline])<br>
+1 ns    : 1 Nanosecond (0.000000001 sec)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#a6e22e">BenchmarkDotNet</span><span style="color:#f92672">=</span><span style="color:#e6db74">v0.12.1, OS=Windows 10.0.18362.778 (1903/May2019Update/19H1)</span>
+<span style="color:#a6e22e">Intel Core i7-9700K CPU 3.60GHz (Coffee Lake), 1 CPU, 8 logical and 8 physical cores</span>
+  <span style="color:#a6e22e">[Host]     : .NET Framework 4.8 (4.8.4121.0), X86 LegacyJIT</span>
+  <span style="color:#a6e22e">DefaultJob : .NET Framework 4.8 (4.8.4121.0), X86 LegacyJIT</span>
+</code></pre></div>
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/design/" rel="tag">design</a>
+		</li>
+	</ul>
+</div>
+		</footer>
+	</article>
+</main>
+
+
+
+
+			</div>
+			
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2021 Yang Sun.
+			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+</body>
+</html>

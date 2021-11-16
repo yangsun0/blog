@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Plot - LcodeJ</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/css/mainroad.css">
+
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo">
+		<a class="logo__link" href="/" title="LcodeJ" rel="home">
+			<div class="logo__item logo__text">
+					<div class="logo__title">LcodeJ</div>
+					<div class="logo__tagline">Yang&#39;s blog</div>
+				</div>
+		</a>
+	</div>
+		<div class="divider"></div>
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">Plot</h1>
+			<div class="post__meta meta">
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2019-12-27T22:27:11Z">December 27, 2019</time></div></div>
+		</header>
+		<div class="content post__content clearfix">
+			<p>Numbers doesn&rsquo;t talk, data visualization is must-have. This post is a quick lookup for plot customization.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">%</span>matplotlib inline
+<span style="color:#75715e"># %matplotlib notebook   # Interactive plot, need restart Jupyter Notebook kernel</span>
+<span style="color:#f92672">import</span> pandas <span style="color:#66d9ef">as</span> pd
+<span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+<span style="color:#f92672">import</span> matplotlib.ticker <span style="color:#66d9ef">as</span> ticker
+<span style="color:#f92672">import</span> matplotlib.dates <span style="color:#66d9ef">as</span> mdates
+
+fig, ax <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>subplots()
+data<span style="color:#f92672">.</span>plot(ax<span style="color:#f92672">=</span>ax)
+data[<span style="color:#e6db74">&#34;column&#34;</span>]<span style="color:#f92672">.</span>plot(ax<span style="color:#f92672">=</span>ax)
+<span style="color:#75715e"># plot type</span>
+data<span style="color:#f92672">.</span>plot(ax<span style="color:#f92672">=</span>ax, kind<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;line&#34;</span>)
+<span style="color:#75715e"># style</span>
+data<span style="color:#f92672">.</span>plot(ax<span style="color:#f92672">=</span>ax, style<span style="color:#f92672">=</span>[<span style="color:#e6db74">&#34;b&#34;</span>, <span style="color:#e6db74">&#34;ro--&#34;</span>])
+<span style="color:#75715e"># legend</span>
+data<span style="color:#f92672">.</span>plot(ax<span style="color:#f92672">=</span>ax, legend<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+ax<span style="color:#f92672">.</span>legend(labels<span style="color:#f92672">=</span>[<span style="color:#e6db74">&#34;label1&#34;</span>, <span style="color:#e6db74">&#34;label2&#34;</span>], loc<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;upper right&#34;</span>)
+<span style="color:#75715e"># title</span>
+fig<span style="color:#f92672">.</span>suptittle(<span style="color:#e6db74">&#34;&#34;</span>)
+ax<span style="color:#f92672">.</span>set_title(<span style="color:#e6db74">&#34;title&#34;</span>)
+ax<span style="color:#f92672">.</span>set_ylabel(<span style="color:#e6db74">&#34;y label&#34;</span>)
+ax<span style="color:#f92672">.</span>set_xlabel(<span style="color:#e6db74">&#34;x label&#34;</span>)
+<span style="color:#75715e"># grid</span>
+ax<span style="color:#f92672">.</span>grid(<span style="color:#66d9ef">True</span>)
+<span style="color:#75715e"># axis, tick</span>
+ax<span style="color:#f92672">.</span>set_xlim(left, right)
+ax<span style="color:#f92672">.</span>get_xaxis()<span style="color:#f92672">.</span>set_major_locator(mdates<span style="color:#f92672">.</span>MonthLocator(interval<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span>))
+ax<span style="color:#f92672">.</span>get_xaxis()<span style="color:#f92672">.</span>set_major_formatter(mdates<span style="color:#f92672">.</span>DateFormatter(<span style="color:#e6db74">&#34;%b %Y&#34;</span>))
+ax<span style="color:#f92672">.</span>get_yaxis()<span style="color:#f92672">.</span>set_major_formatter(ticker<span style="color:#f92672">.</span>PercentFormatter())
+<span style="color:#75715e"># annotation</span>
+ax<span style="color:#f92672">.</span>annotate(text<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text&#34;</span>, xy<span style="color:#f92672">=</span>(x, y), xytext<span style="color:#f92672">=</span>(x <span style="color:#f92672">+</span> <span style="color:#ae81ff">5</span>, y <span style="color:#f92672">+</span> <span style="color:#ae81ff">5</span>), arrowprops<span style="color:#f92672">=</span>dict(arrowstyle<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;-&gt;&#34;</span>))
+<span style="color:#75715e"># size</span>
+fig<span style="color:#f92672">.</span>set_size_inches(width, height)
+fig<span style="color:#f92672">.</span>tight_layout()
+</code></pre></div><p><img src="figure.png" alt="Figure"></p>
+<h3 id="plot-types">Plot types</h3>
+<p>kind=</p>
+<table>
+<thead>
+<tr>
+<th>value</th>
+<th>graphic</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>line</td>
+<td>line plot (default)</td>
+</tr>
+<tr>
+<td>bar</td>
+<td>vertical bar plot</td>
+</tr>
+<tr>
+<td>barh</td>
+<td>horizontal bar plot</td>
+</tr>
+<tr>
+<td>hist</td>
+<td>histogram</td>
+</tr>
+<tr>
+<td>box</td>
+<td>boxplot</td>
+</tr>
+<tr>
+<td>kde</td>
+<td>Kernel Density Estimation plot</td>
+</tr>
+<tr>
+<td>density</td>
+<td>same as kde</td>
+</tr>
+<tr>
+<td>area</td>
+<td>area plot</td>
+</tr>
+<tr>
+<td>pie</td>
+<td>pie plot</td>
+</tr>
+<tr>
+<td>scatter</td>
+<td>scatter plot</td>
+</tr>
+<tr>
+<td>hexbin</td>
+<td>hexbin plot</td>
+</tr>
+</tbody>
+</table>
+<h3 id="style">Style</h3>
+<p>style=&quot;[color][marker][linestyle]&quot;</p>
+<h4 id="color">Color</h4>
+<table>
+<thead>
+<tr>
+<th>shortname</th>
+<th>color</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>b</td>
+<td>blue</td>
+</tr>
+<tr>
+<td>g</td>
+<td>green</td>
+</tr>
+<tr>
+<td>r</td>
+<td>red</td>
+</tr>
+<tr>
+<td>c</td>
+<td>cyan</td>
+</tr>
+<tr>
+<td>m</td>
+<td>magenta</td>
+</tr>
+<tr>
+<td>y</td>
+<td>yellow</td>
+</tr>
+<tr>
+<td>k</td>
+<td>black</td>
+</tr>
+<tr>
+<td>w</td>
+<td>white</td>
+</tr>
+</tbody>
+</table>
+<p>Hex decimal code is supported. e.g. #aabbcc</p>
+<h4 id="marker">Marker</h4>
+<table>
+<thead>
+<tr>
+<th>shortname</th>
+<th>name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>o</td>
+<td>circle</td>
+</tr>
+<tr>
+<td>.</td>
+<td>point</td>
+</tr>
+<tr>
+<td>s</td>
+<td>square</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>| star</li>
+</ul>
+<ul>
+<li>| plus</li>
+</ul>
+<h4 id="line-style">Line style</h4>
+<table>
+<thead>
+<tr>
+<th>shortname</th>
+<th>name</th>
+</tr>
+</thead>
+</table>
+<ul>
+<li>| solid
+&ndash; | dashed
+: | dotted
+-. | dashdot
+{I&rsquo;m a space}   | none</li>
+</ul>
+<h3 id="reference">Reference</h3>
+<ul>
+<li><a href="https://pandas.pydata.org/pandas-docs/stable/reference/frame.html#plotting">pandas.DataFrame.plot</a></li>
+<li><a href="https://matplotlib.org//api/axes_api.html#the-axes-class">matplotlib.axes.Axes</a></li>
+<li><a href="https://matplotlib.org/api/_as_gen/matplotlib.figure.Figure.html#matplotlib.figure.Figure.tight_layout">matplotlib.figure.Figure</a></li>
+<li><a href="https://matplotlib.org//api/ticker_api.html">Tick locating and formatting</a></li>
+<li><a href="https://matplotlib.org//api/dates_api.html">Date tick locator and formatter</a></li>
+</ul>
+
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/data/" rel="tag">data</a>
+		</li>
+	</ul>
+</div>
+		</footer>
+	</article>
+</main>
+
+
+
+
+			</div>
+			
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2021 Yang Sun.
+			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+</body>
+</html>

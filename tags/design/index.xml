@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>design on LcodeJ</title>
+    <link>https://www.lcodej.com/tags/design/</link>
+    <description>Recent content in design on LcodeJ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 31 Jan 2020 19:51:06 +0000</lastBuildDate><atom:link href="https://www.lcodej.com/tags/design/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Dependency Injection</title>
+      <link>https://www.lcodej.com/posts/dependency-injection/</link>
+      <pubDate>Fri, 31 Jan 2020 19:51:06 +0000</pubDate>
+      
+      <guid>https://www.lcodej.com/posts/dependency-injection/</guid>
+      <description>Dependency injection is supper useful. The usage is so transparent, I&amp;rsquo;m wondering how it works? And what about the performance?
+How to use dependency injection Why dependency injection is useful? The most important benefit is decouple. For example, A dependents on B, B dependents on C. It&amp;rsquo;s like a path A -&amp;gt; B -&amp;gt; C. One day, C add a new dependency D. Everyone on the path need to change. Dependency injection handles this problem very well.</description>
+    </item>
+    
+  </channel>
+</rss>

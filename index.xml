@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LcodeJ</title>
+    <link>https://www.lcodej.com/</link>
+    <description>Recent content on LcodeJ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 15 Nov 2021 19:17:19 -0800</lastBuildDate><atom:link href="https://www.lcodej.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Migrate to Hugo</title>
+      <link>https://www.lcodej.com/posts/migrate-to-hugo/</link>
+      <pubDate>Mon, 15 Nov 2021 19:17:19 -0800</pubDate>
+      
+      <guid>https://www.lcodej.com/posts/migrate-to-hugo/</guid>
+      <description>Migrate my blog to Hugo.</description>
+    </item>
+    
+    <item>
+      <title>Dependency Injection</title>
+      <link>https://www.lcodej.com/posts/dependency-injection/</link>
+      <pubDate>Fri, 31 Jan 2020 19:51:06 +0000</pubDate>
+      
+      <guid>https://www.lcodej.com/posts/dependency-injection/</guid>
+      <description>Dependency injection is supper useful. The usage is so transparent, I&amp;rsquo;m wondering how it works? And what about the performance?
+How to use dependency injection Why dependency injection is useful? The most important benefit is decouple. For example, A dependents on B, B dependents on C. It&amp;rsquo;s like a path A -&amp;gt; B -&amp;gt; C. One day, C add a new dependency D. Everyone on the path need to change. Dependency injection handles this problem very well.</description>
+    </item>
+    
+    <item>
+      <title>Plot</title>
+      <link>https://www.lcodej.com/posts/plot/</link>
+      <pubDate>Fri, 27 Dec 2019 22:27:11 +0000</pubDate>
+      
+      <guid>https://www.lcodej.com/posts/plot/</guid>
+      <description>Numbers doesn&amp;rsquo;t talk, data visualization is must-have. This post is a quick lookup for plot customization.
+%matplotlib inline # %matplotlib notebook # Interactive plot, need restart Jupyter Notebook kernel import pandas as pd import matplotlib.pyplot as plt import matplotlib.ticker as ticker import matplotlib.dates as mdates fig, ax = plt.subplots() data.plot(ax=ax) data[&amp;#34;column&amp;#34;].plot(ax=ax) # plot type data.plot(ax=ax, kind=&amp;#34;line&amp;#34;) # style data.plot(ax=ax, style=[&amp;#34;b&amp;#34;, &amp;#34;ro--&amp;#34;]) # legend data.plot(ax=ax, legend=True) ax.legend(labels=[&amp;#34;label1&amp;#34;, &amp;#34;label2&amp;#34;], loc=&amp;#34;upper right&amp;#34;) # title fig.</description>
+    </item>
+    
+    <item>
+      <title>LEGO Tree House</title>
+      <link>https://www.lcodej.com/posts/lego-tree-house/</link>
+      <pubDate>Sun, 01 Dec 2019 14:57:20 +0000</pubDate>
+      
+      <guid>https://www.lcodej.com/posts/lego-tree-house/</guid>
+      <description>This is my favorite LEGO set: Tree House. The tree house is amazing, there&amp;rsquo;re so many details. When I play with it, I can imagine I&amp;rsquo;m living in it. I found one drawback that the room was dark when the tree has top leaves. Hahaha! The real tree&amp;rsquo;s leaves make a shadow, too. How can I complain about it? But I have my own idea. I provided the electricity to the tree house, and lighted up the tree house.</description>
+    </item>
+    
+    <item>
+      <title>Exploratory data analysis in python</title>
+      <link>https://www.lcodej.com/posts/exploratory-data-analysis-in-python/</link>
+      <pubDate>Tue, 19 Nov 2019 16:26:45 +0000</pubDate>
+      
+      <guid>https://www.lcodej.com/posts/exploratory-data-analysis-in-python/</guid>
+      <description>Exploratory data analysis help us understand data. Python and data science packages are very useful. This post is a summary of the basic usage.
+Toolkit  pandas numpy scipy.stats matplotlib  import pandas as pd import numpy as np import matplotlib.pyplot as plt %matplotlib inline # magic function to show plot inside Notebook  Explore data Data structure type(data) ## pandas.core.frame.DataFrame data.info() data.head() data.tail() Select, index, and filter Select column or columns.</description>
+    </item>
+    
+    <item>
+      <title>Azure SQL Data Warehouse Deep Dive</title>
+      <link>https://www.lcodej.com/posts/azure-sql-data-warehouse-deep-dive/</link>
+      <pubDate>Fri, 13 Sep 2019 16:26:05 +0000</pubDate>
+      
+      <guid>https://www.lcodej.com/posts/azure-sql-data-warehouse-deep-dive/</guid>
+      <description>Azure SQL Data Warehouse deep dive, including architecture, performance, distribution, and columnstore index.</description>
+    </item>
+    
+    <item>
+      <title>Hardware</title>
+      <link>https://www.lcodej.com/posts/hardware/</link>
+      <pubDate>Mon, 02 Sep 2019 14:42:12 +0000</pubDate>
+      
+      <guid>https://www.lcodej.com/posts/hardware/</guid>
+      <description>Hardware, including CPU, Memory, SSD, Motherboard</description>
+    </item>
+    
+    <item>
+      <title>Visual Studio Code Shortcuts</title>
+      <link>https://www.lcodej.com/posts/visual-studio-code-shortcuts/</link>
+      <pubDate>Fri, 30 Aug 2019 13:13:58 +0000</pubDate>
+      
+      <guid>https://www.lcodej.com/posts/visual-studio-code-shortcuts/</guid>
+      <description>Visual Studio Code Shortcuts</description>
+    </item>
+    
+    <item>
+      <title>Customize Hexo blog</title>
+      <link>https://www.lcodej.com/posts/customize-hexo-blog/</link>
+      <pubDate>Mon, 26 Aug 2019 13:40:46 +0000</pubDate>
+      
+      <guid>https://www.lcodej.com/posts/customize-hexo-blog/</guid>
+      <description>Customize Hexo blog, including blog sub directory, banner, image asset, about, feed, comments, google analytics, etc.</description>
+    </item>
+    
+    <item>
+      <title>How to create a blog</title>
+      <link>https://www.lcodej.com/posts/how-to-create-blog/</link>
+      <pubDate>Tue, 20 Aug 2019 15:28:39 +0000</pubDate>
+      
+      <guid>https://www.lcodej.com/posts/how-to-create-blog/</guid>
+      <description>How to create a blog, using Markdown, Hexo, Github Pages, and Custom domain.</description>
+    </item>
+    
+    <item>
+      <title>Hello world!</title>
+      <link>https://www.lcodej.com/posts/hello-world/</link>
+      <pubDate>Tue, 20 Aug 2019 15:15:23 +0000</pubDate>
+      
+      <guid>https://www.lcodej.com/posts/hello-world/</guid>
+      <description>Hello world! This is my first blog.</description>
+    </item>
+    
+  </channel>
+</rss>

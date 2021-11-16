@@ -1,0 +1,21 @@
+.logo__text {
+    text-transform: none;
+    font-family: monospace;
+}
+
+.logo__tagline {
+    text-transform: uppercase;
+}
+
+.footer__copyright-credits {
+    display: none;
+}
+
+.list__thumbnail {
+    float: right;
+}
+
+.post__content img {
+    display: block;
+    margin: auto;
+}
