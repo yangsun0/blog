@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Azure SQL Data Warehouse Deep Dive - LcodeJ</title>
+	<title>Azure SQL Data Warehouse Performance - LcodeJ</title>
 	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
 	<meta name="description" content="">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -40,30 +40,29 @@
 <main class="main" role="main">
 	<article class="post">
 		<header class="post__header">
-			<h1 class="post__title">Azure SQL Data Warehouse Deep Dive</h1>
+			<h1 class="post__title">Azure SQL Data Warehouse Performance</h1>
 			<div class="post__meta meta">
 <div class="meta__item-datetime meta__item">
 	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2019-09-13T16:26:05Z">September 13, 2019</time></div></div>
 		</header>
 		<div class="content post__content clearfix">
-			<p>My recent project uses Azure SQL Data Warehouse. The performance is good. I&rsquo;m wondering how the Azure SQL Data Warehouse is designed compared to traditional SQL Server Database, and how the performance is improved? Let&rsquo;s take a deep dive.</p>
+			<p>My recent project uses Azure SQL Data Warehouse. The performance surprised me. I have the question is SQL Data Warehouse based on the technology of traditional SQL Server, and scale up? How do they scale? How is the performance improved?</p>
 <h3 id="azure-sql-data-warehouse-architecture">Azure SQL Data Warehouse Architecture</h3>
-<p>Azure SQL Data Warehouse is a distributed computing system. It isn&rsquo;t a collection of computers which run SQL Server and operate partial of the data. Actually, Azure SQL Data Warehouse has a better design. BTW, it&rsquo;s big data, but it&rsquo;s not MapReduce.
-<img src="azure-sql-data-warehouse-architecture.png" alt="Azure SQL Data Warehouse Architecture"></p>
-<p>References:</p>
+<p>I found some good articles explain the architecture of Azure SQL Data Warehouse, and the technology they used to improve the performance. Some of the topics are very interesting, I did more research on them.</p>
 <ul>
 <li><a href="https://azure.microsoft.com/en-us/blog/adaptive-caching-powers-azure-sql-data-warehouse-performance-gains/">Adaptive caching powers Azure SQL Data Warehouse performance gains</a></li>
 <li><a href="https://azure.microsoft.com/en-us/blog/lightning-fast-query-performance-with-azure-sql-data-warehouse/">Lightning fast query performance with Azure SQL Data Warehouse</a></li>
 </ul>
+<p><img src="azure-sql-data-warehouse-architecture.png" alt="Azure SQL Data Warehouse Architecture"></p>
 <h4 id="storage-and-compute-are-decoupled">Storage and compute are decoupled</h4>
-<p>Storage and compute are decoupled. The compute node doesn&rsquo;t manage the storage. Instead, the compute node is attached to the storage. It means we can scale up/down compute independently. There is no limitation on storage capacity. And we don&rsquo;t pay for the storage. We only pay for compute. If we want to improve performance, we can allocated more compute nodes, and attach them to the storage. If we want to save money, we can reduce the compute nodes. One interesting thing is we can reduce to zero, we pay nothing, but we can&rsquo;t access the data. It doesn&rsquo;t mean we lost data, once we re-attach the compute nodes, we can access the data again. We call it pause/resume the data warehouse. It&rsquo;s quite flexible.</p>
+<p>Storage and compute are decoupled. The compute node doesn&rsquo;t manage the storage. Instead, the compute node is attached to the storage. It means we can scale up/down compute independently. There is no limitation on storage capacity. And we don&rsquo;t pay for the storage. We only pay for compute. If we want to improve performance, we can allocated more compute nodes, and attach them to the storage. If we want to save money, we can reduce the compute nodes. One interesting thing is we can reduce to zero, we pay nothing, but we can&rsquo;t access the data. It doesn&rsquo;t mean we lost data, once we re-attach the compute nodes, we can access the data again. It&rsquo;s called pause/resume the data warehouse.</p>
 <p>Reference:</p>
 <ul>
 <li><a href="https://docs.microsoft.com/en-us/azure/sql-data-warehouse/massively-parallel-processing-mpp-architecture">Massively parallel processing (MPP) architecture</a></li>
 </ul>
 <h4 id="distribution">Distribution</h4>
 <p>There&rsquo;s a magic number: <strong>60</strong>. Azure SQL Data Warehouse always has 60 distributions. In other words, it divides the data into 60 pieces, the compute node process one or more pieces of the data. If we want to improve the performance, we pay for more compute nodes, and process data in parallel. For example, we have one compute node, the compute node need process all of the 60 distributions. If we have two compute nodes, each one process 30 distributions and they work in parallel. The performance is improved. However, it doesn&rsquo;t mean adding more compute nodes always improve performance. Another important factor is how the data distributed. If distribution is unbalanced, some distribution has more, some has less, the compute time is the longest time of the compute node who process the most heavy distribution.</p>
-<p>Azure SQL Data Warehouse has two distribution algorithms: hash and round-robin. (Note: the distribution strategy of Azure Data Warehouse is different from MapReduce.)</p>
+<p>Azure SQL Data Warehouse has two distribution algorithms: hash and round-robin.</p>
 <ul>
 <li>Hash: using a deterministic hashing function to assign a row to 1 of the 60 distributions.</li>
 <li>Round-robin: distribute rows evenly across all distributions.</li>
@@ -92,7 +91,7 @@
     CLUSTERED COLUMNSTORE <span style="color:#66d9ef">INDEX</span>,
     DISTRIBUTION <span style="color:#f92672">=</span> ROUND_ROBIN
 )
-</code></pre></div><p>Round-robin is OK, if the scenario is simple. But in real world, we use Hash to optimize the distribution. And it&rsquo;s the only way we can control the distribution. Choosing the correct hash column is critical for performance. Choosing hash column isn&rsquo;t difficult. We can start from our business scenario. For example, which column is used to join two tables, which column is frequently used in group by clause. The optimization goal is to minimize the data movement. In the two tables joining scenario, the hash column is the joining column, the rows of the two tables share the same joining key are distributed to the same compute node. Otherwise, data movement is required.</p>
+</code></pre></div><p>Round-robin maybe OK for simple scenario. But more often, we use Hash to optimize the distribution. And it&rsquo;s the only way we can control the distribution. Choosing the correct hash column is critical for performance. Choosing hash column isn&rsquo;t difficult. We can always get answer from our business scenario. For example, which column is used to join two tables, which column is frequently used in group by clause. The optimization goal is to minimize the data movement. In the two tables joining scenario, the hash column is the joining column, the rows of the two tables share the same joining key are distributed to the same compute node. Otherwise, data movement is required.</p>
 <p><img src="distribution.png" alt="Distribution"></p>
 <p><img src="azure-sql-data-warehouse-scale.png" alt="Azure SQL Data Warehouse Scale"></p>
 <p>The hash distribution has limitations. One limitation is the data skew problem. When data is not distribute evenly, scale up computing can&rsquo;t efficiently help the performance. Another limitation is we can only have one hash column, if the business scenario requires more columns, data movement is required.</p>
@@ -104,9 +103,9 @@
 </ul>
 <h3 id="columnstore-index">Columnstore Index</h3>
 <p>Columnstore index is a new method to solve the problem how data is physically stored and how data is indexed.</p>
-<p>A data table is logically organized with rows and columns. The tradition method physically stores data by row. The new method physically store data by column. Wait, the columns are determined, but rows are not. How it works? The data table is divided by columns. Columns are separately stored. A column is a sequence of values. In addition, the sequence is divided into groups, and each group is compressed. A column&rsquo;s physical representation is a sequence of compressed groups. Why it&rsquo;s good? It&rsquo;s because the data warehouse scenario is analysis. The analysis is always column focused. For example, we want to calculate the total sales amount. The data warehouse just load the &ldquo;sales amount&rdquo; column from physical media, decompress the data, and calculate the sum. The process is compact, only the column we cared are loaded into memory, not the whole row. The compression is important, it saves the I/O cost (mostly, I/O is the bottleneck). The compression is also efficient, since the values in a column are belong to the same business domain, so they&rsquo;re similar, and similar values have high compress rate. The group size is fixed, it&rsquo;s 1,048,576 (another magic number: 2^20). The group size is carefully decided, large enough to improve compression rates, and small enough to benefit from in-memory operations. Decompress can be optimized by CPU AVX technologies, like the video encoding/decoding technologies.</p>
+<p>A data table is logically organized with rows and columns. The tradition method physically stores data by row. The new method physically store data by column. The data table is divided by columns. Columns are separately stored. A column is a sequence of values. In addition, the sequence is divided into groups, and each group is compressed. A column&rsquo;s physical representation is a sequence of compressed groups. Storing data by column instead of row is because the data warehouse scenario is analysis. The analysis is always column focused. For example, we want to calculate the total sales amount. The data warehouse just load the &ldquo;sales amount&rdquo; column from physical media, decompress the data, and calculate the sum. The process is compact, only the column we cared are loaded into memory, not the whole row. The compression can save the I/O cost. The compression is also efficient, since the values in a column are belong to the same business domain, so they&rsquo;re similar, and similar values have high compress rate. The group size is fixed, it&rsquo;s 1,048,576 (2^20). The group size is carefully decided, large enough to improve compression rates, and small enough to benefit from in-memory operations. Decompress can be optimized by CPU AVX technologies, like the video encoding/decoding technologies.</p>
 <p><img src="columnstore-index.png" alt="Columnstore Index"></p>
-<p>For a comparison, let&rsquo;s take a look at the tradition method. Data is stored by row physically. Index is created on column. The index is implemented by B-tree. The tree node contains the key, the index of the row, and pointers to the child tree nodes. Time complexity of searching a row is O(log(n)). For the same scenario, &ldquo;calculate the total sales amount&rdquo;, load the index into memory, traversal the tree, and calculate the sum of all the keys. The process isn&rsquo;t as efficient as columnstore index, when the data size is large.</p>
+<p>For a comparison, data is stored by row physically. Index is created on column. The index is implemented by B-tree. The tree node contains the key, the index of the row, and pointers to the child tree nodes. Time complexity of searching a row is O(log(n)). For the same scenario, &ldquo;calculate the total sales amount&rdquo;, load the index into memory, traversal the tree, and calculate the sum of all the keys. The process isn&rsquo;t as efficient as columnstore index, when the data size is large.</p>
 <p><img src="btree-index.png" alt="B-Tree Index"></p>
 <p>Reference:</p>
 <ul>
@@ -114,6 +113,7 @@
 <li><a href="https://www.geeksforgeeks.org/indexing-in-databases-set-1/">Indexing in Databases | Set 1</a></li>
 </ul>
 <h3 id="hardware-innovation">Hardware innovation</h3>
+<p>They also use hardware to improve the performance. I don&rsquo;t quite understand, but just copy it for fun.</p>
 <h4 id="mvme-ssd">MVMe SSD</h4>
 <p>I/O bandwidth is critical. Azure SQL Data Warehouse Gen 2 takes advantage of <a href="https://amzn.to/2NN3kz0">MVMe SSD</a>, which offer up to 2 2GB/s of local I/O bandwidth.
 Here&rsquo;s the read/write speed comparisons between HDD, SATA SSD and MVMe SSD.</p>
@@ -150,6 +150,20 @@ Here&rsquo;s the read/write speed comparisons between HDD, SATA SSD and MVMe SSD
 </main>
 
 
+<nav class="pager flex">
+	<div class="pager__item pager__item--prev">
+		<a class="pager__link" href="/posts/my-diy-computer/" rel="prev">
+			<span class="pager__subtitle">«&thinsp;Previous</span>
+			<p class="pager__title">My DIY Computer</p>
+		</a>
+	</div>
+	<div class="pager__item pager__item--next">
+		<a class="pager__link" href="/posts/explore-data/" rel="next">
+			<span class="pager__subtitle">Next&thinsp;»</span>
+			<p class="pager__title">Explore Data</p>
+		</a>
+	</div>
+</nav>
 
 
 			</div>
@@ -159,7 +173,7 @@ Here&rsquo;s the read/write speed comparisons between HDD, SATA SSD and MVMe SSD
 	<div class="container footer__container flex">
 		
 		<div class="footer__copyright">
-			&copy; 2021 Yang Sun.
+			&copy; 2022 Yang Sun.
 			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
 		</div>
 	</div>

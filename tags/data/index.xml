@@ -13,27 +13,27 @@
       <pubDate>Fri, 27 Dec 2019 22:27:11 +0000</pubDate>
       
       <guid>https://www.lcodej.com/posts/plot/</guid>
-      <description>Numbers doesn&amp;rsquo;t talk, data visualization is must-have. This post is a quick lookup for plot customization.
-%matplotlib inline # %matplotlib notebook # Interactive plot, need restart Jupyter Notebook kernel import pandas as pd import matplotlib.pyplot as plt import matplotlib.ticker as ticker import matplotlib.dates as mdates fig, ax = plt.subplots() data.plot(ax=ax) data[&amp;#34;column&amp;#34;].plot(ax=ax) # plot type data.plot(ax=ax, kind=&amp;#34;line&amp;#34;) # style data.plot(ax=ax, style=[&amp;#34;b&amp;#34;, &amp;#34;ro--&amp;#34;]) # legend data.plot(ax=ax, legend=True) ax.legend(labels=[&amp;#34;label1&amp;#34;, &amp;#34;label2&amp;#34;], loc=&amp;#34;upper right&amp;#34;) # title fig.</description>
+      <description>Plot quick reference.
+%matplotlib inline # %matplotlib notebook # Interactive plot, need restart Jupyter Notebook kernel import pandas as pd import matplotlib.</description>
     </item>
     
     <item>
-      <title>Exploratory data analysis in python</title>
-      <link>https://www.lcodej.com/posts/exploratory-data-analysis-in-python/</link>
+      <title>Explore Data</title>
+      <link>https://www.lcodej.com/posts/explore-data/</link>
       <pubDate>Tue, 19 Nov 2019 16:26:45 +0000</pubDate>
       
-      <guid>https://www.lcodej.com/posts/exploratory-data-analysis-in-python/</guid>
-      <description>Exploratory data analysis help us understand data. Python and data science packages are very useful. This post is a summary of the basic usage.
-Toolkit  pandas numpy scipy.stats matplotlib  import pandas as pd import numpy as np import matplotlib.pyplot as plt %matplotlib inline # magic function to show plot inside Notebook  Explore data Data structure type(data) ## pandas.core.frame.DataFrame data.info() data.head() data.tail() Select, index, and filter Select column or columns.</description>
+      <guid>https://www.lcodej.com/posts/explore-data/</guid>
+      <description>Explore Data quick reference, including data explore, manipulation, and I/O.
+Toolkit  pandas numpy scipy.stats matplotlib  import pandas as pd import numpy as np import matplotlib.</description>
     </item>
     
     <item>
-      <title>Azure SQL Data Warehouse Deep Dive</title>
-      <link>https://www.lcodej.com/posts/azure-sql-data-warehouse-deep-dive/</link>
+      <title>Azure SQL Data Warehouse Performance</title>
+      <link>https://www.lcodej.com/posts/azure-sql-data-warehouse-performance/</link>
       <pubDate>Fri, 13 Sep 2019 16:26:05 +0000</pubDate>
       
-      <guid>https://www.lcodej.com/posts/azure-sql-data-warehouse-deep-dive/</guid>
-      <description>Azure SQL Data Warehouse deep dive, including architecture, performance, distribution, and columnstore index.</description>
+      <guid>https://www.lcodej.com/posts/azure-sql-data-warehouse-performance/</guid>
+      <description>My recent project uses Azure SQL Data Warehouse. The performance surprised me. I have the question is SQL Data Warehouse based on the technology of traditional SQL Server, and scale up?</description>
     </item>
     
   </channel>

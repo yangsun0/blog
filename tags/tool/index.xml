@@ -6,14 +6,27 @@
     <description>Recent content in tool on LcodeJ</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 30 Aug 2019 13:13:58 +0000</lastBuildDate><atom:link href="https://www.lcodej.com/tags/tool/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 15 Nov 2021 19:17:19 -0800</lastBuildDate><atom:link href="https://www.lcodej.com/tags/tool/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Migrate to Hugo</title>
+      <link>https://www.lcodej.com/posts/migrate-to-hugo/</link>
+      <pubDate>Mon, 15 Nov 2021 19:17:19 -0800</pubDate>
+      
+      <guid>https://www.lcodej.com/posts/migrate-to-hugo/</guid>
+      <description>Migrate my blog to Hugo.
+Document: https://gohugo.io/documentation/
+My favorite theme: Mainroad
+Setup # install snap install hugo --channel=extended # verify install hugo version # crate a new site hugo new site my-blog # add theme git submodule add https://github.</description>
+    </item>
+    
     <item>
       <title>Visual Studio Code Shortcuts</title>
       <link>https://www.lcodej.com/posts/visual-studio-code-shortcuts/</link>
       <pubDate>Fri, 30 Aug 2019 13:13:58 +0000</pubDate>
       
       <guid>https://www.lcodej.com/posts/visual-studio-code-shortcuts/</guid>
-      <description>Visual Studio Code Shortcuts</description>
+      <description>Visual Studio Code shortcut quick reference.
+How to find shortcut Ctrl + Shift + P, then type the name to find the shortcuts.</description>
     </item>
     
     <item>
@@ -22,7 +35,8 @@
       <pubDate>Mon, 26 Aug 2019 13:40:46 +0000</pubDate>
       
       <guid>https://www.lcodej.com/posts/customize-hexo-blog/</guid>
-      <description>Customize Hexo blog, including blog sub directory, banner, image asset, about, feed, comments, google analytics, etc.</description>
+      <description>Customize Hexo Blog. How to create blog is here
+General config title: description: author: index_generator: per_page: 3 Blog sub directory I want my blog under a sub directory, https://www.</description>
     </item>
     
     <item>

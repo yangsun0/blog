@@ -46,13 +46,82 @@
 	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2021-11-15T19:17:19-08:00">November 15, 2021</time></div></div>
 		</header>
 		<div class="content post__content clearfix">
-			<p>Migrate my blog to Hugo.</p>
+			<p>Migrate my blog to <a href="https://gohugo.io/">Hugo</a>.</p>
+<p>Document:
+<a href="https://gohugo.io/documentation/">https://gohugo.io/documentation/</a></p>
+<p>My favorite theme: <a href="https://jamstackthemes.dev/theme/hugo-mainroad/">Mainroad</a></p>
+<h3 id="setup">Setup</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># install</span>
+snap install hugo --channel<span style="color:#f92672">=</span>extended
+<span style="color:#75715e"># verify install</span>
+hugo version
+<span style="color:#75715e"># crate a new site</span>
+hugo new site my-blog
+<span style="color:#75715e"># add theme</span>
+git submodule add https://github.com/vimux/mainroad
+<span style="color:#75715e"># new post</span>
+hugo new posts/hello-world/index.md
+<span style="color:#75715e"># run hugo server</span>
+hugo server
+<span style="color:#75715e"># run hugo server with draft</span>
+hugo server -D
+<span style="color:#75715e"># publish</span>
+hugo
+</code></pre></div><h3 id="customize-the-site">Customize the site</h3>
+<p>Theme configuration: <a href="https://github.com/Vimux/Mainroad#configuration">https://github.com/Vimux/Mainroad#configuration</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-toml" data-lang="toml"><span style="color:#a6e22e">languageCode</span> = <span style="color:#e6db74">&#39;en-us&#39;</span>
+<span style="color:#a6e22e">theme</span> = <span style="color:#e6db74">&#34;mainroad&#34;</span>
+<span style="color:#a6e22e">summaryLength</span> = <span style="color:#ae81ff">30</span> <span style="color:#75715e"># The length of text in words to show in a .Summary.</span>
 
+[<span style="color:#a6e22e">Params</span>]
+  <span style="color:#a6e22e">post_meta</span> = [<span style="color:#e6db74">&#34;date&#34;</span>]  <span style="color:#75715e"># Order of post meta information</span>
+  <span style="color:#a6e22e">pager</span> = <span style="color:#66d9ef">true</span> <span style="color:#75715e"># Show pager navigation (prev/next links) at the bottom of pages if true  </span>
+  <span style="color:#a6e22e">customCSS</span> = [<span style="color:#e6db74">&#34;css/mainroad.css&#34;</span>] <span style="color:#75715e"># Include custom CSS files, customize the site which is not configurable.</span>
+
+[<span style="color:#a6e22e">Params</span>.<span style="color:#a6e22e">logo</span>]
+  <span style="color:#a6e22e">title</span> = <span style="color:#e6db74">&#34;LcodeJ&#34;</span>
+  <span style="color:#a6e22e">subtitle</span> = <span style="color:#e6db74">&#34;Yang&#39;s blog&#34;</span>
+
+[<span style="color:#a6e22e">Params</span>.<span style="color:#a6e22e">thumbnail</span>]
+  <span style="color:#a6e22e">visibility</span> = [<span style="color:#e6db74">&#34;list&#34;</span>] <span style="color:#75715e"># Control thumbnail visibility</span>
+
+[<span style="color:#a6e22e">Params</span>.<span style="color:#a6e22e">style</span>.<span style="color:#a6e22e">vars</span>]
+  <span style="color:#a6e22e">highlightColor</span> = <span style="color:#e6db74">&#34;grey&#34;</span> <span style="color:#75715e"># Override highlight color</span>
+
+[<span style="color:#a6e22e">Params</span>.<span style="color:#a6e22e">sidebar</span>]
+  <span style="color:#a6e22e">home</span> = <span style="color:#e6db74">&#34;right&#34;</span> <span style="color:#75715e"># Configure layout for home page</span>
+  <span style="color:#a6e22e">list</span> = <span style="color:#e6db74">&#34;right&#34;</span> <span style="color:#75715e"># Configure layout for list pages</span>
+  <span style="color:#a6e22e">single</span> = <span style="color:#66d9ef">false</span> <span style="color:#75715e"># Configure layout for single pages</span>
+  <span style="color:#a6e22e">widgets</span> = [<span style="color:#e6db74">&#34;recent&#34;</span>, <span style="color:#e6db74">&#34;taglist&#34;</span>, <span style="color:#e6db74">&#34;social&#34;</span>] <span style="color:#75715e"># Enable widgets in given order</span>
+
+[<span style="color:#a6e22e">Params</span>.<span style="color:#a6e22e">widgets</span>]
+  <span style="color:#a6e22e">recent_num</span> = <span style="color:#ae81ff">5</span> <span style="color:#75715e"># Set the number of articles in the &#34;Recent articles&#34; widget</span>
+
+</code></pre></div>
 		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/tool/" rel="tag">tool</a>
+		</li>
+	</ul>
+</div>
+		</footer>
 	</article>
 </main>
 
 
+<nav class="pager flex">
+	<div class="pager__item pager__item--prev">
+		<a class="pager__link" href="/posts/dependency-injection/" rel="prev">
+			<span class="pager__subtitle">«&thinsp;Previous</span>
+			<p class="pager__title">Dependency Injection</p>
+		</a>
+	</div>
+</nav>
 
 
 			</div>
@@ -62,7 +131,7 @@
 	<div class="container footer__container flex">
 		
 		<div class="footer__copyright">
-			&copy; 2021 Yang Sun.
+			&copy; 2022 Yang Sun.
 			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
 		</div>
 	</div>

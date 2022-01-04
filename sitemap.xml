@@ -11,13 +11,16 @@
     <loc>https://www.lcodej.com/posts/</loc>
     <lastmod>2021-11-15T19:17:19-08:00</lastmod>
   </url><url>
+    <loc>https://www.lcodej.com/tags/</loc>
+    <lastmod>2021-11-15T19:17:19-08:00</lastmod>
+  </url><url>
+    <loc>https://www.lcodej.com/tags/tool/</loc>
+    <lastmod>2021-11-15T19:17:19-08:00</lastmod>
+  </url><url>
     <loc>https://www.lcodej.com/posts/dependency-injection/</loc>
     <lastmod>2020-01-31T19:51:06+00:00</lastmod>
   </url><url>
     <loc>https://www.lcodej.com/tags/design/</loc>
-    <lastmod>2020-01-31T19:51:06+00:00</lastmod>
-  </url><url>
-    <loc>https://www.lcodej.com/tags/</loc>
     <lastmod>2020-01-31T19:51:06+00:00</lastmod>
   </url><url>
     <loc>https://www.lcodej.com/tags/data/</loc>
@@ -32,17 +35,14 @@
     <loc>https://www.lcodej.com/posts/lego-tree-house/</loc>
     <lastmod>2019-12-01T14:57:20+00:00</lastmod>
   </url><url>
-    <loc>https://www.lcodej.com/posts/exploratory-data-analysis-in-python/</loc>
+    <loc>https://www.lcodej.com/posts/explore-data/</loc>
     <lastmod>2019-11-19T16:26:45+00:00</lastmod>
   </url><url>
-    <loc>https://www.lcodej.com/posts/azure-sql-data-warehouse-deep-dive/</loc>
+    <loc>https://www.lcodej.com/posts/azure-sql-data-warehouse-performance/</loc>
     <lastmod>2019-09-13T16:26:05+00:00</lastmod>
   </url><url>
-    <loc>https://www.lcodej.com/posts/hardware/</loc>
+    <loc>https://www.lcodej.com/posts/my-diy-computer/</loc>
     <lastmod>2019-09-02T14:42:12+00:00</lastmod>
-  </url><url>
-    <loc>https://www.lcodej.com/tags/tool/</loc>
-    <lastmod>2019-08-30T13:13:58+00:00</lastmod>
   </url><url>
     <loc>https://www.lcodej.com/posts/visual-studio-code-shortcuts/</loc>
     <lastmod>2019-08-30T13:13:58+00:00</lastmod>
