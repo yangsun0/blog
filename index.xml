@@ -6,7 +6,18 @@
     <description>Recent content on LcodeJ</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 15 Nov 2021 19:17:19 -0800</lastBuildDate><atom:link href="https://www.lcodej.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 05 Jan 2022 15:04:46 -0800</lastBuildDate><atom:link href="https://www.lcodej.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Dual Boot Linux and Windows</title>
+      <link>https://www.lcodej.com/posts/dual-boot-linux-and-windows/</link>
+      <pubDate>Wed, 05 Jan 2022 15:04:46 -0800</pubDate>
+      
+      <guid>https://www.lcodej.com/posts/dual-boot-linux-and-windows/</guid>
+      <description>Steps:   Figure out UEFI or legacy BIOS
+System Information &amp;gt; System Summary &amp;gt; BIOS Mode: UEFI
+  Disable Fast Startup</description>
+    </item>
+    
     <item>
       <title>Migrate to Hugo</title>
       <link>https://www.lcodej.com/posts/migrate-to-hugo/</link>
