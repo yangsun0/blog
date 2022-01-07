@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Customize Ubuntu - LcodeJ</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/css/mainroad.css">
+
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo">
+		<a class="logo__link" href="/" title="LcodeJ" rel="home">
+			<div class="logo__item logo__text">
+					<div class="logo__title">LcodeJ</div>
+					<div class="logo__tagline">Yang&#39;s blog</div>
+				</div>
+		</a>
+	</div>
+		<div class="divider"></div>
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">Customize Ubuntu</h1>
+			<div class="post__meta meta">
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2022-01-07T15:33:19-08:00">January 07, 2022</time></div></div>
+		</header>
+		<div class="content post__content clearfix">
+			<h2 id="make-linux-look-like-mac">Make Linux look like Mac</h2>
+<h3 id="check-the-desktop-envoriment">Check the desktop Envoriment</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">echo $XDG_CURRENT_DESKTOP
+ubuntu:GNOME
+</code></pre></div><h3 id="install-gnome-tweaks">Install GNOME Tweaks</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">sudo apt install gnome-tweaks
+</code></pre></div><h3 id="install-gnome-extensions">Install GNOME extensions</h3>
+<ol>
+<li>Go to the website <a href="https://extensions.gnome.org">GNOME extensions</a></li>
+<li>Install the browser add-on</li>
+<li>Install <strong>User Themes</strong> extesnion from the website</li>
+</ol>
+<h3 id="install-macos-theme">Install macOS theme</h3>
+<p><a href="https://www.pling.com/p/1431904">BigSur GTK3 Theme</a>
+~/.local/share/themes/</p>
+<p><a href="https://www.pling.com/p/1427387/">BigSur Icons</a>
+~/.local/share/icons/</p>
+<p><a href="https://www.pling.com/p/1408466">Big Sur Cursors</a>
+~/.local/.icons/</p>
+<p>Change theme in GNOME Tweaks &gt; Appearance
+<img src="appearance.png" alt="Appearance"></p>
+<h3 id="install-fonts">Install Fonts</h3>
+<p><a href="https://fonts.google.com/specimen/Roboto?query=robot">Roboto Fonts</a></p>
+<p><img src="fonts.png" alt="Fonts"></p>
+<p>Reference: <a href="https://itsfoss.com/make-ubuntu-look-like-macos/">How to Make Ubuntu Look Like macOS in 5 Easy Steps</a></p>
+<h2 id="settings">Settings</h2>
+<ul>
+<li>Appearance
+<ul>
+<li>Auto-hide the Dock</li>
+<li>Position on screen: Left</li>
+</ul>
+</li>
+<li>Display
+<ul>
+<li>Night Light</li>
+</ul>
+</li>
+<li>Universal Access
+<ul>
+<li>Large Text</li>
+<li>Cursor Size: Large</li>
+</ul>
+</li>
+</ul>
+<h2 id="gnome-extensions">GNOME Extensions</h2>
+<ul>
+<li>Applications Menu</li>
+<li>Bing Wallpaper
+<ul>
+<li>Lock Screen -&gt; Background blur intensity: 2, Background brightness: 50</li>
+</ul>
+</li>
+<li>Control Blur Effect On Lock Screen
+<ul>
+<li>Adjust Sigma: 0, Adjust Brightness: 0</li>
+</ul>
+</li>
+<li>gTile
+<ul>
+<li>Preset resize 1: 4x1 0:0 0:0</li>
+<li>Preset resize 2: 4x1 1:0 2:0</li>
+<li>Preset resize 3: 4x1 3:0 3:0</li>
+</ul>
+</li>
+<li>OpenWeather</li>
+<li>Screenshot Tool</li>
+<li>User Themes</li>
+<li>Window List</li>
+</ul>
+
+		</div>
+	</article>
+</main>
+
+
+<nav class="pager flex">
+	<div class="pager__item pager__item--prev">
+		<a class="pager__link" href="/posts/dual-boot-linux-and-windows/" rel="prev">
+			<span class="pager__subtitle">«&thinsp;Previous</span>
+			<p class="pager__title">Dual Boot Linux and Windows</p>
+		</a>
+	</div>
+</nav>
+
+
+			</div>
+			
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2022 Yang Sun.
+			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+</body>
+</html>
