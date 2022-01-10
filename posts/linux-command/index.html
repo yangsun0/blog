@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Linux Command - LcodeJ</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/css/mainroad.css">
+
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo">
+		<a class="logo__link" href="/" title="LcodeJ" rel="home">
+			<div class="logo__item logo__text">
+					<div class="logo__title">LcodeJ</div>
+					<div class="logo__tagline">Yang&#39;s blog</div>
+				</div>
+		</a>
+	</div>
+		<div class="divider"></div>
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">Linux Command</h1>
+			<div class="post__meta meta">
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2022-01-10T15:19:49-08:00">January 10, 2022</time></div></div>
+		</header>
+		<div class="content post__content clearfix">
+			<h2 id="command">Command</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cmd --help
+cmd -h
+man cmd
+man -k search_term
+which cmd
+history |tail -10
+history |grep keyword
+!!
+!-2
+</code></pre></div><h2 id="file-and-directory">File and Directory</h2>
+<h3 id="navigate">Navigate</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cd ..
+cd -
+pwd
+xdg-open .
+</code></pre></div><h3 id="view">View</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ls -l  <span style="color:#75715e"># details</span>
+ls -a  <span style="color:#75715e"># hidden</span>
+ls -F  <span style="color:#75715e"># file type</span>
+ls -t  <span style="color:#75715e"># sort by modified time</span>
+ls -r  <span style="color:#75715e"># reverse</span>
+ls -d  <span style="color:#75715e"># directory</span>
+ls -latr
+tree
+tree -d  <span style="color:#75715e"># directory only</span>
+ls -R  <span style="color:#75715e"># recursive</span>
+file file
+du -k file  <span style="color:#75715e"># size in K</span>
+du -m file  <span style="color:#75715e"># size in M</span>
+du -h file  <span style="color:#75715e"># human readable</span>
+du -c dir  <span style="color:#75715e"># total</span>
+</code></pre></div><h3 id="modify">Modify</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">touch file
+mkdir dir
+mkdir -p a/b/c  <span style="color:#75715e"># parent directory</span>
+rmdir dir
+rmdir -p a/b/c  <span style="color:#75715e"># parent directory</span>
+rm file
+rm -r dir  <span style="color:#75715e"># recursive</span>
+rm -f file  <span style="color:#75715e"># force</span>
+cp src dest
+cp src1 src2 dest_dir
+cp -r src_dir dest_dir  <span style="color:#75715e"># recursive</span>
+mv scr dest
+tar -cf file.tar dir  <span style="color:#75715e"># create</span>
+tar -tf file.tar  <span style="color:#75715e"># display</span>
+tar -xf file.tar  <span style="color:#75715e"># extract</span>
+tar -zcf file.tgz dir  <span style="color:#75715e"># zip</span>
+tar -ztf file.tgz
+ln -s file link
+</code></pre></div><h3 id="find">Find</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">find  <span style="color:#75715e">## all files </span>
+find dir 
+find file_name/pattern  <span style="color:#75715e"># current dir</span>
+find -name file_name/pattern  <span style="color:#75715e"># recursive find</span>
+find -iname File_name/pattern  <span style="color:#75715e"># ignore case</span>
+find -not -name pattern
+find -ls  <span style="color:#75715e"># list</span>
+find -mtime +1 -mtime -3  <span style="color:#75715e"># modified time in days</span>
+find -size +1M -size -5M  <span style="color:#75715e"># size</span>
+find -type d  <span style="color:#75715e"># directory</span>
+find -type f  <span style="color:#75715e"># file</span>
+find -newer file  <span style="color:#75715e"># newer</span>
+find -exec cmd <span style="color:#f92672">{}</span> <span style="color:#ae81ff">\;</span>  <span style="color:#75715e"># execute cmd</span>
+find -exec file <span style="color:#f92672">{}</span> <span style="color:#ae81ff">\;</span>
+</code></pre></div><h2 id="pipeline">Pipeline</h2>
+<h3 id="redirect-io">Redirect IO</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cmd &gt;file
+cmd &gt;&gt;file
+cmd 2&gt;/dev/null
+cmd 2&gt;&amp;<span style="color:#ae81ff">1</span>
+cmd &gt;file 2&gt;&amp;<span style="color:#ae81ff">1</span>
+</code></pre></div><h3 id="utility">Utility</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cut -d: -f1,2-3,4-  <span style="color:#75715e"># delimiter, fields</span>
+cut -d<span style="color:#e6db74">&#39; &#39;</span> -f2
+sort
+sort -k2  <span style="color:#75715e"># key is column 2</span>
+sort -r  <span style="color:#75715e"># reverse</span>
+sort -u  <span style="color:#75715e"># unique</span>
+tr <span style="color:#e6db74">&#39;,&#39;</span> <span style="color:#e6db74">&#39; &#39;</span>
+tr -s <span style="color:#e6db74">&#39; &#39;</span> <span style="color:#e6db74">&#39;\n&#39;</span>  <span style="color:#75715e"># squeze space</span>
+uniq -c - count
+awk <span style="color:#e6db74">&#39;{print $1, $2}&#39;</span>
+column -t
+grep pattern file | cut -d, -f1,3 | sort | tr <span style="color:#e6db74">&#34;,&#34;</span> <span style="color:#e6db74">&#34; &#34;</span> | column -t
+ps |grep hugo  | awk <span style="color:#e6db74">&#39;{print $1&#39;</span><span style="color:#f92672">}</span> | xargs kill
+</code></pre></div><h2 id="text-file">Text File</h2>
+<h3 id="view-1">View</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cat file
+cat -n file  <span style="color:#75715e"># line number</span>
+tac file
+less -N file  <span style="color:#75715e"># line number</span>
+head -5 file  <span style="color:#75715e"># lines</span>
+tail -5 file  <span style="color:#75715e"># lines</span>
+tail -f file  <span style="color:#75715e"># follow update</span>
+</code></pre></div><h3 id="search">Search</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">grep pattern file
+grep -i pattern file  <span style="color:#75715e"># ignore case</span>
+grep -n pattern file  <span style="color:#75715e"># line number</span>
+grep -c pattern file  <span style="color:#75715e"># count</span>
+grep -v  pattern file  <span style="color:#75715e"># not match</span>
+cmd | grep pattern
+strings binary | grep pattern
+grep pattern file | less
+</code></pre></div><h3 id="compare">Compare</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">diff file1 file2
+sdiff file1 file2
+vimdiff file1 file2
+</code></pre></div><h2 id="executable">Executable</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ps -f  <span style="color:#75715e"># details</span>
+ps -e  <span style="color:#75715e"># every proces</span>
+ps -ef
+ps -u user  <span style="color:#75715e"># user&#39;s</span>
+ps -H  <span style="color:#75715e"># tree</span>
+pstree
+top
+cmd&amp;
+Ctrl+z  <span style="color:#75715e"># suspend</span>
+Ctrl+c  <span style="color:#75715e"># kill</span>
+jobs -l
+bg %1
+fg %1
+kill pid
+kill %jobid
+kill -9 pid
+</code></pre></div><h2 id="permission">Permission</h2>
+<h3 id="user-and-group">User and Group</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">whoami
+su username
+useradd username -c <span style="color:#e6db74">&#34;User&#34;</span> -m -s /bin/bash -g default_group
+useradd svcname -c <span style="color:#e6db74">&#34;Service&#34;</span> -r -d /bin/svc -s /bin/false
+useradd svcname -c <span style="color:#e6db74">&#34;Service&#34;</span> -u uid -d /bin/svc -s /bin/false
+usermod username -aG g1,g2
+userdel username
+passwd username
+groupadd groupname -c <span style="color:#e6db74">&#34;Group&#34;</span> -g gid
+groupdel groupname
+groupmod groupname
+groups
+groups username
+id
+id username
+tail -1 /etc/passwd
+tail -1 /etc/group
+</code></pre></div><h3 id="file-and-directory-1">File and Directory</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">chgrp group file
+chmod <span style="color:#ae81ff">660</span> file
+chmod u+rwx,g-w,o<span style="color:#f92672">=</span> file  <span style="color:#75715e"># user, group, other</span>
+chmod a+r file  <span style="color:#75715e"># all</span>
+umask
+umask <span style="color:#ae81ff">0002</span>
+</code></pre></div><h3 id="directory">Directory</h3>
+<table>
+<thead>
+<tr>
+<th>code</th>
+<th>permission</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>700</td>
+<td>only me</td>
+</tr>
+<tr>
+<td>755</td>
+<td>share everyone</td>
+</tr>
+<tr>
+<td>750</td>
+<td>group read</td>
+</tr>
+<tr>
+<td>770</td>
+<td>group write</td>
+</tr>
+<tr>
+<td>775</td>
+<td>share everyone, group write</td>
+</tr>
+</tbody>
+</table>
+<h3 id="file">File</h3>
+<table>
+<thead>
+<tr>
+<th>code</th>
+<th>permission</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>600</td>
+<td>only me</td>
+</tr>
+<tr>
+<td>644</td>
+<td>share everyone</td>
+</tr>
+<tr>
+<td>640</td>
+<td>group read</td>
+</tr>
+<tr>
+<td>660</td>
+<td>group write</td>
+</tr>
+<tr>
+<td>664</td>
+<td>share everyone, group write</td>
+</tr>
+</tbody>
+</table>
+<h3 id="executable-1">Executable</h3>
+<table>
+<thead>
+<tr>
+<th>code</th>
+<th>permission</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>700</td>
+<td>only me</td>
+</tr>
+<tr>
+<td>750</td>
+<td>share group</td>
+</tr>
+<tr>
+<td>755</td>
+<td>share everyone</td>
+</tr>
+</tbody>
+</table>
+<h3 id="file-creation-mask">File Creation Mask</h3>
+<table>
+<thead>
+<tr>
+<th>mask</th>
+<th>directory</th>
+<th>file</th>
+<th>permission</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>base</td>
+<td>777</td>
+<td>666</td>
+<td></td>
+</tr>
+<tr>
+<td>022</td>
+<td>755</td>
+<td>644</td>
+<td>share everyone</td>
+</tr>
+<tr>
+<td>002</td>
+<td>775</td>
+<td>664</td>
+<td>share everyone, group write</td>
+</tr>
+<tr>
+<td>077</td>
+<td>700</td>
+<td>600</td>
+<td>only me</td>
+</tr>
+<tr>
+<td>007</td>
+<td>770</td>
+<td>660</td>
+<td>group write</td>
+</tr>
+</tbody>
+</table>
+<h3 id="reference">Reference</h3>
+<table>
+<thead>
+<tr>
+<th>code</th>
+<th>bit</th>
+<th>permission</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>7</td>
+<td>111</td>
+<td>rwx</td>
+</tr>
+<tr>
+<td>6</td>
+<td>110</td>
+<td>rw-</td>
+</tr>
+<tr>
+<td>5</td>
+<td>101</td>
+<td>r-x</td>
+</tr>
+<tr>
+<td>4</td>
+<td>100</td>
+<td>r&ndash;</td>
+</tr>
+<tr>
+<td>0</td>
+<td>000</td>
+<td>&mdash;</td>
+</tr>
+</tbody>
+</table>
+
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/tool/" rel="tag">tool</a>
+		</li>
+	</ul>
+</div>
+		</footer>
+	</article>
+</main>
+
+
+<nav class="pager flex">
+	<div class="pager__item pager__item--prev">
+		<a class="pager__link" href="/posts/customize-ubuntu/" rel="prev">
+			<span class="pager__subtitle">«&thinsp;Previous</span>
+			<p class="pager__title">Customize Ubuntu</p>
+		</a>
+	</div>
+</nav>
+
+
+			</div>
+			
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2022 Yang Sun.
+			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+</body>
+</html>

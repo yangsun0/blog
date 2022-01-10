@@ -6,14 +6,23 @@
     <description>Recent content on LcodeJ</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 07 Jan 2022 15:33:19 -0800</lastBuildDate><atom:link href="https://www.lcodej.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 10 Jan 2022 15:19:49 -0800</lastBuildDate><atom:link href="https://www.lcodej.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Linux Command</title>
+      <link>https://www.lcodej.com/posts/linux-command/</link>
+      <pubDate>Mon, 10 Jan 2022 15:19:49 -0800</pubDate>
+      
+      <guid>https://www.lcodej.com/posts/linux-command/</guid>
+      <description>Command cmd --help cmd -h man cmd man -k search_term which cmd history |tail -10 history |grep keyword !! !-2 File and Directory Navigate cd .</description>
+    </item>
+    
     <item>
       <title>Customize Ubuntu</title>
       <link>https://www.lcodej.com/posts/customize-ubuntu/</link>
       <pubDate>Fri, 07 Jan 2022 15:33:19 -0800</pubDate>
       
       <guid>https://www.lcodej.com/posts/customize-ubuntu/</guid>
-      <description>Make Linux look like Mac Check the desktop Envoriment echo $XDG_CURRENT_DESKTOP ubuntu:GNOME Install GNOME Tweaks sudo apt install gnome-tweaks Install GNOME extensions  Go to the website GNOME extensions Install the browser add-on Install User Themes extesnion from the website  Install macOS theme BigSur GTK3 Theme ~/.</description>
+      <description>Make Linux look like Mac Check the desktop Environment echo $XDG_CURRENT_DESKTOP ubuntu:GNOME Install GNOME Tweaks sudo apt install gnome-tweaks Install GNOME extensions  Go to the website GNOME extensions Install the browser add-on Install User Themes extension from the website  Install macOS theme BigSur GTK3 Theme ~/.</description>
     </item>
     
     <item>
