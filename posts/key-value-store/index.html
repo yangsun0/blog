@@ -79,16 +79,18 @@ Assume today’s hash map to 1 to 3. Server 1 is heavily loaded in sequential as
 <p>Redundancy is used for fault tolerance. Each hash key has N replicas, hosted by the assigned server and the following server in order.</p>
 <p><img src="replication.png" alt="Replication"></p>
 <h3 id="trade-off">Trade-off</h3>
-<p>We want redundancy for fault tolerance, and we want high availability for good performance. We can’t have both of them, and we need a trade-off. We decrease the write time by not waiting for all replicas successed, in exchange, increase the read time by reading more replicas to get the latest version data.
-The quorum formula is: W + R &gt; N
-Assume N is 3, there’re options:
-3W + 1R
-1W + 3R
-2W + 2R</p>
+<p>We want redundancy for fault tolerance, and we want high availability for good performance. We can’t have both of them, and we need a trade-off. We decrease the write time by not waiting for all replicas successed, in exchange, increase the read time by reading more replicas to get the latest version data.</p>
+<p>The quorum formula is: W + R &gt; N</p>
+<p>Assume N is 3, there’re options:</p>
+<ul>
+<li>3W + 1R</li>
+<li>1W + 3R</li>
+<li>2W + 2R</li>
+</ul>
 <p><img src="quorum.png" alt="Quorum"></p>
-<p>For high availability, we want to decrease the write time, and also want to decrease the read time. In exchange, we may read stale data, wait for the replication done to get the latest data, which is called eventual consistency.
-The sloppy formula is: W + R &lt;= N
-Assume N is 3, and we can do 1W + 1R for best performance, but eventual consistency.</p>
+<p>For high availability, we want to decrease the write time, and also want to decrease the read time. In exchange, we may read stale data, wait for the replication done to get the latest data, which is called eventual consistency.</p>
+<p>The sloppy formula is: W + R &lt;= N</p>
+<p>Assume N is 3, and we can do 1W + 1R for best performance, but eventual consistency.</p>
 <h3 id="read-and-write">Read and Write</h3>
 <p>Disk sequential read and write are the fastest. The key value store read and write operations can be optimized by disk sequential read and write. SSTable writes the key value pair by appending only to a file, which is sequential write. Later it merges the same keys and writes in order to the file in the background. It also has the index mapping sparse keys to the file location, and then sequentially read to the memory, and do a binary search.</p>
 <p>SSD M.2 Disk speed Test</p>
