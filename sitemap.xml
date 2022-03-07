@@ -2,14 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://www.lcodej.com/tags/design/</loc>
+    <lastmod>2022-03-07T11:44:09-08:00</lastmod>
+  </url><url>
+    <loc>https://www.lcodej.com/posts/key-value-store/</loc>
+    <lastmod>2022-03-07T11:44:09-08:00</lastmod>
+  </url><url>
     <loc>https://www.lcodej.com/</loc>
-    <lastmod>2022-03-07T11:32:49-08:00</lastmod>
+    <lastmod>2022-03-07T11:44:09-08:00</lastmod>
   </url><url>
     <loc>https://www.lcodej.com/posts/</loc>
-    <lastmod>2022-03-07T11:32:49-08:00</lastmod>
+    <lastmod>2022-03-07T11:44:09-08:00</lastmod>
   </url><url>
     <loc>https://www.lcodej.com/tags/</loc>
-    <lastmod>2022-03-07T11:32:49-08:00</lastmod>
+    <lastmod>2022-03-07T11:44:09-08:00</lastmod>
   </url><url>
     <loc>https://www.lcodej.com/tags/tool/</loc>
     <lastmod>2022-03-07T11:32:49-08:00</lastmod>
@@ -33,9 +39,6 @@
     <lastmod>2021-11-15T19:17:19-08:00</lastmod>
   </url><url>
     <loc>https://www.lcodej.com/posts/dependency-injection/</loc>
-    <lastmod>2020-01-31T19:51:06+00:00</lastmod>
-  </url><url>
-    <loc>https://www.lcodej.com/tags/design/</loc>
     <lastmod>2020-01-31T19:51:06+00:00</lastmod>
   </url><url>
     <loc>https://www.lcodej.com/tags/data/</loc>

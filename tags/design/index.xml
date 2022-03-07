@@ -6,7 +6,16 @@
     <description>Recent content in design on LcodeJ</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 31 Jan 2020 19:51:06 +0000</lastBuildDate><atom:link href="https://www.lcodej.com/tags/design/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 07 Mar 2022 11:44:09 -0800</lastBuildDate><atom:link href="https://www.lcodej.com/tags/design/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Key Value Store</title>
+      <link>https://www.lcodej.com/posts/key-value-store/</link>
+      <pubDate>Mon, 07 Mar 2022 11:44:09 -0800</pubDate>
+      
+      <guid>https://www.lcodej.com/posts/key-value-store/</guid>
+      <description>Hash table is easy to understand in concept. But the key value store, a distributed hash table with high availability requires sophisticated design.</description>
+    </item>
+    
     <item>
       <title>Dependency Injection</title>
       <link>https://www.lcodej.com/posts/dependency-injection/</link>
@@ -14,6 +23,15 @@
       
       <guid>https://www.lcodej.com/posts/dependency-injection/</guid>
       <description>Dependency injection is one of my favorite design pattern. The application is kind of transparent, which is one-off configuration in the app startup, and then use it naturally like it doesn&amp;rsquo;t exist.</description>
+    </item>
+    
+    <item>
+      <title>Azure SQL Data Warehouse Performance</title>
+      <link>https://www.lcodej.com/posts/azure-sql-data-warehouse-performance/</link>
+      <pubDate>Fri, 13 Sep 2019 16:26:05 +0000</pubDate>
+      
+      <guid>https://www.lcodej.com/posts/azure-sql-data-warehouse-performance/</guid>
+      <description>My recent project uses Azure SQL Data Warehouse. The performance surprised me. I have the question is SQL Data Warehouse based on the technology of traditional SQL Server, and scale up?</description>
     </item>
     
   </channel>

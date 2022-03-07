@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Key Value Store - LcodeJ</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/css/mainroad.css">
+
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PYGK4C23E8"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-PYGK4C23E8', { 'anonymize_ip': false });
+}
+</script>
+
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo">
+		<a class="logo__link" href="/" title="LcodeJ" rel="home">
+			<div class="logo__item logo__text">
+					<div class="logo__title">LcodeJ</div>
+					<div class="logo__tagline">Yang&#39;s blog</div>
+				</div>
+		</a>
+	</div>
+		<div class="divider"></div>
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">Key Value Store</h1>
+			<div class="post__meta meta">
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2022-03-07T11:44:09-08:00">March 07, 2022</time></div></div>
+		</header>
+		<div class="content post__content clearfix">
+			<p>Hash table is easy to understand in concept. But the key value store, a distributed hash table with high availability requires sophisticated design. The below papers and source code are must-read.</p>
+<ul>
+<li>Amazon&rsquo;s Dynamo <a href="https://www.allthingsdistributed.com/2007/10/amazons_dynamo.html">html</a>, <a href="https://www.allthingsdistributed.com/files/amazon-dynamo-sosp2007.pdf">paper</a></li>
+<li>Google&rsquo;s bigtable <a href="https://static.googleusercontent.com/media/research.google.com/en//archive/bigtable-osdi06.pdf">paper</a></li>
+<li>LevelDB <a href="https://github.com/google/leveldb/blob/main/doc/impl.md">notes</a>, <a href="https://github.com/google/leveldb/">source</a></li>
+</ul>
+<h2 id="partition">Partition</h2>
+<h3 id="uneven-distributed-queries">Uneven distributed queries</h3>
+<p>Assume the whole hash space is from 1 to 12, and we have 3 servers. Each server randomly picks 4 numbers. The random is important for an evenly distributed load. To the contrary, a sequential assignment may cause a hotspot. It’s because the query isn’t evenly distributed. For example, an app has a lot of queries for today’s data, and less queries for past data.
+Assume today’s hash map to 1 to 3. Server 1 is heavily loaded in sequential assignment. The load is distributed evenly in the random assignment.</p>
+<p><img src="partition.png" alt="Partition"></p>
+<h3 id="re-balancing">Re-balancing</h3>
+<p>When the traffic increases, we may want to add more servers, and the mapping from hash space to the physical servers are changed. Each server randomly picks a number, and gives it to the new server, and copies the corresponding data to the new server. The re-balancing process itself is also balanced. All the servers participate, and are responsible for a piece of work. It’s important, because all the servers have to keep the regular jobs, and do the re-balancing in the background. On the other hand, in the sequential assignment, re-balancing may cause some nodes to change a large amount of their hash keys and corresponding data. The re-balancing work may not be done well especially in a high load situation. (Dynamo’s paper mentions the bootstrap issue in section 6.2).</p>
+<p>Random Partition</p>
+<p><img src="partition_rebalancing_random.png" alt="Random Partition"></p>
+<p>Sequential partition</p>
+<p><img src="partition_rebalancing_sequential.png" alt="Sequential Partition"></p>
+<h2 id="replication">Replication</h2>
+<h3 id="ring">Ring</h3>
+<p>Redundancy is used for fault tolerance. Each hash key has N replicas, hosted by the assigned server and the following server in order.</p>
+<p><img src="replication.png" alt="Replication"></p>
+<h3 id="trade-off">Trade-off</h3>
+<p>We want redundancy for fault tolerance, and we want high availability for good performance. We can’t have both of them, and we need a trade-off. We decrease the write time by not waiting for all replicas successed, in exchange, increase the read time by reading more replicas to get the latest version data.
+The quorum formula is: W + R &gt; N
+Assume N is 3, there’re options:
+3W + 1R
+1W + 3R
+2W + 2R</p>
+<p><img src="quorum.png" alt="Quorum"></p>
+<p>For high availability, we want to decrease the write time, and also want to decrease the read time. In exchange, we may read stale data, wait for the replication done to get the latest data, which is called eventual consistency.
+The sloppy formula is: W + R &lt;= N
+Assume N is 3, and we can do 1W + 1R for best performance, but eventual consistency.</p>
+<h3 id="read-and-write">Read and Write</h3>
+<p>Disk sequential read and write are the fastest. The key value store read and write operations can be optimized by disk sequential read and write. SSTable writes the key value pair by appending only to a file, which is sequential write. Later it merges the same keys and writes in order to the file in the background. It also has the index mapping sparse keys to the file location, and then sequentially read to the memory, and do a binary search.</p>
+<p>SSD M.2 Disk speed Test</p>
+<p><img src="ssd_m2_speed.png" alt="SSD M.2 speed"></p>
+<p>SSD Disk speed Test</p>
+<p><img src="ssd_speed.png" alt="SSD speed"></p>
+<p>HHD Disk speed Test</p>
+<p><img src="hhd_speed.png" alt="HHD speed"></p>
+
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/design/" rel="tag">design</a>
+		</li>
+	</ul>
+</div>
+		</footer>
+	</article>
+</main>
+
+
+<nav class="pager flex">
+	<div class="pager__item pager__item--prev">
+		<a class="pager__link" href="/posts/viewer-shortcut/" rel="prev">
+			<span class="pager__subtitle">«&thinsp;Previous</span>
+			<p class="pager__title">Viewer Shortcut</p>
+		</a>
+	</div>
+</nav>
+
+
+			</div>
+			
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2022 Yang Sun.
+			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+</body>
+</html>
