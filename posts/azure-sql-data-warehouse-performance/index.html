@@ -79,30 +79,30 @@ if (!doNotTrack) {
 <li>Round-robin: distribute rows evenly across all distributions.</li>
 </ul>
 <p>Hash distributed table:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">TABLE</span> [dbo].[FactOrder]
-(
-    [OrderKey]            int          <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">NULL</span>,
-    [ProductKey]          int          <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">NULL</span>,
-    [Quantity]            smallint     <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">NULL</span>
-)
-<span style="color:#66d9ef">WITH</span>
-(
-    CLUSTERED COLUMNSTORE <span style="color:#66d9ef">INDEX</span>,
-    DISTRIBUTION <span style="color:#f92672">=</span> HASH([ProductKey])
-)
-</code></pre></div><p>Round-robin distributed table:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">TABLE</span> [dbo].[FactOrder]
-(
-    [OrderKey]            int          <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">NULL</span>,
-    [ProductKey]          int          <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">NULL</span>,
-    [Quantity]            smallint     <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">NULL</span>
-)
-<span style="color:#66d9ef">WITH</span>
-(
-    CLUSTERED COLUMNSTORE <span style="color:#66d9ef">INDEX</span>,
-    DISTRIBUTION <span style="color:#f92672">=</span> ROUND_ROBIN
-)
-</code></pre></div><p>Round-robin maybe OK for simple scenario. But more often, we use Hash to optimize the distribution. And it&rsquo;s the only way we can control the distribution. Choosing the correct hash column is critical for performance. Choosing hash column isn&rsquo;t difficult. We can always get answer from our business scenario. For example, which column is used to join two tables, which column is frequently used in group by clause. The optimization goal is to minimize the data movement. In the two tables joining scenario, the hash column is the joining column, the rows of the two tables share the same joining key are distributed to the same compute node. Otherwise, data movement is required.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">TABLE</span> [dbo].[FactOrder]
+</span></span><span style="display:flex;"><span>(
+</span></span><span style="display:flex;"><span>    [OrderKey]            int          <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">NULL</span>,
+</span></span><span style="display:flex;"><span>    [ProductKey]          int          <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">NULL</span>,
+</span></span><span style="display:flex;"><span>    [Quantity]            smallint     <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">NULL</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">WITH</span>
+</span></span><span style="display:flex;"><span>(
+</span></span><span style="display:flex;"><span>    CLUSTERED COLUMNSTORE <span style="color:#66d9ef">INDEX</span>,
+</span></span><span style="display:flex;"><span>    DISTRIBUTION <span style="color:#f92672">=</span> HASH([ProductKey])
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>Round-robin distributed table:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">TABLE</span> [dbo].[FactOrder]
+</span></span><span style="display:flex;"><span>(
+</span></span><span style="display:flex;"><span>    [OrderKey]            int          <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">NULL</span>,
+</span></span><span style="display:flex;"><span>    [ProductKey]          int          <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">NULL</span>,
+</span></span><span style="display:flex;"><span>    [Quantity]            smallint     <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">NULL</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">WITH</span>
+</span></span><span style="display:flex;"><span>(
+</span></span><span style="display:flex;"><span>    CLUSTERED COLUMNSTORE <span style="color:#66d9ef">INDEX</span>,
+</span></span><span style="display:flex;"><span>    DISTRIBUTION <span style="color:#f92672">=</span> ROUND_ROBIN
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>Round-robin maybe OK for simple scenario. But more often, we use Hash to optimize the distribution. And it&rsquo;s the only way we can control the distribution. Choosing the correct hash column is critical for performance. Choosing hash column isn&rsquo;t difficult. We can always get answer from our business scenario. For example, which column is used to join two tables, which column is frequently used in group by clause. The optimization goal is to minimize the data movement. In the two tables joining scenario, the hash column is the joining column, the rows of the two tables share the same joining key are distributed to the same compute node. Otherwise, data movement is required.</p>
 <p><img src="distribution.png" alt="Distribution"></p>
 <p><img src="azure-sql-data-warehouse-scale.png" alt="Azure SQL Data Warehouse Scale"></p>
 <p>The hash distribution has limitations. One limitation is the data skew problem. When data is not distribute evenly, scale up computing can&rsquo;t efficiently help the performance. Another limitation is we can only have one hash column, if the business scenario requires more columns, data movement is required.</p>

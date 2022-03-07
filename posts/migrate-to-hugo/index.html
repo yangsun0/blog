@@ -62,53 +62,52 @@ if (!doNotTrack) {
 <a href="https://gohugo.io/documentation/">https://gohugo.io/documentation/</a></p>
 <p>My favorite theme: <a href="https://jamstackthemes.dev/theme/hugo-mainroad/">Mainroad</a></p>
 <h3 id="setup">Setup</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># install</span>
-snap install hugo --channel<span style="color:#f92672">=</span>extended
-<span style="color:#75715e"># verify install</span>
-hugo version
-<span style="color:#75715e"># crate a new site</span>
-hugo new site my-blog
-<span style="color:#75715e"># add theme</span>
-git submodule add https://github.com/vimux/mainroad
-<span style="color:#75715e"># new post</span>
-hugo new posts/hello-world/index.md
-<span style="color:#75715e"># run hugo server</span>
-hugo server
-<span style="color:#75715e"># run hugo server with draft</span>
-hugo server -D
-<span style="color:#75715e"># publish</span>
-hugo
-</code></pre></div><h3 id="customize-the-site">Customize the site</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># install</span>
+</span></span><span style="display:flex;"><span>snap install hugo --channel<span style="color:#f92672">=</span>extended
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># verify install</span>
+</span></span><span style="display:flex;"><span>hugo version
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># crate a new site</span>
+</span></span><span style="display:flex;"><span>hugo new site my-blog
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># add theme</span>
+</span></span><span style="display:flex;"><span>git submodule add https://github.com/vimux/mainroad
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># new post</span>
+</span></span><span style="display:flex;"><span>hugo new posts/hello-world/index.md
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># run hugo server</span>
+</span></span><span style="display:flex;"><span>hugo server
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># run hugo server with draft</span>
+</span></span><span style="display:flex;"><span>hugo server -D
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># publish</span>
+</span></span><span style="display:flex;"><span>hugo
+</span></span></code></pre></div><h3 id="customize-the-site">Customize the site</h3>
 <p>Theme configuration: <a href="https://github.com/Vimux/Mainroad#configuration">https://github.com/Vimux/Mainroad#configuration</a></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-toml" data-lang="toml"><span style="color:#a6e22e">languageCode</span> = <span style="color:#e6db74">&#39;en-us&#39;</span>
-<span style="color:#a6e22e">theme</span> = <span style="color:#e6db74">&#34;mainroad&#34;</span>
-<span style="color:#a6e22e">summaryLength</span> = <span style="color:#ae81ff">30</span> <span style="color:#75715e"># The length of text in words to show in a .Summary.</span>
-
-[<span style="color:#a6e22e">Params</span>]
-  <span style="color:#a6e22e">post_meta</span> = [<span style="color:#e6db74">&#34;date&#34;</span>]  <span style="color:#75715e"># Order of post meta information</span>
-  <span style="color:#a6e22e">pager</span> = <span style="color:#66d9ef">true</span> <span style="color:#75715e"># Show pager navigation (prev/next links) at the bottom of pages if true  </span>
-  <span style="color:#a6e22e">customCSS</span> = [<span style="color:#e6db74">&#34;css/mainroad.css&#34;</span>] <span style="color:#75715e"># Include custom CSS files, customize the site which is not configurable.</span>
-
-[<span style="color:#a6e22e">Params</span>.<span style="color:#a6e22e">logo</span>]
-  <span style="color:#a6e22e">title</span> = <span style="color:#e6db74">&#34;LcodeJ&#34;</span>
-  <span style="color:#a6e22e">subtitle</span> = <span style="color:#e6db74">&#34;Yang&#39;s blog&#34;</span>
-
-[<span style="color:#a6e22e">Params</span>.<span style="color:#a6e22e">thumbnail</span>]
-  <span style="color:#a6e22e">visibility</span> = [<span style="color:#e6db74">&#34;list&#34;</span>] <span style="color:#75715e"># Control thumbnail visibility</span>
-
-[<span style="color:#a6e22e">Params</span>.<span style="color:#a6e22e">style</span>.<span style="color:#a6e22e">vars</span>]
-  <span style="color:#a6e22e">highlightColor</span> = <span style="color:#e6db74">&#34;grey&#34;</span> <span style="color:#75715e"># Override highlight color</span>
-
-[<span style="color:#a6e22e">Params</span>.<span style="color:#a6e22e">sidebar</span>]
-  <span style="color:#a6e22e">home</span> = <span style="color:#e6db74">&#34;right&#34;</span> <span style="color:#75715e"># Configure layout for home page</span>
-  <span style="color:#a6e22e">list</span> = <span style="color:#e6db74">&#34;right&#34;</span> <span style="color:#75715e"># Configure layout for list pages</span>
-  <span style="color:#a6e22e">single</span> = <span style="color:#66d9ef">false</span> <span style="color:#75715e"># Configure layout for single pages</span>
-  <span style="color:#a6e22e">widgets</span> = [<span style="color:#e6db74">&#34;recent&#34;</span>, <span style="color:#e6db74">&#34;taglist&#34;</span>, <span style="color:#e6db74">&#34;social&#34;</span>] <span style="color:#75715e"># Enable widgets in given order</span>
-
-[<span style="color:#a6e22e">Params</span>.<span style="color:#a6e22e">widgets</span>]
-  <span style="color:#a6e22e">recent_num</span> = <span style="color:#ae81ff">5</span> <span style="color:#75715e"># Set the number of articles in the &#34;Recent articles&#34; widget</span>
-
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-toml" data-lang="toml"><span style="display:flex;"><span><span style="color:#a6e22e">languageCode</span> = <span style="color:#e6db74">&#39;en-us&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">theme</span> = <span style="color:#e6db74">&#34;mainroad&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">summaryLength</span> = <span style="color:#ae81ff">30</span> <span style="color:#75715e"># The length of text in words to show in a .Summary.</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[<span style="color:#a6e22e">Params</span>]
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">post_meta</span> = [<span style="color:#e6db74">&#34;date&#34;</span>]  <span style="color:#75715e"># Order of post meta information</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">pager</span> = <span style="color:#66d9ef">true</span> <span style="color:#75715e"># Show pager navigation (prev/next links) at the bottom of pages if true  </span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">customCSS</span> = [<span style="color:#e6db74">&#34;css/mainroad.css&#34;</span>] <span style="color:#75715e"># Include custom CSS files, customize the site which is not configurable.</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[<span style="color:#a6e22e">Params</span>.<span style="color:#a6e22e">logo</span>]
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">title</span> = <span style="color:#e6db74">&#34;LcodeJ&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">subtitle</span> = <span style="color:#e6db74">&#34;Yang&#39;s blog&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[<span style="color:#a6e22e">Params</span>.<span style="color:#a6e22e">thumbnail</span>]
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">visibility</span> = [<span style="color:#e6db74">&#34;list&#34;</span>] <span style="color:#75715e"># Control thumbnail visibility</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[<span style="color:#a6e22e">Params</span>.<span style="color:#a6e22e">style</span>.<span style="color:#a6e22e">vars</span>]
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">highlightColor</span> = <span style="color:#e6db74">&#34;grey&#34;</span> <span style="color:#75715e"># Override highlight color</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[<span style="color:#a6e22e">Params</span>.<span style="color:#a6e22e">sidebar</span>]
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">home</span> = <span style="color:#e6db74">&#34;right&#34;</span> <span style="color:#75715e"># Configure layout for home page</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">list</span> = <span style="color:#e6db74">&#34;right&#34;</span> <span style="color:#75715e"># Configure layout for list pages</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">single</span> = <span style="color:#66d9ef">false</span> <span style="color:#75715e"># Configure layout for single pages</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">widgets</span> = [<span style="color:#e6db74">&#34;recent&#34;</span>, <span style="color:#e6db74">&#34;taglist&#34;</span>, <span style="color:#e6db74">&#34;social&#34;</span>] <span style="color:#75715e"># Enable widgets in given order</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[<span style="color:#a6e22e">Params</span>.<span style="color:#a6e22e">widgets</span>]
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">recent_num</span> = <span style="color:#ae81ff">5</span> <span style="color:#75715e"># Set the number of articles in the &#34;Recent articles&#34; widget</span>
+</span></span></code></pre></div>
 		</div>
 		<footer class="post__footer">
 			
